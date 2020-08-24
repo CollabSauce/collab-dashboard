@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Button from 'react-bootstrap/Button';
+
+import Button from '@material-ui/core/Button';
 
 import { useStoreState } from 'src/hooks/useStoreState';
 
@@ -35,11 +36,9 @@ export const SamplePageSecondary = (props) => {
       <p>{props.param1}</p>
       <Link to="/app">Go to primary page</Link>
       {posts.map((post) => (
-        <div className="d-flex">
+        <div>
           <p>{post.title}</p>
-          <Button variant="success" onClick={() => updatePost(post)}>
-            Success
-          </Button>
+          <Button onClick={() => updatePost(post)}>Success</Button>
         </div>
       ))}
     </>

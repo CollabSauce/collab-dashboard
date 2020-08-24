@@ -1,11 +1,9 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Route, Switch, Redirect } from 'react-router-dom';
-import { RouteComponentProps } from 'react-router-dom';
 
 import { DEFAULT_ROUTE_WHEN_AUTHENTICATED } from 'src/constants';
-import { RootState } from 'src/store/rematch';
-import NoMatch from 'src/pages/NoMatch/NoMatch';
+import NoMatch from 'src/pages/NoMatch';
 
 /**
  * Render a route with potential sub routes

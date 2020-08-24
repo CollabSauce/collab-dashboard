@@ -1,4 +1,4 @@
-import { Schema, Record } from 'js-data';
+import { Schema } from 'js-data';
 import { SchemaBase } from './_base';
 
 export const threadSchema = new Schema({

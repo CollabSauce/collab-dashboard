@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState, useMemo } from 'react';
 
-import { jsdataStore, JSDataStore } from 'src/store/jsdata';
+import { jsdataStore } from 'src/store/jsdata';
 
 // TODO: This can be made much more performant. Listen on individual records and/or collections?
 /*
