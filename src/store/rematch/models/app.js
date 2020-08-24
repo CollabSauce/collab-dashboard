@@ -15,11 +15,12 @@ export const app = {
   },
   effects: (dispatch) => ({
     async initializeApp(_, rootState) {
-      const response = await jsdataStore.getMapper('user').fetchCurrentUser();
-      if (!response) {
+      try {
+        const response = await jsdataStore.getMapper('user').fetchCurrentUser();
+        dispatch.app.setCurrentUserId(response.data.user.id);
+      } catch (e) {
         return;
       }
-      dispatch.app.setCurrentUserId(response.data.user.id);
     },
     async destructApp() {
       // do something here????

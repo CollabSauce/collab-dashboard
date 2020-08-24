@@ -1,5 +1,6 @@
 import { DataStore, utils } from 'js-data';
 import { HttpAdapter, addAction } from 'js-data-http';
+// If we want sourcemaps to working properly while debugging, change above line to import from 'js-data-http/src/index';
 
 import { commentSchema, commentRelations } from 'src/store/jsdata/models/Comment';
 import { organizationSchema, organizationRelations } from 'src/store/jsdata/models/Organization';
@@ -47,18 +48,18 @@ const adapter = new HttpAdapter({
     // change PUT to PATCH
     config['method'] = 'patch';
   },
-  responseError(err, config?, opts?) {
+  responseError(err, config, opts) {
     // generic response error handling collab-sauce
     responseError(err);
 
     // Now do the default behavior.
     return HttpAdapter.prototype.responseError.call(this, err, config, opts);
   },
-  serialize(mapper, data, opts?) {
+  serialize(mapper, data, opts) {
     const serializedData = serialize(data);
     return HttpAdapter.prototype.serialize.call(this, mapper, serializedData, opts);
   },
-  deserialize(mapper, response, opts?) {
+  deserialize(mapper, response, opts) {
     const datastore = mapper.datastore;
     deserialize(response, datastore, mappers);
 
@@ -113,9 +114,13 @@ const deserializeResponse = (response) => {
   return response;
 };
 
+const actionResponseError = (err) => {
+  return utils.reject(err);
+};
+
 function registerCustomActions(resource, actions) {
   Object.entries(actions).forEach(([actionName, actionConfig]) => {
-    const baseConfig = { ...actionConfig, responseError };
+    const baseConfig = { ...actionConfig, responseError: actionResponseError };
     const config = actionConfig.addResponseToStore ? { ...baseConfig, response: deserializeResponse } : baseConfig;
     const createAction = addAction(actionName, config);
     createAction(jsdataStore.getMapper(resource));

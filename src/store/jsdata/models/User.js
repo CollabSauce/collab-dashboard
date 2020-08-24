@@ -47,12 +47,28 @@ export const userActions = {
     method: 'GET',
     addResponseToStore: true,
     params: {
-      include: ['organization.comments.'],
+      include: ['organization.threads.'],
     },
   },
   // POST /rest-auth/login/
   loginUser: {
     pathname: '/rest-auth/login/',
+    endpoint: '/',
+    method: 'POST',
+    basePath: BASE_PATH, // don't add API_PATH
+    noCustomHeaders: true,
+  },
+  // POST /rest-auth/registration/
+  signupUser: {
+    pathname: '/rest-auth/registration/',
+    endpoint: '/',
+    method: 'POST',
+    basePath: BASE_PATH, // don't add API_PATH
+    noCustomHeaders: true,
+  },
+  // POST /rest-auth/password/reset/
+  resetPassword: {
+    pathname: '/rest-auth/password/reset/',
     endpoint: '/',
     method: 'POST',
     basePath: BASE_PATH, // don't add API_PATH

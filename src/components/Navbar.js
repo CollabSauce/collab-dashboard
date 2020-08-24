@@ -79,6 +79,21 @@ const MobileMenu = ({ mobileMoreAnchorEl, handleMobileMenuClose, currentUser = {
   );
 };
 
+const LoginSignupButtons = () => (
+  <>
+    <Button color="inherit" component={Link} to="/signup">
+      <Typography variant="body1" color="inherit">
+        Signup
+      </Typography>
+    </Button>
+    <Button color="inherit" component={Link} to="/login">
+      <Typography variant="body1" color="inherit">
+        Login
+      </Typography>
+    </Button>
+  </>
+);
+
 const NavBar = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -124,11 +139,7 @@ const NavBar = () => {
                 </Button>
               </>
             ) : (
-              <Button color="inherit" component={Link} to="/login">
-                <Typography variant="body1" color="inherit">
-                  Login
-                </Typography>
-              </Button>
+              <LoginSignupButtons />
             )}
           </div>
           <div className={classes.sectionMobile}>
@@ -139,11 +150,7 @@ const NavBar = () => {
                 </IconButton>
               </>
             ) : (
-              <Button color="inherit" component={Link} to="/login">
-                <Typography variant="body1" color="inherit">
-                  Login
-                </Typography>
-              </Button>
+              <LoginSignupButtons />
             )}
           </div>
         </Toolbar>

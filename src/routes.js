@@ -1,5 +1,7 @@
 import Home from 'src/pages/Home';
 import Login from 'src/pages/Login';
+import Signup from 'src/pages/Signup';
+import ForgotPassword from 'src/pages/ForgotPassword';
 import NoMatch from 'src/pages/NoMatch';
 import SamplePageTopLevel, { SamplePageMain, SamplePageSecondary } from 'src/pages/SamplePage';
 
@@ -16,6 +18,18 @@ const ROUTES = [
     key: 'LOGIN',
     exact: true,
     component: Login,
+  },
+  {
+    path: '/signup',
+    key: 'SIGNUP',
+    exact: true,
+    component: Signup,
+  },
+  {
+    path: '/forgot-password',
+    key: 'FORGOT_PASSWORD',
+    exact: true,
+    component: ForgotPassword,
   },
   {
     path: '/app',

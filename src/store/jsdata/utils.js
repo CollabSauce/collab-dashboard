@@ -105,10 +105,10 @@ export function iterator(obj, transformer) {
   return obj;
 }
 
-export function toSnakeCase(obj: object | undefined) {
+export function toSnakeCase(obj) {
   return iterator(obj, snakeCase);
 }
 
-export function toCamelCase(obj: object | undefined) {
+export function toCamelCase(obj) {
   return iterator(obj, camelCase);
 }
