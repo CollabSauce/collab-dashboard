@@ -113,7 +113,7 @@ const Login = () => {
       <div className={classes.loginMain}>
         <form onSubmit={login} className={classes.loginForm}>
           <Typography variant="h5" align="center" className={classes.title}>
-            AZEO Login
+            CollabSauce Login
           </Typography>
           <TextField
             id="outlined-email-input"

@@ -47,7 +47,7 @@ export const userActions = {
     method: 'GET',
     addResponseToStore: true,
     params: {
-      include: ['organization.parts.'],
+      include: ['organization.comments.'],
     },
   },
   // POST /rest-auth/login/
