@@ -13,9 +13,14 @@ export const useStoreState = (getState, dependencies = [], collectionName) => {
   const getDesiredState = useCallback(getState, dependencies);
 
   // Set initial result - if `dependencies` dont change, this will only be "run" once.
-  // If `depedencies` do change, this `result` value will be updated (and thus `state` will be updated).
+  // If `depedencies` do change, this `result` value will be updated (and thus `state` will be updated in setState below).
   const result = useMemo(() => getDesiredState(jsdataStore), [getDesiredState]);
   const [state, setState] = useState({ result });
+
+  // when dependencies change, we need to call setState on the new result.
+  useEffect(() => {
+    setState({ result });
+  }, [result]);
 
   // when record/collection changes, get updated values and set it on the state.
   const onChange = useCallback(

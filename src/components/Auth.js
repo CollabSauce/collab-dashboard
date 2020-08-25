@@ -63,7 +63,7 @@ const useStyles = makeStyles({
 const Auth = ({ authType }) => {
   const isRegister = authType === 'signup';
   const isLogin = authType === 'login';
-  const isResetPassword = authType === 'forgot_password';
+  const isForgotPassword = authType === 'forgot_password';
 
   const classes = useStyles();
   const [email, setEmail] = useState('');
@@ -98,15 +98,17 @@ const Auth = ({ authType }) => {
         setErrors('');
         setLoading(true);
 
-        if (isResetPassword) {
+        if (isForgotPassword) {
           await jsdataStore.getMapper('user').resetPassword({ data: { email } });
           setResetEmailSent(true);
+          setLoading(false);
         } else {
           const credentials = isRegister ? { email, password1: password, password2 } : { email, password };
           const method = isRegister ? 'signupUser' : 'loginUser';
           const response = await jsdataStore.getMapper('user')[method]({ data: credentials });
           setAuthToken(response.data.key); // DOES THIS WORK FOR SIGNUP?
           await dispatch.app.initializeApp();
+          setLoading(false);
           setRedirectToPreviousRoute(true);
         }
       } else {
@@ -114,8 +116,6 @@ const Auth = ({ authType }) => {
       }
     } catch (e) {
       setAuthError(handleNetworkError(e));
-      setLoading(false);
-    } finally {
       setLoading(false);
     }
   };
@@ -141,7 +141,7 @@ const Auth = ({ authType }) => {
             CollabSauce {isRegister ? 'Signup' : isLogin ? 'Login' : 'Reset Password'}
           </Typography>
 
-          {isResetPassword && !resetEmailSent && (
+          {isForgotPassword && !resetEmailSent && (
             <Typography variant="body1" color="inherit" className={classes.authButtonText}>
               Please enter your email address. Reset instructions will be sent to you.
             </Typography>

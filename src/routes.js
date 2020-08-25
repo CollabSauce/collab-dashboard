@@ -2,6 +2,7 @@ import Home from 'src/pages/Home';
 import Login from 'src/pages/Login';
 import Signup from 'src/pages/Signup';
 import ForgotPassword from 'src/pages/ForgotPassword';
+import ResetPassword from 'src/pages/ResetPassword';
 import NoMatch from 'src/pages/NoMatch';
 import SamplePageTopLevel, { SamplePageMain, SamplePageSecondary } from 'src/pages/SamplePage';
 
@@ -30,6 +31,12 @@ const ROUTES = [
     key: 'FORGOT_PASSWORD',
     exact: true,
     component: ForgotPassword,
+  },
+  {
+    path: '/reset-password',
+    key: 'RESET_PASSWORD',
+    exact: true,
+    component: ResetPassword,
   },
   {
     path: '/app',
