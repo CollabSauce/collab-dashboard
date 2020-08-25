@@ -22,14 +22,8 @@ const Auth = ({ authType }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [password2, setPassword2] = useState('');
-  const [fieldErrors, setFieldErrors] = useState({
-    email: '',
-    password: '',
-    password2: '',
-  });
   const [authError, setAuthError] = useState('');
   const [loading, setLoading] = useState(false);
-  const [validated, setValidated] = useState(false);
   const [redirectToPreviousRoute, setRedirectToPreviousRoute] = useState(false);
   const [resetEmailSent, setResetEmailSent] = useState(false);
   const [passwordIsReset, setPasswordIsReset] = useState(false);
@@ -52,12 +46,10 @@ const Auth = ({ authType }) => {
   const onSubmitForm = async (event) => {
     event.preventDefault();
     setAuthError('');
-    setValidated(false);
     setResetEmailSent(false);
     try {
       const emailValid = isResetPassword ? true : email.length && email.includes('@'); // skip email check on resetPassword
       if (emailValid) {
-        setErrors('');
         setLoading(true);
 
         if (isForgotPassword) {
@@ -84,19 +76,12 @@ const Auth = ({ authType }) => {
           setRedirectToPreviousRoute(true);
         }
       } else {
-        setErrors('Please enter a valid email');
+        setAuthError('Please enter a valid email');
       }
     } catch (e) {
       setAuthError(handleNetworkError(e));
       setLoading(false);
     }
-    setValidated(true);
-  };
-
-  const setErrors = (emailErrorText) => {
-    const fieldErrorsCopy = { ...fieldErrors };
-    fieldErrorsCopy.email = emailErrorText;
-    setFieldErrors(fieldErrorsCopy);
   };
 
   if (redirectToPreviousRoute) {
@@ -106,7 +91,7 @@ const Auth = ({ authType }) => {
   return (
     <div className="auth-page">
       <div className="auth-main">
-        <Form noValidate validated={validated} onSubmit={onSubmitForm} className="auth-form">
+        <Form noValidate onSubmit={onSubmitForm} className="auth-form">
           <p className="auth-title">
             CollabSauce{' '}
             {isRegister ? 'Signup' : isLogin ? 'Login' : isForgotPassword ? 'Forgot Password' : 'Reset Password'}
@@ -129,9 +114,7 @@ const Auth = ({ authType }) => {
                 value={email}
                 className="auth-input"
                 onChange={(e) => setEmail(e.target.value)}
-                isInvalid={!!fieldErrors.email}
               />
-              {fieldErrors.email && <Form.Control.Feedback type="invalid">{fieldErrors.email}</Form.Control.Feedback>}
             </Form.Group>
           )}
 
@@ -143,11 +126,7 @@ const Auth = ({ authType }) => {
                 value={password}
                 className="auth-input"
                 onChange={(e) => setPassword(e.target.value)}
-                isInvalid={!!fieldErrors.password}
               />
-              {fieldErrors.password && (
-                <Form.Control.Feedback type="invalid">{fieldErrors.password}</Form.Control.Feedback>
-              )}
             </Form.Group>
           )}
 
@@ -159,11 +138,7 @@ const Auth = ({ authType }) => {
                 value={password2}
                 className="auth-input"
                 onChange={(e) => setPassword2(e.target.value)}
-                isInvalid={!!fieldErrors.password2}
               />
-              {fieldErrors.password2 && (
-                <Form.Control.Feedback type="invalid">{fieldErrors.password2}</Form.Control.Feedback>
-              )}
             </Form.Group>
           )}
 
