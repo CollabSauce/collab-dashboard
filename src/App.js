@@ -1,62 +1,37 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Container from '@material-ui/core/Container';
-import { makeStyles } from '@material-ui/core/styles';
+import Spinner from 'react-bootstrap/Spinner';
 
 import NavBar from 'src/components/Navbar';
 import ROUTES from 'src/routes';
 import RenderRoutes from 'src/components/Routes';
-
-import './App.css';
-
-const useStyles = makeStyles({
-  appLoading: {
-    height: '100vh',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  appContainer: {
-    paddingTop: 30,
-  },
-});
+import 'src/styles/theme.scss';
 
 const App = () => {
   const [ready, setReady] = useState(false);
   const dispatch = useDispatch();
-  const classes = useStyles();
 
-  // Initialize the app
+  // Initialize the app - this should only be run once (on mount)
   useEffect(() => {
-    // this should only be run once
-    async function initialize() {
-      try {
-        await dispatch.app.initializeApp();
-      } finally {
-        setReady(true);
-      }
-    }
-    initialize();
+    dispatch.app.initializeApp().finally(() => {
+      setReady(true);
+    });
   }, [dispatch.app]);
 
   if (!ready) {
     return (
-      <div className={classes.appLoading}>
-        <CircularProgress size={100} />
+      <div className="h-100 d-flex justify-content-center align-items-center">
+        <Spinner animation="border" variant="primary" />
       </div>
     );
   }
 
   return (
     <>
-      {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-      <CssBaseline />
       <NavBar />
-      <Container className={classes.appContainer}>
+      <div className="container pt-30">
         <RenderRoutes routes={ROUTES} />
-      </Container>
+      </div>
     </>
   );
 };

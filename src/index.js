@@ -2,13 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { MuiThemeProvider } from '@material-ui/core/styles';
-
-import 'typeface-roboto';
 
 import './polyfills';
 
-import { theme } from 'src/themes';
 import { rematchStore } from 'src/store/rematch';
 
 import App from './App';
@@ -18,9 +14,7 @@ ReactDOM.render(
   <React.StrictMode>
     <Router>
       <Provider store={rematchStore}>
-        <MuiThemeProvider theme={theme}>
-          <App />
-        </MuiThemeProvider>
+        <App />
       </Provider>
     </Router>
   </React.StrictMode>,

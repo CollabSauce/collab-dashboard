@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
+import { LinkContainer } from 'react-router-bootstrap';
 
-import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import Spinner from 'react-bootstrap/Spinner';
 
 import { jsdataStore } from 'src/store/jsdata';
 import { setAuthToken } from 'src/utils/auth';
@@ -14,59 +13,12 @@ import { handleNetworkError } from 'src/utils/error';
 import { DEFAULT_ROUTE_WHEN_AUTHENTICATED } from 'src/constants';
 import { useQueryParams } from 'src/hooks/useQueryParams';
 
-const useStyles = makeStyles({
-  authPage: {
-    display: 'flex',
-    flexDirection: 'column',
-    width: '100%',
-  },
-  authMain: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexGrow: 1,
-  },
-  authForm: {
-    display: 'flex',
-    flexDirection: 'column',
-    backgroundColor: 'white',
-    paddingTop: 48,
-    paddingLeft: 38,
-    paddingRight: 38,
-    paddingBottom: 32,
-    height: 500,
-    width: '100%',
-    maxWidth: 500,
-  },
-  title: {
-    marginBottom: 45,
-  },
-  input: {
-    marginBottom: 24,
-    height: 70,
-  },
-  authButtonHolder: {
-    marginTop: 24,
-    marginBottom: 24,
-    display: 'flex',
-    justifyContent: 'center',
-  },
-  authButton: {
-    height: 42,
-    width: 200,
-  },
-  authButtonText: {
-    fontSize: 18,
-  },
-});
-
 const Auth = ({ authType }) => {
   const isRegister = authType === 'signup';
   const isLogin = authType === 'login';
   const isForgotPassword = authType === 'forgot_password';
   const isResetPassword = authType === 'reset_password';
 
-  const classes = useStyles();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [password2, setPassword2] = useState('');
@@ -77,6 +29,7 @@ const Auth = ({ authType }) => {
   });
   const [authError, setAuthError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [validated, setValidated] = useState(false);
   const [redirectToPreviousRoute, setRedirectToPreviousRoute] = useState(false);
   const [resetEmailSent, setResetEmailSent] = useState(false);
   const [passwordIsReset, setPasswordIsReset] = useState(false);
@@ -99,6 +52,7 @@ const Auth = ({ authType }) => {
   const onSubmitForm = async (event) => {
     event.preventDefault();
     setAuthError('');
+    setValidated(false);
     setResetEmailSent(false);
     try {
       const emailValid = isResetPassword ? true : email.length && email.includes('@'); // skip email check on resetPassword
@@ -136,6 +90,7 @@ const Auth = ({ authType }) => {
       setAuthError(handleNetworkError(e));
       setLoading(false);
     }
+    setValidated(true);
   };
 
   const setErrors = (emailErrorText) => {
@@ -149,115 +104,88 @@ const Auth = ({ authType }) => {
   }
 
   return (
-    <div className={classes.authPage}>
-      <div className={classes.authMain}>
-        <form onSubmit={onSubmitForm} className={classes.authForm}>
-          <Typography variant="h5" align="center" className={classes.title}>
+    <div className="auth-page">
+      <div className="auth-main">
+        <Form noValidate validated={validated} onSubmit={onSubmitForm} className="auth-form">
+          <p className="auth-title">
             CollabSauce{' '}
             {isRegister ? 'Signup' : isLogin ? 'Login' : isForgotPassword ? 'Forgot Password' : 'Reset Password'}
-          </Typography>
-
+          </p>
           {isForgotPassword && !resetEmailSent && (
-            <Typography variant="body1" color="inherit">
-              Please enter your email address. Reset instructions will be sent to you.
-            </Typography>
+            <p className="text-secondary">Please enter your email address. Reset instructions will be sent to you.</p>
           )}
 
-          {isResetPassword && !passwordIsReset && (
-            <Typography variant="body1" color="inherit">
-              Please enter a new password.
-            </Typography>
-          )}
+          {isResetPassword && !passwordIsReset && <p className="text-secondary">Please enter a new password.</p>}
 
-          {resetEmailSent && (
-            <Typography variant="body2" color="textSecondary">
-              Please check your email for reset instructions.
-            </Typography>
-          )}
+          {resetEmailSent && <p className="text-success">Please check your email for reset instructions.</p>}
 
-          {passwordIsReset && (
-            <Typography variant="body2" color="textSecondary">
-              Password has been succesfully updated! Please login.
-            </Typography>
-          )}
+          {passwordIsReset && <p className="text-success">Password has been succesfully updated! Please login.</p>}
 
           {(isLogin || isRegister || isForgotPassword) && (
-            <TextField
-              id="outlined-email-input"
-              label="Email"
-              name="email"
-              autoComplete="email"
-              margin="dense"
-              variant="outlined"
-              error={!!fieldErrors.email}
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className={classes.input}
-              helperText={fieldErrors.email}
-            />
+            <Form.Group controlId="formEmail">
+              <Form.Label>Email</Form.Label>
+              <Form.Control
+                type="email"
+                value={email}
+                className="auth-input"
+                onChange={(e) => setEmail(e.target.value)}
+                isInvalid={!!fieldErrors.email}
+              />
+              {fieldErrors.email && <Form.Control.Feedback type="invalid">{fieldErrors.email}</Form.Control.Feedback>}
+            </Form.Group>
           )}
 
           {(isLogin || isRegister || isResetPassword) && (
-            <TextField
-              id="outlined-password-input"
-              label="Password"
-              type="password"
-              autoComplete="current-password"
-              margin="dense"
-              variant="outlined"
-              error={!!fieldErrors.password}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className={classes.input}
-            />
+            <Form.Group controlId="formPassword">
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                type="password"
+                value={password}
+                className="auth-input"
+                onChange={(e) => setPassword(e.target.value)}
+                isInvalid={!!fieldErrors.password}
+              />
+              {fieldErrors.password && (
+                <Form.Control.Feedback type="invalid">{fieldErrors.password}</Form.Control.Feedback>
+              )}
+            </Form.Group>
           )}
 
           {(isRegister || isResetPassword) && (
-            <TextField
-              id="outlined-password-input"
-              label="Confirm Password"
-              type="password"
-              margin="dense"
-              variant="outlined"
-              error={!!fieldErrors.password}
-              value={password2}
-              onChange={(e) => setPassword2(e.target.value)}
-              className={classes.input}
-            />
+            <Form.Group controlId="formConfirmPassword">
+              <Form.Label>Confirm Password</Form.Label>
+              <Form.Control
+                type="password"
+                value={password2}
+                className="auth-input"
+                onChange={(e) => setPassword2(e.target.value)}
+                isInvalid={!!fieldErrors.password2}
+              />
+              {fieldErrors.password2 && (
+                <Form.Control.Feedback type="invalid">{fieldErrors.password2}</Form.Control.Feedback>
+              )}
+            </Form.Group>
           )}
 
           {isLogin && (
-            <Button color="primary" component={Link} to="/forgot-password">
-              <Typography variant="body1" color="inherit">
-                Forgot Password?
-              </Typography>
-            </Button>
+            <LinkContainer to="/forgot-password">
+              <Button variant="link">Forgot Password?</Button>
+            </LinkContainer>
           )}
 
-          <div className={classes.authButtonHolder}>
+          <div className="auth-button-holder">
             {loading ? (
-              <CircularProgress />
+              <Spinner animation="border" variant="primary" />
             ) : (
-              <Button
-                type="submit"
-                variant="contained"
-                color="primary"
-                disabled={isDisabled}
-                className={classes.authButton}
-              >
-                <Typography variant="body1" color="inherit" className={classes.authButtonText}>
+              <Button variant="primary" type="submit" className="auth-button" disabled={isDisabled}>
+                <span className="auth-button-text">
                   {isRegister ? 'Register' : isLogin ? 'Login' : isForgotPassword ? 'Send Email' : 'Set Password'}
-                </Typography>
+                </span>
               </Button>
             )}
           </div>
-
-          {authError && (
-            <Typography variant="body1" color="error" align="center">
-              {authError}
-            </Typography>
-          )}
-        </form>
+          {authError && <p className="text-danger">{authError}</p>}
+        </Form>
       </div>
     </div>
   );

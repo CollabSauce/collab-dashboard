@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import Button from '@material-ui/core/Button';
+import Button from 'react-bootstrap/Button';
 
 import { useStoreState } from 'src/hooks/useStoreState';
 
@@ -38,7 +38,9 @@ export const SamplePageSecondary = (props) => {
       {posts.map((post) => (
         <div>
           <p>{post.title}</p>
-          <Button onClick={() => updatePost(post)}>Success</Button>
+          <Button variant="success" onClick={() => updatePost(post)}>
+            Success
+          </Button>
         </div>
       ))}
     </>
