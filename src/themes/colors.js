@@ -1,3 +1,3 @@
 export const colors = {
-  RED: '##22828', // example... remove later
+  GREEN: '#357a38',
 };

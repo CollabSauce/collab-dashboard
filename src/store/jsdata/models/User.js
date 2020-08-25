@@ -74,4 +74,12 @@ export const userActions = {
     basePath: BASE_PATH, // don't add API_PATH
     noCustomHeaders: true,
   },
+  // POST /rest-auth/password/reset/confirm/
+  resetPasswordConfirm: {
+    pathname: '/rest-auth/password/reset/confirm/',
+    endpoint: '/',
+    method: 'POST',
+    basePath: BASE_PATH, // don't add API_PATH
+    noCustomHeaders: true,
+  },
 };

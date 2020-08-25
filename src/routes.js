@@ -33,7 +33,7 @@ const ROUTES = [
     component: ForgotPassword,
   },
   {
-    path: '/reset-password',
+    path: '/reset',
     key: 'RESET_PASSWORD',
     exact: true,
     component: ResetPassword,

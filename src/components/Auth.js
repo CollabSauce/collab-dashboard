@@ -64,6 +64,7 @@ const Auth = ({ authType }) => {
   const isRegister = authType === 'signup';
   const isLogin = authType === 'login';
   const isForgotPassword = authType === 'forgot_password';
+  const isResetPassword = authType === 'reset_password';
 
   const classes = useStyles();
   const [email, setEmail] = useState('');
@@ -78,6 +79,7 @@ const Auth = ({ authType }) => {
   const [loading, setLoading] = useState(false);
   const [redirectToPreviousRoute, setRedirectToPreviousRoute] = useState(false);
   const [resetEmailSent, setResetEmailSent] = useState(false);
+  const [passwordIsReset, setPasswordIsReset] = useState(false);
   const dispatch = useDispatch();
 
   let isDisabled = false;
@@ -85,22 +87,38 @@ const Auth = ({ authType }) => {
     isDisabled = !email || !password || !password2;
   } else if (isLogin) {
     isDisabled = !email || !password;
-  } else {
+  } else if (isForgotPassword) {
     isDisabled = !email;
+  } else {
+    isDisabled = !password || !password2;
   }
+
+  const queryParams = useQueryParams();
+  const next = queryParams.next || DEFAULT_ROUTE_WHEN_AUTHENTICATED;
 
   const onSubmitForm = async (event) => {
     event.preventDefault();
     setAuthError('');
     setResetEmailSent(false);
     try {
-      if (email.length && email.includes('@')) {
+      const emailValid = isResetPassword ? true : email.length && email.includes('@'); // skip email check on resetPassword
+      if (emailValid) {
         setErrors('');
         setLoading(true);
 
         if (isForgotPassword) {
           await jsdataStore.getMapper('user').resetPassword({ data: { email } });
           setResetEmailSent(true);
+          setLoading(false);
+        } else if (isResetPassword) {
+          const credentials = {
+            uid: queryParams.uid,
+            token: queryParams.token,
+            new_password1: password,
+            new_password2: password2,
+          };
+          await jsdataStore.getMapper('user').resetPasswordConfirm({ data: credentials });
+          setPasswordIsReset(true);
           setLoading(false);
         } else {
           const credentials = isRegister ? { email, password1: password, password2 } : { email, password };
@@ -126,9 +144,6 @@ const Auth = ({ authType }) => {
     setFieldErrors(fieldErrorsCopy);
   };
 
-  const queryParams = useQueryParams();
-  const next = queryParams.get('next') || DEFAULT_ROUTE_WHEN_AUTHENTICATED;
-
   if (redirectToPreviousRoute) {
     return <Redirect to={next} />;
   }
@@ -138,36 +153,51 @@ const Auth = ({ authType }) => {
       <div className={classes.authMain}>
         <form onSubmit={onSubmitForm} className={classes.authForm}>
           <Typography variant="h5" align="center" className={classes.title}>
-            CollabSauce {isRegister ? 'Signup' : isLogin ? 'Login' : 'Reset Password'}
+            CollabSauce{' '}
+            {isRegister ? 'Signup' : isLogin ? 'Login' : isForgotPassword ? 'Forgot Password' : 'Reset Password'}
           </Typography>
 
           {isForgotPassword && !resetEmailSent && (
-            <Typography variant="body1" color="inherit" className={classes.authButtonText}>
+            <Typography variant="body1" color="inherit">
               Please enter your email address. Reset instructions will be sent to you.
             </Typography>
           )}
 
+          {isResetPassword && !passwordIsReset && (
+            <Typography variant="body1" color="inherit">
+              Please enter a new password.
+            </Typography>
+          )}
+
           {resetEmailSent && (
-            <Typography variant="body1" color="success" className={classes.authButtonText}>
+            <Typography variant="body2" color="textSecondary">
               Please check your email for reset instructions.
             </Typography>
           )}
 
-          <TextField
-            id="outlined-email-input"
-            label="Email"
-            name="email"
-            autoComplete="email"
-            margin="dense"
-            variant="outlined"
-            error={!!fieldErrors.email}
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className={classes.input}
-            helperText={fieldErrors.email}
-          />
+          {passwordIsReset && (
+            <Typography variant="body2" color="textSecondary">
+              Password has been succesfully updated! Please login.
+            </Typography>
+          )}
 
-          {(isLogin || isRegister) && (
+          {(isLogin || isRegister || isForgotPassword) && (
+            <TextField
+              id="outlined-email-input"
+              label="Email"
+              name="email"
+              autoComplete="email"
+              margin="dense"
+              variant="outlined"
+              error={!!fieldErrors.email}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className={classes.input}
+              helperText={fieldErrors.email}
+            />
+          )}
+
+          {(isLogin || isRegister || isResetPassword) && (
             <TextField
               id="outlined-password-input"
               label="Password"
@@ -182,7 +212,7 @@ const Auth = ({ authType }) => {
             />
           )}
 
-          {isRegister && (
+          {(isRegister || isResetPassword) && (
             <TextField
               id="outlined-password-input"
               label="Confirm Password"
@@ -216,7 +246,7 @@ const Auth = ({ authType }) => {
                 className={classes.authButton}
               >
                 <Typography variant="body1" color="inherit" className={classes.authButtonText}>
-                  {isRegister ? 'Register' : isLogin ? 'Login' : 'Send Email'}
+                  {isRegister ? 'Register' : isLogin ? 'Login' : isForgotPassword ? 'Send Email' : 'Set Password'}
                 </Typography>
               </Button>
             )}
