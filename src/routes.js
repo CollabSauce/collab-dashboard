@@ -38,28 +38,28 @@ const ROUTES = [
     exact: true,
     component: ResetPassword,
   },
-  {
-    path: '/app',
-    key: 'APP',
-    component: SamplePageTopLevel,
-    protected: true,
-    routes: [
-      {
-        path: '/app',
-        key: 'APP_ROOT',
-        exact: true,
-        component: SamplePageMain,
-        protected: true,
-      },
-      {
-        path: '/app/page',
-        key: 'APP_PAGE',
-        exact: true,
-        component: SamplePageSecondary,
-        protected: true,
-      },
-    ],
-  },
+  // {
+  //   path: '/app',
+  //   key: 'APP',
+  //   component: SamplePageTopLevel,
+  //   protected: true,
+  //   routes: [
+  //     {
+  //       path: '/app',
+  //       key: 'APP_ROOT',
+  //       exact: true,
+  //       component: SamplePageMain,
+  //       protected: true,
+  //     },
+  //     {
+  //       path: '/app/page',
+  //       key: 'APP_PAGE',
+  //       exact: true,
+  //       component: SamplePageSecondary,
+  //       protected: true,
+  //     },
+  //   ],
+  // },
   {
     path: '*',
     key: 'NOT_FOUND',
