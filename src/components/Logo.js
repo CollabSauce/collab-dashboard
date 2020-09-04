@@ -4,11 +4,16 @@ import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 
 import logo from 'src/assets/logo.png';
+import { DEFAULT_ROUTE_WHEN_AUTHENTICATED, DEFAULT_ROUTE_WHEN_UNAUTHENTICATED } from 'src/constants';
+import { useCurrentUser } from 'src/hooks/useCurrentUser';
 
 const Logo = ({ at, width, className, ...rest }) => {
+  const { result: currentUser } = useCurrentUser();
+  const isAuthenticated = !!currentUser;
+
   return (
     <Link
-      to="/"
+      to={isAuthenticated ? DEFAULT_ROUTE_WHEN_AUTHENTICATED : DEFAULT_ROUTE_WHEN_UNAUTHENTICATED}
       className={classNames(
         'text-decoration-none',
         { 'navbar-brand text-left': at === 'navbar-vertical' },

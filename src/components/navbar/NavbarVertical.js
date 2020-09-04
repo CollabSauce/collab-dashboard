@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import is from 'is_js';
 import classNames from 'classnames';
@@ -13,7 +13,7 @@ import Flex from 'src/components/Flex';
 import { SIDEBAR_ROUTES } from 'src/routes';
 import { navbarBreakPoint } from 'src/constants';
 
-import bgNavbarImg from 'src/assets/img/generic/bg-navbar.png';
+import bgNavbarImg from 'src/assets/bg-navbar.png';
 
 const NavbarVertical = ({ navbarStyle }) => {
   const navBarRef = useRef(null);

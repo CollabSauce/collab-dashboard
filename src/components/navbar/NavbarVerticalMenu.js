@@ -32,7 +32,12 @@ const NavbarVerticalMenu = ({ routes }) => {
     if (!route.routes) {
       return (
         <NavItem key={index}>
-          <NavLink className="nav-link" {...route} onClick={() => dispatch.app.setShowBurgerMenu(false)}>
+          <NavLink
+            className="nav-link"
+            to={route.path}
+            {...route}
+            onClick={() => dispatch.app.setShowBurgerMenu(false)}
+          >
             <NavbarVerticalMenuItem route={route} />
           </NavLink>
         </NavItem>

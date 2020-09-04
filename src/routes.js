@@ -1,8 +1,11 @@
+import React from 'react'; // todo: remove
+
 import Home from 'src/pages/Home';
 import Login from 'src/pages/Login';
 import Signup from 'src/pages/Signup';
 import ForgotPassword from 'src/pages/ForgotPassword';
 import ResetPassword from 'src/pages/ResetPassword';
+import Logout from 'src/pages/Logout';
 import NoMatch from 'src/pages/NoMatch';
 // import SamplePageTopLevel, { SamplePageMain, SamplePageSecondary } from 'src/pages/SamplePage';
 
@@ -37,6 +40,12 @@ const ROUTES = [
     key: 'RESET_PASSWORD',
     exact: true,
     component: ResetPassword,
+  },
+  {
+    path: '/logout',
+    key: 'LOGOUT',
+    exact: true,
+    component: Logout,
   },
   {
     path: '/projects',

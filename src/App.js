@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { Spinner } from 'reacstrap';
+import { Spinner } from 'reactstrap';
+import { ToastContainer } from 'react-toastify';
 
-// import NavBar from 'src/components/Navbar';
 import NavbarTop from 'src/components/navbar/NavbarTop';
 import NavbarVertical from 'src/components/navbar/NavbarVertical';
 import ROUTES from 'src/routes';
 import RenderRoutes from 'src/components/Routes';
-import 'src/styles/theme.scss';
+import { useCurrentUser } from 'src/hooks/useCurrentUser';
 
 const App = () => {
   const [ready, setReady] = useState(false);
   const isKanban = false; // TODO: Update
   const dispatch = useDispatch();
+  const { result: currentUser } = useCurrentUser();
+  const isAuthenticated = !!currentUser;
 
   // Initialize the app - this should only be run once (on mount)
   useEffect(() => {
@@ -24,29 +26,21 @@ const App = () => {
   if (!ready) {
     return (
       <div className="h-100 d-flex justify-content-center align-items-center">
-        <Spinner animation="border" variant="primary" />
+        <Spinner color="primary" />
       </div>
     );
   }
 
   return (
     <div className={isKanban ? 'container-fluid' : 'container'}>
-      <NavbarVertical isKanban={isKanban} navbarStyle="vibrant" />
+      {isAuthenticated && <NavbarVertical isKanban={isKanban} navbarStyle="vibrant" />}
       <div className="content">
         <NavbarTop />
         <RenderRoutes routes={ROUTES} />
       </div>
+      <ToastContainer />
     </div>
   );
-  //
-  //   return (
-  //     <>
-  //       <NavBar />
-  //       <div className="container pt-30">
-  //         <RenderRoutes routes={ROUTES} />
-  //       </div>
-  //     </>
-  //   );
 };
 
 export default App;

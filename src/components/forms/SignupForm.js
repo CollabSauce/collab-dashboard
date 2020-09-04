@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { Button, Form, FormGroup, Input, Label, Spinner } from 'reactstrap';
 import { useDispatch } from 'react-redux';
-import { Button, Form, Row, Col, FormGroup, Input, Label, Spinner } from 'reactstrap';
 
 import { jsdataStore } from 'src/store/jsdata';
 import { setAuthToken } from 'src/utils/auth';
@@ -11,9 +11,11 @@ import { handleNetworkError } from 'src/utils/error';
 import { DEFAULT_ROUTE_WHEN_AUTHENTICATED } from 'src/constants';
 import { useQueryParams } from 'src/hooks/useQueryParams';
 
-const LoginForm = ({ hasLabel }) => {
+const SignupForm = ({ hasLabel }) => {
+  // State
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [isDisabled, setIsDisabled] = useState(true);
   const [redirectToPreviousRoute, setRedirectToPreviousRoute] = useState(false);
@@ -30,8 +32,8 @@ const LoginForm = ({ hasLabel }) => {
       const emailValid = email.length && email.includes('@');
       if (emailValid) {
         setLoading(true);
-        const credentials = { email, password };
-        const response = await jsdataStore.getMapper('user').loginUser({ data: credentials });
+        const credentials = { email, password1: password, password2: confirmPassword };
+        const response = await jsdataStore.getMapper('user').signupUser({ data: credentials });
         setAuthToken(response.data.key);
         await dispatch.app.initializeApp();
         setLoading(false);
@@ -46,8 +48,8 @@ const LoginForm = ({ hasLabel }) => {
   };
 
   useEffect(() => {
-    setIsDisabled(!email || !password);
-  }, [email, password]);
+    setIsDisabled(!email || !password || !confirmPassword);
+  }, [email, password, confirmPassword]);
 
   if (redirectToPreviousRoute) {
     return <Redirect to={next} />;
@@ -64,38 +66,42 @@ const LoginForm = ({ hasLabel }) => {
           type="email"
         />
       </FormGroup>
-      <FormGroup>
-        {hasLabel && <Label>Password</Label>}
-        <Input
-          placeholder={!hasLabel ? 'Password' : ''}
-          value={password}
-          onChange={({ target }) => setPassword(target.value)}
-          type="password"
-        />
-      </FormGroup>
-      <Row className="justify-content-between align-items-center">
-        <Col xs="auto"></Col>
-        <Col xs="auto">
-          <Link className="fs--1" to={`/forgot-password`}>
-            Forget Password?
-          </Link>
-        </Col>
-      </Row>
+      <div className="form-row">
+        <FormGroup className="col-6">
+          {hasLabel && <Label>Password</Label>}
+          <Input
+            placeholder={!hasLabel ? 'Password' : ''}
+            value={password}
+            onChange={({ target }) => setPassword(target.value)}
+            type="password"
+          />
+        </FormGroup>
+        <FormGroup className="col-6">
+          {hasLabel && <Label>Confirm Password</Label>}
+          <Input
+            placeholder={!hasLabel ? 'Confirm Password' : ''}
+            value={confirmPassword}
+            onChange={({ target }) => setConfirmPassword(target.value)}
+            type="password"
+          />
+        </FormGroup>
+      </div>
+
       <FormGroup>
         <Button color="primary" block className="mt-3" disabled={isDisabled}>
-          {loading ? <Spinner color="primary" /> : 'Log in'}
+          {loading ? <Spinner color="primary" /> : 'Register'}
         </Button>
       </FormGroup>
     </Form>
   );
 };
 
-LoginForm.propTypes = {
+SignupForm.propTypes = {
   hasLabel: PropTypes.bool,
 };
 
-LoginForm.defaultProps = {
+SignupForm.defaultProps = {
   hasLabel: false,
 };
 
-export default LoginForm;
+export default SignupForm;

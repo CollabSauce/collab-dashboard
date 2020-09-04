@@ -10,6 +10,7 @@ import { rematchStore } from 'src/store/rematch';
 import './utils/initFA';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import './styles/theme.scss';
 
 ReactDOM.render(
   <React.StrictMode>

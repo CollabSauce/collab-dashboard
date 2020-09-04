@@ -1,4 +1,4 @@
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faUser, faUsers, faProjectDiagram } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faUsers, faProjectDiagram, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
-library.add(faUser, faUsers, faProjectDiagram);
+library.add(faUser, faUsers, faProjectDiagram, faChevronLeft);

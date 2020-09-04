@@ -3,10 +3,13 @@ import { Link } from 'react-router-dom';
 import { DropdownItem, DropdownMenu, DropdownToggle, Dropdown } from 'reactstrap';
 
 import Avatar from 'src/components/Avatar';
+import { useCurrentUser } from 'src/hooks/useCurrentUser';
 
 const ProfileDropdown = () => {
+  const { result: currentUser } = useCurrentUser();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const toggle = () => setDropdownOpen((prevState) => !prevState);
+
   return (
     <Dropdown
       nav
@@ -27,9 +30,9 @@ const ProfileDropdown = () => {
       </DropdownToggle>
       <DropdownMenu right className="dropdown-menu-card">
         <div className="bg-white rounded-soft py-2">
-          <DropdownItem>First Name | Last Name</DropdownItem>
+          <DropdownItem>{currentUser.email}</DropdownItem>
           <DropdownItem divider />
-          <DropdownItem tag={Link} to="/authentication/basic/logout">
+          <DropdownItem tag={Link} to="/logout">
             Logout
           </DropdownItem>
         </div>
