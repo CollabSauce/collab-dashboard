@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Spinner } from 'reactstrap';
 import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import NavbarTop from 'src/components/navbar/NavbarTop';
 import NavbarVertical from 'src/components/navbar/NavbarVertical';
@@ -33,12 +34,12 @@ const App = () => {
 
   return (
     <div className={isKanban ? 'container-fluid' : 'container'}>
-      {isAuthenticated && <NavbarVertical isKanban={isKanban} navbarStyle="vibrant" />}
+      {isAuthenticated && <NavbarVertical isKanban={isKanban} navbarStyle="transparent" />}
       <div className="content">
         <NavbarTop />
         <RenderRoutes routes={ROUTES} />
       </div>
-      <ToastContainer />
+      <ToastContainer autoClose={10000} />
     </div>
   );
 };

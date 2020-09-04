@@ -12,7 +12,8 @@ import { DEFAULT_ROUTE_WHEN_AUTHENTICATED } from 'src/constants';
 import { useQueryParams } from 'src/hooks/useQueryParams';
 
 const SignupForm = ({ hasLabel }) => {
-  // State
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -32,7 +33,13 @@ const SignupForm = ({ hasLabel }) => {
       const emailValid = email.length && email.includes('@');
       if (emailValid) {
         setLoading(true);
-        const credentials = { email, password1: password, password2: confirmPassword };
+        const credentials = {
+          first_name: firstName,
+          last_name: lastName,
+          email: email,
+          password1: password,
+          password2: confirmPassword,
+        };
         const response = await jsdataStore.getMapper('user').signupUser({ data: credentials });
         setAuthToken(response.data.key);
         await dispatch.app.initializeApp();
@@ -48,8 +55,8 @@ const SignupForm = ({ hasLabel }) => {
   };
 
   useEffect(() => {
-    setIsDisabled(!email || !password || !confirmPassword);
-  }, [email, password, confirmPassword]);
+    setIsDisabled(!firstName || !lastName || !email || !password || !confirmPassword);
+  }, [firstName, lastName, email, password, confirmPassword]);
 
   if (redirectToPreviousRoute) {
     return <Redirect to={next} />;
@@ -57,6 +64,24 @@ const SignupForm = ({ hasLabel }) => {
 
   return (
     <Form onSubmit={handleSubmit}>
+      <div className="form-row">
+        <FormGroup className="col-6">
+          {hasLabel && <Label>First Name</Label>}
+          <Input
+            placeholder={!hasLabel ? 'First Name' : ''}
+            value={firstName}
+            onChange={({ target }) => setFirstName(target.value)}
+          />
+        </FormGroup>
+        <FormGroup className="col-6">
+          {hasLabel && <Label>Last Name</Label>}
+          <Input
+            placeholder={!hasLabel ? 'Last Name' : ''}
+            value={lastName}
+            onChange={({ target }) => setLastName(target.value)}
+          />
+        </FormGroup>
+      </div>
       <FormGroup>
         {hasLabel && <Label>Email address</Label>}
         <Input

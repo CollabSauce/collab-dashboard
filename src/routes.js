@@ -6,8 +6,9 @@ import Signup from 'src/pages/Signup';
 import ForgotPassword from 'src/pages/ForgotPassword';
 import ResetPassword from 'src/pages/ResetPassword';
 import Logout from 'src/pages/Logout';
+import Projects from 'src/pages/Projects';
+import Project from 'src/pages/Projects/Project';
 import NoMatch from 'src/pages/NoMatch';
-// import SamplePageTopLevel, { SamplePageMain, SamplePageSecondary } from 'src/pages/SamplePage';
 
 const ROUTES = [
   {
@@ -50,18 +51,17 @@ const ROUTES = [
   {
     path: '/projects',
     key: 'PROJECTS',
-    exact: true,
     protected: true,
     icon: 'project-diagram',
     isSidebar: true,
     name: 'Projects',
-    component: () => <div>hey</div>,
+    component: Projects,
     routes: [
       {
         path: '/projects/:id',
         key: 'PROJECT',
         exact: true,
-        component: () => <h1>hi</h1>,
+        component: Project,
         protected: true,
       },
     ],
@@ -76,29 +76,6 @@ const ROUTES = [
     name: 'Manage Members',
     component: () => <div>members</div>,
   },
-
-  // {
-  //   path: '/app',
-  //   key: 'APP',
-  //   component: SamplePageTopLevel,
-  //   protected: true,
-  //   routes: [
-  //     {
-  //       path: '/app',
-  //       key: 'APP_ROOT',
-  //       exact: true,
-  //       component: SamplePageMain,
-  //       protected: true,
-  //     },
-  //     {
-  //       path: '/app/page',
-  //       key: 'APP_PAGE',
-  //       exact: true,
-  //       component: SamplePageSecondary,
-  //       protected: true,
-  //     },
-  //   ],
-  // },
   {
     path: '*',
     key: 'NOT_FOUND',

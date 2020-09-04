@@ -30,7 +30,9 @@ const ProfileDropdown = () => {
       </DropdownToggle>
       <DropdownMenu right className="dropdown-menu-card">
         <div className="bg-white rounded-soft py-2">
-          <DropdownItem>{currentUser.email}</DropdownItem>
+          <DropdownItem disabled>
+            {currentUser.firstName} {currentUser.lastName}
+          </DropdownItem>
           <DropdownItem divider />
           <DropdownItem tag={Link} to="/logout">
             Logout

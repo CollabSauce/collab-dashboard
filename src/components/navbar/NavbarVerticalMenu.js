@@ -32,12 +32,7 @@ const NavbarVerticalMenu = ({ routes }) => {
     if (!route.routes) {
       return (
         <NavItem key={index}>
-          <NavLink
-            className="nav-link"
-            to={route.path}
-            {...route}
-            onClick={() => dispatch.app.setShowBurgerMenu(false)}
-          >
+          <NavLink className="nav-link" to={route.path} onClick={() => dispatch.app.setShowBurgerMenu(false)}>
             <NavbarVerticalMenuItem route={route} />
           </NavLink>
         </NavItem>
@@ -51,6 +46,7 @@ const NavbarVerticalMenu = ({ routes }) => {
       childRoutes = [
         {
           path: '/projects/1',
+          name: 'Project 1',
           exact: true,
           component: () => <h1>1</h1>,
           protected: true,

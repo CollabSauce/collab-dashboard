@@ -42,9 +42,7 @@ const ResetPasswordForm = ({ hasLabel }) => {
   };
 
   useEffect(() => {
-    if (!password || !confirmPassword) {
-      setIsDisabled(true);
-    }
+    setIsDisabled(!password || !confirmPassword);
   }, [password, confirmPassword]);
 
   return (

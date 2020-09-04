@@ -15,12 +15,12 @@ const TopNavRightSideNavItem = () => {
         <ProfileDropdown />
       ) : (
         <>
-          <NavItem>
+          <NavItem className="px-2">
             <NavLink tag={Link} to="/signup">
               Signup
             </NavLink>
           </NavItem>
-          <NavItem>
+          <NavItem className="px-2">
             <NavLink tag={Link} to="/login">
               Login
             </NavLink>
