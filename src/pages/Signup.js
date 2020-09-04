@@ -2,11 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Col, Row } from 'reactstrap';
 
-import Auth from 'src/components/Auth';
+import BaseCardLayout from 'src/layouts/BaseCardLayout';
 import SignupForm from 'src/components/forms/SignupForm';
 
 const Signup = () => (
-  <Auth>
+  <BaseCardLayout>
     <>
       <Row className="text-left">
         <Col>
@@ -20,7 +20,7 @@ const Signup = () => (
       </Row>
       <SignupForm />
     </>
-  </Auth>
+  </BaseCardLayout>
 );
 
 export default Signup;

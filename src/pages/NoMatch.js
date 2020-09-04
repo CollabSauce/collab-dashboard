@@ -1,15 +1,14 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
-const NoMatch = () => {
-  let location = useLocation();
 
-  return (
-    <div>
-      <h3>
-        No match for <code>{location.pathname}</code>
-      </h3>
+import BaseCardLayout from 'src/layouts/BaseCardLayout';
+import Error404 from 'src/components/Error404';
+
+const Logout = () => (
+  <BaseCardLayout>
+    <div className="text-center">
+      <Error404 />
     </div>
-  );
-};
+  </BaseCardLayout>
+);
 
-export default NoMatch;
+export default Logout;

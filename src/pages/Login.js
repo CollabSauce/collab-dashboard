@@ -2,11 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Col, Row } from 'reactstrap';
 
-import Auth from 'src/components/Auth';
+import BaseCardLayout from 'src/layouts/BaseCardLayout';
 import LoginForm from 'src/components/forms/LoginForm';
 
 const Login = () => (
-  <Auth authType="login">
+  <BaseCardLayout>
     <>
       <Row className="text-left justify-content-between">
         <Col xs="auto">
@@ -20,7 +20,7 @@ const Login = () => (
       </Row>
       <LoginForm />
     </>
-  </Auth>
+  </BaseCardLayout>
 );
 
 export default Login;

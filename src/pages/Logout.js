@@ -1,14 +1,14 @@
 import React from 'react';
 
-import Auth from 'src/components/Auth';
-import LogoutContent from 'src/components/forms/LogoutContent';
+import BaseCardLayout from 'src/layouts/BaseCardLayout';
+import LogoutContent from 'src/components/LogoutContent';
 
 const Logout = () => (
-  <Auth>
+  <BaseCardLayout>
     <div className="text-center">
       <LogoutContent />
     </div>
-  </Auth>
+  </BaseCardLayout>
 );
 
 export default Logout;

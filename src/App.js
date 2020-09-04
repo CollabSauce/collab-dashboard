@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Spinner } from 'reactstrap';
+import { useLocation } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -14,8 +15,11 @@ const App = () => {
   const [ready, setReady] = useState(false);
   const isKanban = false; // TODO: Update
   const dispatch = useDispatch();
+  const location = useLocation();
   const { result: currentUser } = useCurrentUser();
   const isAuthenticated = !!currentUser;
+
+  const on404Page = !location.key && location.pathname !== '/';
 
   // Initialize the app - this should only be run once (on mount)
   useEffect(() => {
@@ -34,9 +38,9 @@ const App = () => {
 
   return (
     <div className={isKanban ? 'container-fluid' : 'container'}>
-      {isAuthenticated && <NavbarVertical isKanban={isKanban} navbarStyle="transparent" />}
+      {isAuthenticated && !on404Page && <NavbarVertical isKanban={isKanban} navbarStyle="transparent" />}
       <div className="content">
-        <NavbarTop />
+        {!on404Page && <NavbarTop />}
         <RenderRoutes routes={ROUTES} />
       </div>
       <ToastContainer autoClose={10000} />

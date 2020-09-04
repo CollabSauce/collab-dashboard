@@ -1,15 +1,15 @@
 import React from 'react';
 
-import Auth from 'src/components/Auth';
+import BaseCardLayout from 'src/layouts/BaseCardLayout';
 import ResetPasswordForm from 'src/components/forms/ResetPasswordForm';
 
 const ResetPassword = () => (
-  <Auth>
+  <BaseCardLayout>
     <div className="text-center">
       <h5>Reset new password</h5>
       <ResetPasswordForm />
     </div>
-  </Auth>
+  </BaseCardLayout>
 );
 
 export default ResetPassword;
