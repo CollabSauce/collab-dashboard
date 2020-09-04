@@ -5,65 +5,65 @@
 // Place your own theme CSS or SCSS rules below this line, these rules will override any Bootstrap and theme variables.
 
 // TODO: REMOVE auth stuff when Ativ gets me designs
-.auth-page {
-  display: 'flex';
-  flex-direction: 'column';
-  width: '100%';
-}
-.auth-main {
-  display: 'flex';
-  justify-content: 'center';
-  align-items: 'center';
-  flex-grow: 1;
-}
-.auth-form {
-  display: 'flex';
-  flex-direction: 'column';
-  background-color: 'white';
-  padding-top: 48px;
-  padding-left: 38px;
-  padding-right: 38px;
-  padding-bottom: 32px;
-  height: 500px;
-  width: 100%;
-  max-width: 500;
-}
-.auth-title {
-  margin-bottom: 45px;
-}
-.auth-input {
-  margin-bottom: 24px;
-  height: 70px;
-}
-.auth-button-holder {
-  margin-top: 24px;
-  margin-bottom: 24px;
-  display: 'flex';
-  justify-content: 'center';
-}
-.auth-button {
-  height: 42px;
-  width: 200px;
-}
-.auth-button-text {
-  font-size: 18px;
-}
+// .auth-page {
+//   display: 'flex';
+//   flex-direction: 'column';
+//   width: '100%';
+// }
+// .auth-main {
+//   display: 'flex';
+//   justify-content: 'center';
+//   align-items: 'center';
+//   flex-grow: 1;
+// }
+// .auth-form {
+//   display: 'flex';
+//   flex-direction: 'column';
+//   background-color: 'white';
+//   padding-top: 48px;
+//   padding-left: 38px;
+//   padding-right: 38px;
+//   padding-bottom: 32px;
+//   height: 500px;
+//   width: 100%;
+//   max-width: 500;
+// }
+// .auth-title {
+//   margin-bottom: 45px;
+// }
+// .auth-input {
+//   margin-bottom: 24px;
+//   height: 45px;
+// }
+// .auth-button-holder {
+//   margin-top: 24px;
+//   margin-bottom: 24px;
+//   display: 'flex';
+//   justify-content: 'center';
+// }
+// .auth-button {
+//   height: 42px;
+//   width: 200px;
+// }
+// .auth-button-text {
+//   font-size: 18px;
+// }
 
 // TODO: REMOVE navbar stuff when Ativ gets me designs
-.navbar-logo {
-  width: 40px;
-}
-.navbar-divider {
-  border-right: 1px solid $navbar-dark-color;
-  margin-right: 10px;
-  margin-left: 22px; // 10 + 12 = 2. 10 to match marginRght. 12 to match padding on logout button.
-  height: 40px;
-}
-.navbar-navlink {
-  padding-top: $btn-padding-y !important;
-  padding-bottom: $btn-padding-y !important;
-  @include media-breakpoint-down(md) {
-    text-align: left !important;
-    padding-left: 0px !important;
-  }
-}
+// .navbar-logo {
+//   width: 40px;
+// }
+// .navbar-divider {
+//   border-right: 1px solid $navbar-dark-color;
+//   margin-right: 10px;
+//   margin-left: 22px; // 10 + 12 = 2. 10 to match marginRght. 12 to match padding on logout button.
+//   height: 40px;
+// }
+// .navbar-navlink {
+//   padding-top: $btn-padding-y !important;
+//   padding-bottom: $btn-padding-y !important;
+//   @include media-breakpoint-down(md) {
+//     text-align: left !important;
+//     padding-left: 0px !important;
+//   }
+// }

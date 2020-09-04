@@ -38,6 +38,36 @@ const ROUTES = [
     exact: true,
     component: ResetPassword,
   },
+  {
+    path: '/projects',
+    key: 'PROJECTS',
+    exact: true,
+    protected: true,
+    icon: 'project-diagram',
+    isSidebar: true,
+    name: 'Projects',
+    component: () => <div>hey</div>,
+    routes: [
+      {
+        path: '/projects/:id',
+        key: 'PROJECT',
+        exact: true,
+        component: () => <h1>hi</h1>,
+        protected: true,
+      },
+    ],
+  },
+  {
+    path: '/members',
+    key: 'MEMBERS',
+    exact: true,
+    protected: true,
+    icon: 'users',
+    isSidebar: true,
+    name: 'Manage Members',
+    component: () => <div>members</div>,
+  },
+
   // {
   //   path: '/app',
   //   key: 'APP',
@@ -66,5 +96,7 @@ const ROUTES = [
     component: NoMatch,
   },
 ];
+
+export const SIDEBAR_ROUTES = ROUTES.filter((route) => route.isSidebar);
 
 export default ROUTES;

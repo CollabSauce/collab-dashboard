@@ -3,14 +3,18 @@ import { jsdataStore } from 'src/store/jsdata';
 export const app = {
   state: {
     currentUserId: null,
-    containerWidth: 0,
+    showBurgerMenu: false, // controls showing vertical nav on mobile
+    isNavbarVerticalCollapsed: false,
   },
   reducers: {
     setCurrentUserId(state, currentUserId) {
       return { ...state, currentUserId };
     },
-    setContainerWidth(state, containerWidth) {
-      return { ...state, containerWidth };
+    setShowBurgerMenu(state, showBurgerMenu) {
+      return { ...state, showBurgerMenu };
+    },
+    setIsNavbarVerticalCollapsed(state, isNavbarVerticalCollapsed) {
+      return { ...state, isNavbarVerticalCollapsed };
     },
   },
   effects: (dispatch) => ({

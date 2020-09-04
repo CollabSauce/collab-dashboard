@@ -3,9 +3,11 @@ import { useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
 
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import Spinner from 'react-bootstrap/Spinner';
+// import Button from 'react-bootstrap/Button';
+// import Form from 'react-bootstrap/Form';
+// import Spinner from 'react-bootstrap/Spinner';
+import { Card, CardBody, Col, Row } from 'reactstrap';
+import Logo from 'src/components/Logo';
 
 import { jsdataStore } from 'src/store/jsdata';
 import { setAuthToken } from 'src/utils/auth';
@@ -87,6 +89,17 @@ const Auth = ({ authType }) => {
   if (redirectToPreviousRoute) {
     return <Redirect to={next} />;
   }
+
+  return (
+    <Row className="flex-center min-vh-100 py-6">
+      <Col sm={10} md={8} lg={6} xl={5} className="col-xxl-4">
+        <Logo />
+        <Card>
+          <CardBody className="fs--1 font-weight-normal p-5">{children}</CardBody>
+        </Card>
+      </Col>
+    </Row>
+  );
 
   return (
     <div className="auth-page">

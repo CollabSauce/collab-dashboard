@@ -7,6 +7,7 @@ import './polyfills';
 
 import { rematchStore } from 'src/store/rematch';
 
+import './utils/initFA';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
