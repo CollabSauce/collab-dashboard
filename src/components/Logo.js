@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 
-import logo from 'src/assets/logo.png';
+// import logo from 'src/assets/logo.png';
+import logo from 'src/assets/collab-logo.svg';
 import { DEFAULT_ROUTE_WHEN_AUTHENTICATED, DEFAULT_ROUTE_WHEN_UNAUTHENTICATED } from 'src/constants';
 import { useCurrentUser } from 'src/hooks/useCurrentUser';
 
@@ -45,6 +46,6 @@ Logo.propTypes = {
   className: PropTypes.string,
 };
 
-Logo.defaultProps = { at: 'auth', width: 58 };
+Logo.defaultProps = { at: 'auth', width: 25 };
 
 export default Logo;

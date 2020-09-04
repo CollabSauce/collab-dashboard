@@ -66,7 +66,7 @@ const NavbarVertical = ({ navbarStyle }) => {
           isNavbarVerticalCollapsed={isNavbarVerticalCollapsed}
           setIsNavbarVerticalCollapsed={dispatch.app.setIsNavbarVerticalCollapsed}
         />
-        <Logo at="navbar-vertical" width={40} />
+        <Logo at="navbar-vertical" width={17} />
       </Flex>
 
       <Collapse
