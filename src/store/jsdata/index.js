@@ -2,10 +2,15 @@ import { DataStore, utils } from 'js-data';
 import { HttpAdapter, addAction } from 'js-data-http';
 // If we want sourcemaps to working properly while debugging, change above line to import from 'js-data-http/src/index';
 
-import { commentSchema, commentRelations } from 'src/store/jsdata/models/Comment';
+import { inviteSchema, inviteRelations } from 'src/store/jsdata/models/Invite';
+import { membershipSchema, membershipRelations } from 'src/store/jsdata/models/Membership';
 import { organizationSchema, organizationRelations } from 'src/store/jsdata/models/Organization';
 import { profileSchema, profileRelations } from 'src/store/jsdata/models/Profile';
-import { threadSchema, threadRelations } from 'src/store/jsdata/models/Thread';
+import { projectSchema, projectRelations, projectActions } from 'src/store/jsdata/models/Project';
+import { taskSchema, taskRelations } from 'src/store/jsdata/models/Task';
+import { taskColumnSchema, taskColumnRelations } from 'src/store/jsdata/models/TaskColumn';
+import { taskCommentSchema, taskCommentRelations } from 'src/store/jsdata/models/TaskComment';
+import { taskMetadataSchema, taskMetadataRelations } from 'src/store/jsdata/models/TaskMetadata';
 import { userSchema, userRelations, userActions } from 'src/store/jsdata/models/User';
 
 import { BASE_PATH, API_PATH } from 'src/constants';
@@ -75,10 +80,16 @@ jsdataStore.registerAdapter('http', adapter, { default: true });
 ///////////////////////
 /// Register Models ///
 ///////////////////////
-jsdataStore.defineMapper('comment', {
-  endpoint: 'comments',
-  schema: commentSchema,
-  relations: commentRelations,
+jsdataStore.defineMapper('invite', {
+  endpoint: 'invites',
+  schema: inviteSchema,
+  relations: inviteRelations,
+});
+
+jsdataStore.defineMapper('invite', {
+  endpoint: 'memberships',
+  schema: membershipSchema,
+  relations: membershipRelations,
 });
 
 jsdataStore.defineMapper('organization', {
@@ -93,10 +104,34 @@ jsdataStore.defineMapper('profile', {
   relations: profileRelations,
 });
 
-jsdataStore.defineMapper('thread', {
-  endpoint: 'threads',
-  schema: threadSchema,
-  relations: threadRelations,
+jsdataStore.defineMapper('project', {
+  endpoint: 'projects',
+  schema: projectSchema,
+  relations: projectRelations,
+});
+
+jsdataStore.defineMapper('task', {
+  endpoint: 'tasks',
+  schema: taskSchema,
+  relations: taskRelations,
+});
+
+jsdataStore.defineMapper('taskColumn', {
+  endpoint: 'taskColumns',
+  schema: taskColumnSchema,
+  relations: taskColumnRelations,
+});
+
+jsdataStore.defineMapper('taskComment', {
+  endpoint: 'taskComments',
+  schema: taskCommentSchema,
+  relations: taskCommentRelations,
+});
+
+jsdataStore.defineMapper('taskMetadata', {
+  endpoint: 'taskMetadatas',
+  schema: taskMetadataSchema,
+  relations: taskMetadataRelations,
 });
 
 jsdataStore.defineMapper('user', {
@@ -128,6 +163,7 @@ function registerCustomActions(resource, actions) {
 }
 
 registerCustomActions('user', userActions);
+registerCustomActions('project', projectActions);
 
 /////////////////////////////
 /// Create Mappers Object ///

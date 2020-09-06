@@ -18,9 +18,17 @@ export const organizationRelations = {
       foreignKey: 'organizationId', // this needs to match the foreignKey field on the thread model (ie thread.organizationId)
       localField: 'threads',
     },
-    user: {
-      foreignKey: 'organizationId', // this needs to match the foreignKey field on the user model (ie user.organizationId)
-      localField: 'users',
+    invite: {
+      foreignKey: 'organizationId', // this needs to match the foreignKey field on the invite model (ie invite.organizationId)
+      localField: 'invites',
+    },
+    membership: {
+      foreignKey: 'organizationId', // this needs to match the foreignKey field on the membership model (ie membership.organizationId)
+      localField: 'memberships',
+    },
+    project: {
+      foreignKey: 'organizationId', // this needs to match the foreignKey field on the project model (ie project.organizationId)
+      localField: 'projects',
     },
   },
 };
