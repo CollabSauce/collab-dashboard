@@ -8,6 +8,7 @@ import NoProjectsNoAdminBlock from 'src/components/NoProjectsNoAdminBlock';
 
 import { useStoreState } from 'src/hooks/useStoreState';
 import { useCurrentUser } from 'src/hooks/useCurrentUser';
+import { MemberRoleTypes } from 'src/store/jsdata/models/Membership';
 
 const Home = () => {
   const [showCreateOrgModal, setShowCreateOrgModal] = useState(false);
@@ -19,7 +20,7 @@ const Home = () => {
   const isAdminOfOrg = useMemo(() => {
     if (organizations.length) {
       const org = organizations[0];
-      return org.memberships.find((m) => m.user === currentUser && m.isAdmin);
+      return org.memberships.find((m) => m.user === currentUser && m.role === MemberRoleTypes.ADMIN);
     }
     return false;
   }, [organizations, currentUser]);

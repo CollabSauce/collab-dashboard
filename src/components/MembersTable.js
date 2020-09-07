@@ -1,63 +1,61 @@
-import React, { createRef, Fragment, useState } from 'react';
-import {
-  Card,
-  CardBody,
-  Col,
-  CustomInput,
-  DropdownItem,
-  DropdownMenu,
-  DropdownToggle,
-  InputGroup,
-  Media,
-  Row,
-  UncontrolledDropdown,
-} from 'reactstrap';
-import BootstrapTable from 'react-bootstrap-table-next';
-
-import CollabCardHeader from 'src/components/CollabCardHeader';
+import React from 'react';
+import { DropdownItem, DropdownMenu, DropdownToggle, UncontrolledDropdown } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Flex from '../common/Flex';
-import Avatar from '../common/Avatar';
-import { getPaginationArray } from '../../helpers/utils';
+import { toast } from 'react-toastify';
 
-import customers from '../../data/e-commerce/customers';
+import { formatRole } from 'src/store/jsdata/models/Membership';
+import CollabTable from 'src/components/tables/CollabTable';
+import { useCurrentUser } from 'src/hooks/useCurrentUser';
 
-const actionFormatter = (dataField, { id }: row) => (
-  // Control your row with this id
-  <UncontrolledDropdown>
-    <DropdownToggle color="link" size="sm" className="text-600 btn-reveal mr-3">
-      <FontAwesomeIcon icon="ellipsis-h" className="fs--1" />
-    </DropdownToggle>
-    <DropdownMenu right className="border py-2">
-      <DropdownItem onClick={() => console.log('Edit: ', id)}>Edit</DropdownItem>
-      <DropdownItem onClick={() => console.log('Delete: ', id)} className="text-danger">
-        Delete
-      </DropdownItem>
-    </DropdownMenu>
-  </UncontrolledDropdown>
-);
+const actionFormatter = (dataField, member, currentUser) => {
+  const removeMember = async () => {
+    const memberEmail = member.user.email;
+    await member.destroy();
+    toast.info(`${memberEmail} removed.`);
+  };
+
+  if (member.user === currentUser) {
+    return <div />;
+  }
+
+  return (
+    // Control your row with this id
+    <UncontrolledDropdown>
+      <DropdownToggle color="link" size="sm" className="text-600 btn-reveal mr-3">
+        <FontAwesomeIcon icon="ellipsis-h" className="fs--1" />
+      </DropdownToggle>
+      <DropdownMenu right className="border py-2">
+        <DropdownItem onClick={removeMember} className="text-danger">
+          Remove
+        </DropdownItem>
+      </DropdownMenu>
+    </UncontrolledDropdown>
+  );
+};
 
 const columns = [
   {
-    dataField: 'name',
+    dataField: '',
     headerClasses: 'border-0',
     text: 'Name',
     classes: 'border-0 py-2 align-middle',
     sort: true,
+    formatter: (dataField, { user }) => `${user.firstName} ${user.lastName}`,
   },
   {
-    dataField: 'email',
+    dataField: 'user.email',
     headerClasses: 'border-0',
     text: 'Email',
     classes: 'border-0 py-2 align-middle',
     sort: true,
   },
   {
-    dataField: 'role',
+    dataField: '',
     headerClasses: 'border-0',
     text: 'Role',
     classes: 'border-0 py-2 align-middle',
     sort: true,
+    formatter: (dataField, { role }) => formatRole(role),
   },
   {
     dataField: '',
@@ -69,35 +67,12 @@ const columns = [
   },
 ];
 
-const options = {
-  custom: true,
-  sizePerPage: 12,
-  totalSize: customers.length,
+const MembersTable = ({ members }) => {
+  const { result: currentUser } = useCurrentUser();
+  // add currentUser to the formatter
+  columns[columns.length - 1].formatter = (dataField, member) => actionFormatter(dataField, member, currentUser);
+
+  return <CollabTable data={members} columns={columns} title="Members" />;
 };
 
-const Members = () => {
-  let table = createRef();
-
-  return (
-    <Card className="mb-3">
-      <CollabCardHeader title="Members" light={false} />
-      <CardBody className="p-0">
-        <div className="table-responsive">
-          <BootstrapTable
-            ref={table}
-            bootstrap4
-            keyField="id"
-            data={customers}
-            columns={columns}
-            bordered={false}
-            classes="table-dashboard table-striped table-sm fs--1 border-bottom border-200 mb-0 table-dashboard-th-nowrap"
-            rowClasses="btn-reveal-trigger border-top border-200"
-            headerClasses="bg-200 text-900 border-y border-200"
-          />
-        </div>
-      </CardBody>
-    </Card>
-  );
-};
-
-export default Members;
+export default MembersTable;

@@ -40,9 +40,15 @@ export const inviteActions = {
     method: 'POST',
     addResponseToStore: true,
   },
+  // POST /invites/cancel_invite
+  cancelInvite: {
+    pathname: 'cancel_invite',
+    method: 'POST',
+    addResponseToStore: true,
+  },
 };
 
-export const INVITE_STATES = {
+export const InviteStates = {
   CREATED: 1,
   ACCEPTED: 2,
   DENIED: 3,

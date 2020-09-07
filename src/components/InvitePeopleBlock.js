@@ -24,9 +24,7 @@ const InvitePeople = ({ inputCol, btnCol, className, brClass, titleClass, isInpu
       if (emailValid) {
         setLoading(true);
         const data = { email, organization: organizations[0].id };
-        const invites1 = jsdataStore.getAll('invite');
-        const response = await jsdataStore.getMapper('invite').createInvite({ data });
-        const invites = jsdataStore.getAll('invite');
+        await jsdataStore.getMapper('invite').createInvite({ data });
         setLoading(false);
         setEmail('');
         toast.success(

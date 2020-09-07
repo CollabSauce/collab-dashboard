@@ -8,7 +8,7 @@ export const membershipSchema = new Schema({
   properties: {
     ...SchemaBase,
     id: { type: 'number' },
-    isAdmin: { type: 'boolean' },
+    role: { type: 'number' },
   },
 });
 
@@ -23,4 +23,22 @@ export const membershipRelations = {
       localField: 'organization',
     },
   },
+};
+
+export const MemberRoleTypes = {
+  ADMIN: 1,
+  DASHBOARD: 2,
+  WIDGET: 3,
+};
+
+export const formatRole = (role) => {
+  if (role === MemberRoleTypes.ADMIN) {
+    return 'Admin';
+  } else if (role === MemberRoleTypes.DASHBOARD) {
+    return 'Dashboard';
+  } else if (role === MemberRoleTypes.WIDGET) {
+    return 'Widget';
+  } else {
+    return 'Unknown';
+  }
 };
