@@ -6,6 +6,7 @@ import {
   faChevronLeft,
   faHome,
   faEllipsisH,
+  faPlus,
 } from '@fortawesome/free-solid-svg-icons';
 
-library.add(faUser, faUsers, faProjectDiagram, faChevronLeft, faHome, faEllipsisH);
+library.add(faUser, faUsers, faProjectDiagram, faChevronLeft, faHome, faEllipsisH, faPlus);

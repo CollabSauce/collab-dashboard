@@ -4,10 +4,12 @@ import BootstrapTable from 'react-bootstrap-table-next';
 
 import CollabCardHeader from 'src/components/CollabCardHeader';
 
-const CollabTable = ({ data, columns, title }) => {
+const CollabTable = ({ data, columns, title, RightHeader }) => {
   return (
     <Card className="mb-3">
-      <CollabCardHeader title={title} light={false} />
+      <CollabCardHeader title={title} light={false}>
+        {RightHeader}
+      </CollabCardHeader>
       <CardBody className="p-0">
         <div className="table-responsive">
           <BootstrapTable

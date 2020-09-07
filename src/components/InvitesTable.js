@@ -1,9 +1,11 @@
-import React from 'react';
-import { DropdownItem, DropdownMenu, DropdownToggle, UncontrolledDropdown } from 'reactstrap';
+import React, { useState } from 'react';
+import { DropdownItem, DropdownMenu, DropdownToggle, UncontrolledDropdown, Modal } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { toast } from 'react-toastify';
 
 import { jsdataStore } from 'src/store/jsdata';
+import ButtonIcon from 'src/components/ButtonIcon';
+import InvitePeopleBlock from 'src/components/InvitePeopleBlock';
 import CollabTable from 'src/components/tables/CollabTable';
 
 const actionFormatter = (dataField, { id }) => {
@@ -47,7 +49,36 @@ const columns = [
 ];
 
 const InvitesTable = ({ invites }) => {
-  return <CollabTable data={invites} columns={columns} title="Invites" />;
+  const [showInviteModal, setShowInviteModal] = useState(false);
+
+  const openInviteModal = () => setShowInviteModal(true);
+  const closeInviteModal = () => setShowInviteModal(false);
+
+  return (
+    <>
+      <CollabTable
+        data={invites}
+        columns={columns}
+        title="Invites"
+        RightHeader={
+          <ButtonIcon
+            icon="plus"
+            transform="shrink-3 down-2"
+            color="falcon-default"
+            size="sm"
+            onClick={openInviteModal}
+          >
+            New
+          </ButtonIcon>
+        }
+      />
+      {showInviteModal && (
+        <Modal size="xl" centered isOpen={true} toggle={closeInviteModal} onClosed={closeInviteModal}>
+          <InvitePeopleBlock inModal onInvite={closeInviteModal} />
+        </Modal>
+      )}
+    </>
+  );
 };
 
 export default InvitesTable;

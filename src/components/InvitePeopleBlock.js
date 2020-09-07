@@ -9,7 +9,7 @@ import { jsdataStore } from 'src/store/jsdata';
 import { handleNetworkError } from 'src/utils/error';
 import { useStoreState } from 'src/hooks/useStoreState';
 
-const InvitePeople = ({ inputCol, btnCol, className, brClass, titleClass, isInputAutoFocus }) => {
+const InvitePeople = ({ inputCol, btnCol, className, brClass, titleClass, isInputAutoFocus, inModal, onInvite }) => {
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [isDisabled, setIsDisabled] = useState(true);
@@ -32,6 +32,9 @@ const InvitePeople = ({ inputCol, btnCol, className, brClass, titleClass, isInpu
             Sent invitation to <span className="font-weight-semi-bold font-italic">{email}</span>
           </>
         );
+        if (onInvite) {
+          onInvite();
+        }
       } else {
         toast.error('Please enter a valid email');
       }
@@ -59,7 +62,7 @@ const InvitePeople = ({ inputCol, btnCol, className, brClass, titleClass, isInpu
           </Col>
         </Row>
         <h3 className={`mt-3 mt-md-4 font-weight-normal ${titleClass}`}>
-          Invite your first teammate to start collabing!{' '}
+          Invite your{inModal ? '' : ' first'} teammate to start collabing!{' '}
           <span role="img" aria-label="paint">
             🎨
           </span>
