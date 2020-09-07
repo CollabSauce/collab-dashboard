@@ -1,4 +1,5 @@
 import Home from 'src/pages/Home';
+import AcceptInvite from 'src/pages/AcceptInvite';
 import Login from 'src/pages/Login';
 import Signup from 'src/pages/Signup';
 import ForgotPassword from 'src/pages/ForgotPassword';
@@ -46,6 +47,13 @@ const ROUTES = [
     key: 'LOGOUT',
     exact: true,
     component: Logout,
+  },
+  {
+    path: '/accept_invite',
+    key: 'ACCEPT_INVITE',
+    exact: true,
+    protected: true,
+    component: AcceptInvite,
   },
   {
     path: '/projects',

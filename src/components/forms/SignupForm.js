@@ -25,6 +25,14 @@ const SignupForm = ({ hasLabel }) => {
 
   const queryParams = useQueryParams();
   const next = queryParams.next || DEFAULT_ROUTE_WHEN_AUTHENTICATED;
+  const qpEmail = queryParams.email;
+  const qpKey = queryParams.key; // used for accept_invite
+
+  useEffect(() => {
+    if (qpEmail) {
+      setEmail(qpEmail);
+    }
+  }, [qpEmail]);
 
   // Handler
   const handleSubmit = async (event) => {
@@ -59,7 +67,11 @@ const SignupForm = ({ hasLabel }) => {
   }, [firstName, lastName, email, password, confirmPassword]);
 
   if (redirectToPreviousRoute) {
-    return <Redirect to={next} />;
+    if (next === '/accept_invite') {
+      return <Redirect to={{ pathname: next, search: `?key=${qpKey}` }} />;
+    } else {
+      return <Redirect to={next} />;
+    }
   }
 
   return (

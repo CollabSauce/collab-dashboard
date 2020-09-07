@@ -34,6 +34,12 @@ export const inviteActions = {
     method: 'POST',
     addResponseToStore: true,
   },
+  // POST /invites/accept_invite
+  acceptInvite: {
+    pathname: 'accept_invite',
+    method: 'POST',
+    addResponseToStore: true,
+  },
 };
 
 export const INVITE_STATES = {
