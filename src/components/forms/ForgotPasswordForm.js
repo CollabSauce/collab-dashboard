@@ -48,7 +48,7 @@ const ForgetPasswordForm = () => {
       </FormGroup>
       <FormGroup>
         <Button color="primary" block disabled={!email}>
-          {loading ? <Spinner color="primary" /> : 'Send reset link'}
+          {loading ? <Spinner color="light" /> : 'Send reset link'}
         </Button>
       </FormGroup>
     </Form>

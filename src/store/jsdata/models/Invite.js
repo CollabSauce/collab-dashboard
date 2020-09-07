@@ -8,8 +8,8 @@ export const inviteSchema = new Schema({
   properties: {
     ...SchemaBase,
     id: { type: 'number' },
-    name: { type: 'string' },
     email: { type: 'string' },
+    key: { type: 'string' },
     state: { type: 'number' },
   },
 });
@@ -25,4 +25,20 @@ export const inviteRelations = {
       localField: 'organization',
     },
   },
+};
+
+export const inviteActions = {
+  // POST /invites/create_invite
+  createInvite: {
+    pathname: 'create_invite',
+    method: 'POST',
+    addResponseToStore: true,
+  },
+};
+
+export const INVITE_STATES = {
+  CREATED: 1,
+  ACCEPTED: 2,
+  DENIED: 3,
+  CANCELED: 4,
 };

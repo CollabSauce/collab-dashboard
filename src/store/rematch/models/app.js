@@ -23,6 +23,7 @@ export const app = {
         const response = await jsdataStore.getMapper('user').fetchCurrentUser();
         dispatch.app.setCurrentUserId(response.data.user.id);
       } catch (e) {
+        console.log(e);
         return;
       }
     },

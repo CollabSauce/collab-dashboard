@@ -51,7 +51,7 @@ export const userActions = {
     method: 'GET',
     addResponseToStore: true,
     params: {
-      include: ['memberships.organization.projects'],
+      include: ['memberships.organization.projects.'],
     },
   },
   // POST /rest-auth/login/

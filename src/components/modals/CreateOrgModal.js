@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Row, Col, FormGroup, Input, Label, Spinner } from 'reacstrap';
+import { Button, Form, FormGroup, Input, Label, Spinner } from 'reactstrap';
 import { toast } from 'react-toastify';
 
 import TwoPaneModalLayout from 'src/layouts/TwoPaneModalLayout';
+import { jsdataStore } from 'src/store/jsdata';
+import { handleNetworkError } from 'src/utils/error';
 
 const CreateOrgModal = ({ onClose }) => {
   const [organizationName, setOrganizationName] = useState('');
@@ -14,9 +16,13 @@ const CreateOrgModal = ({ onClose }) => {
     event.preventDefault();
     try {
       setLoading(true);
-      await store.create('organization', { name: organizationName });
-      await store.findAll('organizations', { include: ['memberships.user'] }); // reload the org with its memberships
-      toast.success(`Organization "${organizationName}" created.`);
+      await jsdataStore.create('organization', { name: organizationName });
+      await jsdataStore.findAll('organization', { include: ['memberships.user'] }); // reload the org with its memberships
+      toast.success(
+        <>
+          Organization <span className="font-weight-semi-bold font-italic">{organizationName}</span>created.
+        </>
+      );
       onClose();
     } catch (e) {
       toast.error(handleNetworkError(e));
@@ -48,7 +54,7 @@ const CreateOrgModal = ({ onClose }) => {
         </FormGroup>
         <FormGroup>
           <Button color="primary" block className="mt-3" disabled={isDisabled}>
-            {loading ? <Spinner color="primary" /> : 'Create Organization'}
+            {loading ? <Spinner color="light" /> : 'Create Organization'}
           </Button>
         </FormGroup>
       </Form>

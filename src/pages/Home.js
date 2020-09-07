@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 
-import { jsdataStore } from 'src/store/jsdata';
-import Starter from 'src/components/Starter';
-import CreateOrgModal from 'src/components/CreateOrgModal';
+import CreateOrgBlock from 'src/components/CreateOrgBlock';
+import CreateOrgModal from 'src/components/modals/CreateOrgModal';
 import CreateProjectBlock from 'src/components/CreateProjectBlock';
-import CreateProjectModal from 'src/components/CreateProjectModal';
+import CreateProjectModal from 'src/components/modals/CreateProjectModal';
+import NoProjectsNoAdminBlock from 'src/components/NoProjectsNoAdminBlock';
 
 import { useStoreState } from 'src/hooks/useStoreState';
 import { useCurrentUser } from 'src/hooks/useCurrentUser';
@@ -13,8 +13,7 @@ const Home = () => {
   const [showCreateOrgModal, setShowCreateOrgModal] = useState(false);
   const [showCreateProjectModal, setShowCreateProjectModal] = useState(false);
 
-  const { result: organizations } = useStoreState((store) => store.getAll('organizations'), [], 'organization');
-  const { result: organizations } = useStoreState((store) => store.getAll('organizations'), [], 'organization');
+  const { result: organizations } = useStoreState((store) => store.getAll('organization'), [], 'organization');
   const { result: currentUser } = useCurrentUser();
 
   const isAdminOfOrg = useMemo(() => {
@@ -23,7 +22,7 @@ const Home = () => {
       return org.memberships.find((m) => m.user === currentUser && m.isAdmin);
     }
     return false;
-  }, [organizations.length, currentUser]);
+  }, [organizations, currentUser]);
 
   const onClickStarter = () => {
     setShowCreateOrgModal(true);
@@ -45,25 +44,32 @@ const Home = () => {
   if (!organizations.length) {
     return (
       <>
-        <Starter onClick={onClickStarter} />
+        <CreateOrgBlock onClick={onClickStarter} />
         {showCreateOrgModal && <CreateOrgModal onClose={closeOrgModal} />}
       </>
     );
   }
 
-  // if the user is an admin of the org, show the "create project" component
-  if (isAdminOfOrg) {
+  return (
     <>
-      <CreateProjectBlock onClick={onClickCreateProject} />
-      {showCreateProjectModal && <CreateProjectModal onClose={closeProjectModal} />}
-    </>;
-  }
+      {isAdminOfOrg && (
+        <>
+          <CreateProjectBlock onClick={onClickCreateProject} />
+          {showCreateProjectModal && <CreateProjectModal onClose={closeProjectModal} />}
+        </>
+      )}
 
-  // show any projects
-  if (organizations[0].projects.length) {
-  } else if (!isAdminOfOrg) {
-    // if the are no projects, and the user is not an admin of the organization, show this to the user
-  }
+      {organizations[0].projects.length ? (
+        <>
+          {organizations[0].projects.map((project) => {
+            return <div>{project.name}</div>;
+          })}
+        </>
+      ) : null}
+
+      {!organizations[0].projects.length && !isAdminOfOrg && <NoProjectsNoAdminBlock />}
+    </>
+  );
 };
 
 export default Home;

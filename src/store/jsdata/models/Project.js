@@ -28,12 +28,3 @@ export const projectRelations = {
     },
   },
 };
-
-export const projectActions = {
-  // POST /projects/create_project
-  createProject: {
-    pathname: 'create_project',
-    method: 'POST',
-    addResponseToStore: true,
-  },
-};

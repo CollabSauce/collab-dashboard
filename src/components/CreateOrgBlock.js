@@ -1,9 +1,8 @@
 import React from 'react';
 import { Row, Col, Card, CardBody, Button } from 'reactstrap';
-import { Link } from 'react-router-dom';
-import editing from '.src/assets/editing.png';
+import editing from 'src/assets/editing.png';
 
-const Starter = ({ onClick }) => (
+const CreateOrgBlock = ({ onClick }) => (
   <Card>
     <CardBody className="overflow-hidden p-lg-6">
       <Row className="align-items-center justify-content-between">
@@ -22,4 +21,4 @@ const Starter = ({ onClick }) => (
   </Card>
 );
 
-export default Starter;
+export default CreateOrgBlock;

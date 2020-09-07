@@ -1,5 +1,3 @@
-import React from 'react'; // todo: remove
-
 import Home from 'src/pages/Home';
 import Login from 'src/pages/Login';
 import Signup from 'src/pages/Signup';
@@ -8,6 +6,7 @@ import ResetPassword from 'src/pages/ResetPassword';
 import Logout from 'src/pages/Logout';
 import Projects from 'src/pages/Projects';
 import Project from 'src/pages/Projects/Project';
+import Members from 'src/pages/Members';
 import NoMatch from 'src/pages/NoMatch';
 
 const ROUTES = [
@@ -74,7 +73,7 @@ const ROUTES = [
     icon: 'users',
     isSidebar: true,
     name: 'Manage Members',
-    component: () => <div>members</div>,
+    component: Members,
   },
   {
     path: '*',

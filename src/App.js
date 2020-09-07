@@ -10,16 +10,21 @@ import NavbarVertical from 'src/components/navbar/NavbarVertical';
 import ROUTES from 'src/routes';
 import RenderRoutes from 'src/components/Routes';
 import { useCurrentUser } from 'src/hooks/useCurrentUser';
+import { useStoreState } from 'src/hooks/useStoreState';
 
 const App = () => {
   const [ready, setReady] = useState(false);
   const isKanban = false; // TODO: Update
   const dispatch = useDispatch();
   const location = useLocation();
+  const { result: organizations } = useStoreState((store) => store.getAll('organization'), [], 'organization');
   const { result: currentUser } = useCurrentUser();
   const isAuthenticated = !!currentUser;
 
   const on404Page = !location.key && location.pathname !== '/';
+
+  const hideVerticalNav = !isAuthenticated || on404Page || organizations.length === 0;
+  const showVerticalNav = !hideVerticalNav;
 
   // Initialize the app - this should only be run once (on mount)
   useEffect(() => {
@@ -38,7 +43,7 @@ const App = () => {
 
   return (
     <div className={isKanban ? 'container-fluid' : 'container'}>
-      {isAuthenticated && !on404Page && <NavbarVertical isKanban={isKanban} navbarStyle="transparent" />}
+      {showVerticalNav && <NavbarVertical isKanban={isKanban} navbarStyle="transparent" />}
       <div className="content">
         {!on404Page && <NavbarTop />}
         <RenderRoutes routes={ROUTES} />

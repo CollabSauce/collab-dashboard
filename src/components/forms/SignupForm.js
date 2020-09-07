@@ -114,7 +114,7 @@ const SignupForm = ({ hasLabel }) => {
 
       <FormGroup>
         <Button color="primary" block className="mt-3" disabled={isDisabled}>
-          {loading ? <Spinner color="primary" /> : 'Register'}
+          {loading ? <Spinner color="light" /> : 'Register'}
         </Button>
       </FormGroup>
     </Form>

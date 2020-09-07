@@ -2,11 +2,11 @@ import { DataStore, utils } from 'js-data';
 import { HttpAdapter, addAction } from 'js-data-http';
 // If we want sourcemaps to working properly while debugging, change above line to import from 'js-data-http/src/index';
 
-import { inviteSchema, inviteRelations } from 'src/store/jsdata/models/Invite';
+import { inviteSchema, inviteRelations, inviteActions } from 'src/store/jsdata/models/Invite';
 import { membershipSchema, membershipRelations } from 'src/store/jsdata/models/Membership';
 import { organizationSchema, organizationRelations } from 'src/store/jsdata/models/Organization';
 import { profileSchema, profileRelations } from 'src/store/jsdata/models/Profile';
-import { projectSchema, projectRelations, projectActions } from 'src/store/jsdata/models/Project';
+import { projectSchema, projectRelations } from 'src/store/jsdata/models/Project';
 import { taskSchema, taskRelations } from 'src/store/jsdata/models/Task';
 import { taskColumnSchema, taskColumnRelations } from 'src/store/jsdata/models/TaskColumn';
 import { taskCommentSchema, taskCommentRelations } from 'src/store/jsdata/models/TaskComment';
@@ -86,7 +86,7 @@ jsdataStore.defineMapper('invite', {
   relations: inviteRelations,
 });
 
-jsdataStore.defineMapper('invite', {
+jsdataStore.defineMapper('membership', {
   endpoint: 'memberships',
   schema: membershipSchema,
   relations: membershipRelations,
@@ -163,7 +163,7 @@ function registerCustomActions(resource, actions) {
 }
 
 registerCustomActions('user', userActions);
-registerCustomActions('project', projectActions);
+registerCustomActions('invite', inviteActions);
 
 /////////////////////////////
 /// Create Mappers Object ///

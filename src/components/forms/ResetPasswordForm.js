@@ -66,7 +66,7 @@ const ResetPasswordForm = ({ hasLabel }) => {
         />
       </FormGroup>
       <Button color="primary" block className="mt-3" disabled={isDisabled}>
-        {loading ? <Spinner color="primary" /> : 'Set password'}
+        {loading ? <Spinner color="light" /> : 'Set password'}
       </Button>
     </Form>
   );
