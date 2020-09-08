@@ -8,13 +8,16 @@ export const taskSchema = new Schema({
   properties: {
     ...SchemaBase,
     id: { type: 'number' },
+    title: { type: 'string' },
     description: { type: 'string' },
     designEdits: { type: 'string' },
-    screenshotUrl: { type: 'string' },
+    windowScreenshotUrl: { type: 'string' },
+    elementScreenshotUrl: { type: 'string' },
     taskNumber: { type: 'number' },
     isResolved: { type: 'boolean' },
     targetId: { type: 'string' },
     targetDomPath: { type: 'string' },
+    order: { type: 'number' },
   },
 });
 
