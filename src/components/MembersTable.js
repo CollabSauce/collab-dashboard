@@ -35,7 +35,7 @@ const actionFormatter = (dataField, member, currentUser) => {
 
 const columns = [
   {
-    dataField: '',
+    dataField: 'name',
     headerClasses: 'border-0',
     text: 'Name',
     classes: 'border-0 py-2 align-middle',
@@ -50,7 +50,7 @@ const columns = [
     sort: true,
   },
   {
-    dataField: '',
+    dataField: 'role',
     headerClasses: 'border-0',
     text: 'Role',
     classes: 'border-0 py-2 align-middle',
@@ -58,7 +58,7 @@ const columns = [
     formatter: (dataField, { role }) => formatRole(role),
   },
   {
-    dataField: '',
+    dataField: 'ellipsis',
     headerClasses: 'border-0',
     text: '',
     classes: 'border-0 py-2 align-middle',

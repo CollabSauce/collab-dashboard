@@ -3,3 +3,20 @@
 // user.scss
 //
 // Place your own theme CSS or SCSS rules below this line, these rules will override any Bootstrap and theme variables.
+
+@include media-breakpoint-only(md) {
+  .modal-md-wide {
+    max-width: 90%;
+  }
+}
+
+.top-right {
+  top: 0px;
+  right: 0px;
+}
+
+@include media-breakpoint-up(lg) {
+  .items-3-lg {
+    flex-basis: calc(33.333333% - 10px);
+  }
+}

@@ -20,7 +20,7 @@ const CreateOrgModal = ({ onClose }) => {
       await jsdataStore.findAll('organization', { include: ['memberships.user'] }); // reload the org with its memberships
       toast.success(
         <>
-          Organization <span className="font-weight-semi-bold font-italic">{organizationName}</span>created.
+          Organization <span className="font-weight-semi-bold font-italic">{organizationName}</span> created.
         </>
       );
       onClose();

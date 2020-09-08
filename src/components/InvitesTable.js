@@ -39,7 +39,7 @@ const columns = [
     sort: true,
   },
   {
-    dataField: '',
+    dataField: 'ellipsis',
     headerClasses: 'border-0',
     text: '',
     classes: 'border-0 py-2 align-middle',

@@ -17,6 +17,9 @@ const ROUTES = [
     exact: true,
     component: Home,
     protected: true,
+    icon: 'home',
+    isSidebar: true,
+    name: 'Home',
   },
   {
     path: '/login',

@@ -6,13 +6,13 @@ import Flex from 'src/components/Flex';
 
 import halfCircle from 'src/assets/half-circle.png';
 
-const TwoPaneModalLayout = ({ leftSideHeader, leftSideBody, leftSideBody2, onClose, children }) => {
+const TwoPaneModalLayout = ({ leftSideHeader, leftSideBody, leftSideBody2, onClose, className, children }) => {
   return (
-    <Modal size="lg" centered isOpen={true} toggle={onClose} onClosed={onClose}>
+    <Modal size="lg" centered isOpen={true} toggle={onClose} onClosed={onClose} className={className}>
       <Card className="overflow-hidden z-index-1">
         <CardBody className="p-0">
           <Row noGutters className="h-100">
-            <Col md={5} className="text-white text-center bg-card-gradient">
+            <Col md={5} className="text-white text-center bg-card-gradient d-flex align-items-center">
               <div className="position-relative p-4 pt-md-5 pb-md-7">
                 <Background image={halfCircle} className="bg-auth-card-shape" />
                 <div className="z-index-1 position-relative">
@@ -38,6 +38,7 @@ TwoPaneModalLayout.propTypes = {
   leftSideBody: PropTypes.node.isRequired,
   leftSideBody2: PropTypes.node,
   onClose: PropTypes.func.isRequired,
+  className: PropTypes.string,
   children: PropTypes.node.isRequired,
 };
 

@@ -6,7 +6,7 @@ import TwoPaneModalLayout from 'src/layouts/TwoPaneModalLayout';
 import { jsdataStore } from 'src/store/jsdata';
 import { handleNetworkError } from 'src/utils/error';
 
-const CreateProjectModal = ({ onClose }) => {
+const CreateProjectModal = ({ onClose, onCreate }) => {
   const [projectName, setProjectName] = useState('');
   const [projectUrl, setProjectUrl] = useState('');
   const [loading, setLoading] = useState(false);
@@ -18,13 +18,13 @@ const CreateProjectModal = ({ onClose }) => {
     try {
       setLoading(true);
       const data = { name: projectName, url: projectUrl };
-      await jsdataStore.create('project', data);
+      const project = await jsdataStore.create('project', data);
       toast.success(
         <>
-          Project <span className="font-weight-semi-bold font-italic">{projectName}</span>created.
+          Project <span className="font-weight-semi-bold font-italic">{projectName}</span> created.
         </>
       );
-      onClose();
+      onCreate(project);
     } catch (e) {
       toast.error(handleNetworkError(e));
       setLoading(false);
