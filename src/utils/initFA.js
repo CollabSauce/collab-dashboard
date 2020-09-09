@@ -9,9 +9,9 @@ import {
   faPlus,
   faTimes,
   faPaperclip,
-  faComment,
   faCircle,
 } from '@fortawesome/free-solid-svg-icons';
+import { faComment } from '@fortawesome/free-regular-svg-icons';
 
 library.add(
   faUser,

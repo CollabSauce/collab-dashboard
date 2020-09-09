@@ -11,7 +11,7 @@ const ModalCommentContent = ({ comments }) => {
   return (
     <>
       <Media>
-        <Avatar name={`${currentUser.firstName} ${currentUser.lasName}`} className="mr-2" size="l" />
+        <Avatar name={`${currentUser.firstName} ${currentUser.lastName}`} className="mr-2" size="l" />
         <Media body className="fs--1">
           <div className="position-relative border rounded mb-3">
             <Form

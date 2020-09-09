@@ -5,21 +5,12 @@ import classNames from 'classnames';
 import KanbanColumnHeader from 'src/components/kanban/KanbanColumnHeader';
 import { Droppable } from 'react-beautiful-dnd';
 
-import { useStoreState } from 'src/hooks/useStoreState';
 import ButtonIcon from 'src/components/ButtonIcon';
 import AddAnotherCard from 'src/components/kanban/AddAnotherCard';
 import TaskCard from 'src/components/kanban/TaskCard';
 
-const KanbanColumn = ({ kanbanColumnItem, index }) => {
+const KanbanColumn = ({ kanbanColumnItem, tasks, index }) => {
   const [showForm, setShowForm] = useState(false);
-
-  const { result: tasks } = useStoreState(
-    (store) => {
-      return store.getAll('task').filter((task) => task.taskColumnId === kanbanColumnItem.id);
-    },
-    [kanbanColumnItem.id],
-    'task'
-  );
 
   useEffect(() => {
     const kanbanContainer = document.getElementById(`container-${index}`);
@@ -35,7 +26,7 @@ const KanbanColumn = ({ kanbanColumnItem, index }) => {
           setShowForm(true);
         }}
       />
-      <Droppable droppableId={kanbanColumnItem.id}>
+      <Droppable droppableId={`${kanbanColumnItem.id}`}>
         {(provided, snapshot) => (
           <>
             <div

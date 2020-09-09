@@ -49,3 +49,12 @@ export const taskRelations = {
     },
   },
 };
+
+export const taskActions = {
+  // POST /tasks/reorder_tasks
+  reorderTasks: {
+    pathname: 'reorder_tasks',
+    method: 'POST',
+    addResponseToStore: true,
+  },
+};

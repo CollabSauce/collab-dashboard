@@ -29,7 +29,7 @@ const getItemStyle = (isDragging) => ({
 const TaskCard = ({ taskCardItemId, taskCard, taskCardImage, members, taskCardIndex }) => {
   const dispatch = useDispatch();
   return (
-    <Draggable draggableId={taskCardItemId} index={taskCardIndex}>
+    <Draggable draggableId={`${taskCardItemId}`} index={taskCardIndex}>
       {(provided, snapshot) => (
         <div
           className="kanban-item"
