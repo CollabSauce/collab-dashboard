@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch, Redirect, useLocation } from 'react-router-dom';
 import queryString from 'query-string';
 
 import { DEFAULT_ROUTE_WHEN_AUTHENTICATED } from 'src/constants';
@@ -36,9 +36,11 @@ const RouteWithSubRoutes = (route) => {
   );
 };
 
-const RenderRoutes = ({ routes, subrouteProps }) => {
+const RenderRoutes = ({ routes, subrouteProps, isTopLevel }) => {
+  const { pathname } = useLocation();
   return (
     <Switch>
+      {isTopLevel && <Redirect from="/:url*(/+)" to={pathname.slice(0, -1)} />}
       {routes.map((route) => {
         return <RouteWithSubRoutes {...route} subrouteProps={subrouteProps} />;
       })}

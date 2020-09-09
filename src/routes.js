@@ -7,6 +7,7 @@ import ResetPassword from 'src/pages/ResetPassword';
 import Logout from 'src/pages/Logout';
 import Projects from 'src/pages/Projects';
 import Project from 'src/pages/Projects/Project';
+import Task from 'src/pages/Projects/Tasks/Task';
 import Members from 'src/pages/Members';
 import NoMatch from 'src/pages/NoMatch';
 
@@ -68,11 +69,27 @@ const ROUTES = [
     component: Projects,
     routes: [
       {
-        path: '/projects/:id',
+        path: '/projects/:projectId',
         key: 'PROJECT',
-        exact: true,
+        // exact: true,
         component: Project,
         protected: true,
+        routes: [
+          {
+            path: '/projects/:projectId/',
+            key: 'PROJECT_SUBROUTE_EMPTY',
+            exact: true,
+            component: () => null,
+            protected: true,
+          },
+          {
+            path: '/projects/:projectId/tasks/:taskId',
+            key: 'TASK',
+            exact: true,
+            component: Task,
+            protected: true,
+          },
+        ],
       },
     ],
   },

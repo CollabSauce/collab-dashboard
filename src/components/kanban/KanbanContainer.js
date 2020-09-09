@@ -1,13 +1,12 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+
 import is from 'is_js';
 
 import { jsdataStore } from 'src/store/jsdata';
 import { isIterableArray } from 'src/utils/helpers';
 import KanbanColumn from 'src/components/kanban/KanbanColumn';
-import KanbanModal from 'src/components/kanban/KanbanModal';
 
 const reorder = (list, startIndex, endIndex) => {
   const result = Array.from(list);
@@ -30,7 +29,7 @@ const move = (source, destination, droppableSourceIndex, droppableDestinationInd
 // NOTE: need to manually store columns and tasks so the kanboard doesn't flicker.
 // I.e. just updating jsdata is too slow.
 const KanbanContainer = () => {
-  const { id: projectId } = useParams();
+  const { projectId } = useParams();
   const [columns, setColumns] = useState([]);
 
   const fetchKanbanData = async () => {
@@ -54,9 +53,6 @@ const KanbanContainer = () => {
     // eslint-disable-next-line
   }, [projectId]);
 
-  const modal = useSelector((state) => state.kanban.modal);
-  const modalContent = useSelector((state) => state.kanban.modalContent);
-  const dispatch = useDispatch();
   const containerRef = useRef(null);
 
   // Detect device
@@ -182,7 +178,6 @@ const KanbanContainer = () => {
               />
             );
           })}
-        {modal && <KanbanModal modal={modal} setModal={dispatch.kanban.setModal} modalContent={modalContent} />}
       </div>
     </DragDropContext>
   );

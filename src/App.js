@@ -46,7 +46,7 @@ const App = () => {
       {showVerticalNav && <NavbarVertical isKanban={isKanban} navbarStyle="transparent" />}
       <div className="content">
         {!on404Page && <NavbarTop />}
-        <RenderRoutes routes={ROUTES} />
+        <RenderRoutes routes={ROUTES} isTopLevel />
       </div>
       <ToastContainer autoClose={10000} />
     </div>

@@ -6,7 +6,7 @@ import { Button, Form, Input, Row, Col } from 'reactstrap';
 
 const AddAnotherCard = ({ kanbanColumnItem, setShowForm, onTaskCreated }) => {
   const [cardHeaderTitle, setCardHeaderTitle] = useState('');
-  const { id: projectId } = useParams();
+  const { projectId } = useParams();
 
   const handleAddCard = async (value) => {
     const task = {
