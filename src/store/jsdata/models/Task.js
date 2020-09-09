@@ -23,7 +23,7 @@ export const taskSchema = new Schema({
 
 export const taskRelations = {
   hasOne: {
-    taskMetaData: {
+    taskMetadata: {
       foreignKey: 'taskMetadata',
       localField: 'taskMetadata',
     },

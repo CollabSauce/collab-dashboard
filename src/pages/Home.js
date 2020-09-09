@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 
 import CreateOrgBlock from 'src/components/CreateOrgBlock';
 import CreateOrgModal from 'src/components/modals/CreateOrgModal';
@@ -8,18 +8,36 @@ import WidgetInfoModal from 'src/components/modals/WidgetInfoModal';
 import NoProjectsNoAdminBlock from 'src/components/NoProjectsNoAdminBlock';
 import ProjectCard from 'src/components/ProjectCard';
 
+import { jsdataStore } from 'src/store/jsdata';
 import { useStoreState } from 'src/hooks/useStoreState';
 import { useCurrentUser } from 'src/hooks/useCurrentUser';
 import { MemberRoleTypes } from 'src/store/jsdata/models/Membership';
 
 const Home = () => {
+  const [loading, setLoading] = useState(true);
   const [showCreateOrgModal, setShowCreateOrgModal] = useState(false);
   const [showCreateProjectModal, setShowCreateProjectModal] = useState(false);
   const [currentlyCreatedProject, setCurrentlyCreatedProject] = useState(null);
 
+  const loadData = async () => {
+    await jsdataStore.findAll(
+      'membership',
+      {
+        include: ['user.', 'organization.projects.'],
+      },
+      {
+        force: true,
+      }
+    );
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    loadData();
+  }, []);
+
   const { result: currentUser } = useCurrentUser();
   const { result: organizations } = useStoreState((store) => store.getAll('organization'), [], 'organization');
-  const { result: projects } = useStoreState((store) => store.getAll('project'), [], 'project');
 
   const isAdminOfOrg = useMemo(() => {
     if (organizations.length) {
@@ -27,7 +45,8 @@ const Home = () => {
       return org.memberships.find((m) => m.user === currentUser && m.role === MemberRoleTypes.ADMIN);
     }
     return false;
-  }, [organizations, currentUser]);
+    // eslint-disable-next-line
+  }, [organizations, currentUser, loading]);
 
   const onClickStarter = () => {
     setShowCreateOrgModal(true);
@@ -58,6 +77,10 @@ const Home = () => {
     setCurrentlyCreatedProject(null);
   };
 
+  if (loading) {
+    return null;
+  }
+
   // if user does not belong to any orgs, allow them to create an org
   if (!organizations.length) {
     return (
@@ -67,6 +90,8 @@ const Home = () => {
       </>
     );
   }
+
+  const projects = organizations[0].projects;
 
   return (
     <>

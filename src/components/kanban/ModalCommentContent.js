@@ -1,10 +1,7 @@
 import React from 'react';
 import { Media, Form, Input, Button } from 'reactstrap';
 import Avatar from 'src/components/Avatar';
-import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-// import users from '../../data/dashboard/users';
 import { useCurrentUser } from 'src/hooks/useCurrentUser';
 import Flex from 'src/components/Flex';
 

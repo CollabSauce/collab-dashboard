@@ -26,5 +26,9 @@ export const projectRelations = {
       foreignKey: 'projectId', // this needs to match the foreignKey field on the task model (ie task.projectId)
       localField: 'tasks',
     },
+    taskColumn: {
+      foreignKey: 'projectId', // this needs to match the foreignKey field on the task model (ie taskColumn.projectId)
+      localField: 'taskColumns',
+    },
   },
 };

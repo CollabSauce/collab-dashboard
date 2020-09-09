@@ -4,7 +4,7 @@ import { SchemaBase } from './_base';
 export const taskCommentSchema = new Schema({
   type: 'object',
   track: true,
-  plural: 'task_comments', // custom property used for deserialization
+  plural: 'taskComments', // custom property used for deserialization
   properties: {
     ...SchemaBase,
     id: { type: 'number' },

@@ -21,7 +21,7 @@ export const taskMetadataSchema = new Schema({
 export const taskMetadataRelations = {
   belongsTo: {
     task: {
-      foreignKey: 'taskMetaData', // this needs to match the foreignKey field on the user model (ie task.taskMetaData) (other side of a 1-1 model)
+      foreignKey: 'taskMetadata', // this needs to match the foreignKey field on the user model (ie task.taskMetaData) (other side of a 1-1 model)
       localField: 'task',
     },
   },

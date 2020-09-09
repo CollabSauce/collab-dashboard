@@ -4,7 +4,7 @@ import { SchemaBase } from './_base';
 export const taskColumnSchema = new Schema({
   type: 'object',
   track: true,
-  plural: 'task_columns', // custom property used for deserialization
+  plural: 'taskColumns', // custom property used for deserialization
   properties: {
     ...SchemaBase,
     id: { type: 'number' },
@@ -17,6 +17,12 @@ export const taskColumnRelations = {
     task: {
       foreignKey: 'taskColumnId', // this needs to match the foreignKey field on the task model (ie task.columnId)
       localField: 'tasks',
+    },
+  },
+  belongsTo: {
+    project: {
+      foreignKey: 'projectId',
+      localField: 'project',
     },
   },
 };

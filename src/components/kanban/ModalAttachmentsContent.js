@@ -1,26 +1,11 @@
-import React, { useState } from 'react';
-import { Modal, ModalBody, Media } from 'reactstrap';
+import React from 'react';
+import { Media } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
 import CollabLightBox from 'src/components/CollabLightBox';
 import Background from 'src/components/Background';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const ModalAttachmentsContent = ({ attachments }) => {
-  const [nestedModal, setNestedModal] = useState(false);
-  const toggleNested = () => {
-    setNestedModal(!nestedModal);
-  };
-  const externalCloseBtn = (
-    <button
-      className="close text-secondary p-3"
-      style={{ position: 'absolute', top: '15px', right: '15px' }}
-      onClick={toggleNested}
-    >
-      <FontAwesomeIcon icon="times" transform="right-0.3 down-0.3" />
-    </button>
-  );
-
   return (
     <>
       {attachments

@@ -1,21 +1,11 @@
 import React from 'react';
-import {
-  Button,
-  Modal,
-  ModalBody,
-  Row,
-  Col,
-  UncontrolledButtonDropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownToggle,
-} from 'reactstrap';
+import { Button, Modal, ModalBody, Row, Col } from 'reactstrap';
 import Background from 'src/components/Background';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import ModalMediaContent from 'src/components/kanban/ModalMediaContent';
 
 import { useStoreState } from 'src/hooks/useStoreState';
-import ModalAttachmentsContent from 'src/components/ModalAttachmentsContent';
+import ModalMediaContent from 'src/components/kanban/ModalMediaContent';
+import ModalAttachmentsContent from 'src/components/kanban/ModalAttachmentsContent';
 import ModalCommentContent from 'src/components/kanban/ModalCommentContent';
 
 const KanbanModal = ({ modal, setModal, className, modalContent }) => {

@@ -1,6 +1,7 @@
-import { DataStore, utils } from 'js-data';
-import { HttpAdapter, addAction } from 'js-data-http';
+import { DataStore, utils } from 'js-data/src/index';
+import { HttpAdapter, addAction } from 'js-data-http/src/index';
 // If we want sourcemaps to working properly while debugging, change above line to import from 'js-data-http/src/index';
+// If you do that, in that file you need to change line to do: import axios from 'axios'
 
 import { inviteSchema, inviteRelations, inviteActions } from 'src/store/jsdata/models/Invite';
 import { membershipSchema, membershipRelations } from 'src/store/jsdata/models/Membership';
@@ -68,7 +69,7 @@ const adapter = new HttpAdapter({
     const datastore = mapper.datastore;
     deserialize(response, datastore, mappers);
 
-    const key = opts.op === 'findAll' ? opts.endpoint : opts.name; // example: `users` or `user`
+    const key = opts.op === 'findAll' ? mapper.schema.plural : opts.name; // example: `users` or `user`. `taskColumns` or `taskColumn`
     response.data = response.data[key];
     return HttpAdapter.prototype.deserialize.call(this, mapper, response, opts);
   },
@@ -117,19 +118,19 @@ jsdataStore.defineMapper('task', {
 });
 
 jsdataStore.defineMapper('taskColumn', {
-  endpoint: 'taskColumns',
+  endpoint: 'task_columns',
   schema: taskColumnSchema,
   relations: taskColumnRelations,
 });
 
 jsdataStore.defineMapper('taskComment', {
-  endpoint: 'taskComments',
+  endpoint: 'task_comments',
   schema: taskCommentSchema,
   relations: taskCommentRelations,
 });
 
 jsdataStore.defineMapper('taskMetadata', {
-  endpoint: 'taskMetadatas',
+  endpoint: 'task_metadatas',
   schema: taskMetadataSchema,
   relations: taskMetadataRelations,
 });

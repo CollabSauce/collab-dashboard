@@ -1,9 +1,8 @@
 import React, { useRef, useEffect } from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { useParams } from 'react-router-dom';
-import { usDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import is from 'is_js';
-import { useParams } from 'react-router-dom';
 
 import { jsdataStore } from 'src/store/jsdata';
 import { useStoreState } from 'src/hooks/useStoreState';
@@ -32,17 +31,19 @@ const KanbanContainer = () => {
   useEffect(() => {
     jsdataStore.findAll('taskColumn', {
       'filter{project}': projectId,
-      include: ['tasks.task_metadata.', 'tasks.task_comments.creator.', 'tasks.creator.'],
+      include: ['project', 'tasks.task_metadata.', 'tasks.task_comments.creator.', 'tasks.creator.'],
     });
   }, [projectId]);
 
   const { result: kanbanColumns } = useStoreState(
     (store) => {
-      return store.getAll('taskColumn').filter((column) => column.projectId === projectId);
+      return store.getAll('taskColumn').filter((column) => column.projectId === parseInt(projectId));
     },
     [projectId],
     'taskColumn'
   );
+
+  console.log(kanbanColumns);
 
   const modal = useSelector((state) => state.kanban.modal);
   const modalContent = useSelector((state) => state.kanban.modalContent);
@@ -89,10 +90,10 @@ const KanbanContainer = () => {
       reordered = reorderedTaskIds.map((id, idx) => ({ id, order: idx }));
     } else {
       // move task to different column and reorder new column.
-      reorderedTaskIds = move(currentSortedTaskIds, result.draggableId, destination.index);
+      reorderedTaskIds = move(currentSortedTaskIds, draggableId, destination.index);
       reordered = reorderedTaskIds.map((id, idx) => {
         const data = { id, order: idx }; // update the new order of the task
-        if (id === result.draggableId) {
+        if (id === draggableId) {
           data.taskColumn = destination.droppableId; // we also need to update the taskColumn of the moved task
         }
         return data;
@@ -109,7 +110,7 @@ const KanbanContainer = () => {
           kanbanColumns.map((kanbanColumnItem, index) => {
             return <KanbanColumn kanbanColumnItem={kanbanColumnItem} key={index} index={index} />;
           })}
-        <KanbanModal modal={modal} setModal={dispatch.kanban.setModal} modalContent={modalContent} />
+        {modal && <KanbanModal modal={modal} setModal={dispatch.kanban.setModal} modalContent={modalContent} />}
       </div>
     </DragDropContext>
   );
