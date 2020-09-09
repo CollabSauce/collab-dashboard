@@ -9,7 +9,7 @@ import ButtonIcon from 'src/components/ButtonIcon';
 import AddAnotherCard from 'src/components/kanban/AddAnotherCard';
 import TaskCard from 'src/components/kanban/TaskCard';
 
-const KanbanColumn = ({ kanbanColumnItem, tasks, index }) => {
+const KanbanColumn = ({ kanbanColumnItem, tasks, onTaskCreated, index }) => {
   const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
@@ -49,7 +49,13 @@ const KanbanColumn = ({ kanbanColumnItem, tasks, index }) => {
                   />
                 );
               })}
-              {showForm && <AddAnotherCard kanbanColumnItem={kanbanColumnItem} setShowForm={setShowForm} />}
+              {showForm && (
+                <AddAnotherCard
+                  kanbanColumnItem={kanbanColumnItem}
+                  setShowForm={setShowForm}
+                  onTaskCreated={onTaskCreated}
+                />
+              )}
               {provided.placeholder}
             </div>
             {!showForm && (

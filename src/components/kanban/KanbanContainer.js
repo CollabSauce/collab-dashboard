@@ -54,14 +54,6 @@ const KanbanContainer = () => {
     // eslint-disable-next-line
   }, [projectId]);
 
-  // const { result: kanbanColumns } = useStoreState(
-  //   (store) => {
-  //     return store.getAll('taskColumn').filter((column) => column.projectId === parseInt(projectId));
-  //   },
-  //   [projectId],
-  //   'taskColumn'
-  // );
-
   const modal = useSelector((state) => state.kanban.modal);
   const modalContent = useSelector((state) => state.kanban.modalContent);
   const dispatch = useDispatch();
@@ -104,7 +96,7 @@ const KanbanContainer = () => {
       // update the local data structure
       const newColumns = columns.map((column) => {
         if (column === destinationColumn) {
-          return { taskColumn: destinationColumn.taskColumn, tasks: reorderedTasks };
+          return { ...destinationColumn, tasks: reorderedTasks };
         } else {
           return column;
         }
@@ -133,9 +125,9 @@ const KanbanContainer = () => {
       // update the local data structure
       const newColumns = columns.map((column) => {
         if (column === sourceColumn) {
-          return { taskColumn: sourceColumn.taskColumn, tasks: reorderedSourceTasks };
+          return { ...sourceColumn, tasks: reorderedSourceTasks };
         } else if (column === destinationColumn) {
-          return { taskColumn: destinationColumn.taskColumn, tasks: reorderedDestTasks };
+          return { ...destinationColumn, tasks: reorderedDestTasks };
         } else {
           return column;
         }
@@ -159,6 +151,20 @@ const KanbanContainer = () => {
     }
   };
 
+  const addTaskToColumn = (task, destinationColumn) => {
+    const updatedCols = columns.map((column) => {
+      if (column === destinationColumn) {
+        return {
+          ...destinationColumn,
+          tasks: [...destinationColumn.tasks, task],
+        };
+      } else {
+        return column;
+      }
+    });
+    setColumns(updatedCols);
+  };
+
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <div className="kanban-container scrollbar" ref={containerRef}>
@@ -168,6 +174,9 @@ const KanbanContainer = () => {
               <KanbanColumn
                 kanbanColumnItem={kanbanColumnItem.taskColumn}
                 tasks={kanbanColumnItem.tasks}
+                onTaskCreated={(task) => {
+                  addTaskToColumn(task, kanbanColumnItem);
+                }}
                 key={index}
                 index={index}
               />

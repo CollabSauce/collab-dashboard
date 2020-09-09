@@ -4,20 +4,20 @@ import { useParams } from 'react-router-dom';
 import { jsdataStore } from 'src/store/jsdata';
 import { Button, Form, Input, Row, Col } from 'reactstrap';
 
-const AddAnotherCard = ({ kanbanColumnItem, setShowForm }) => {
+const AddAnotherCard = ({ kanbanColumnItem, setShowForm, onTaskCreated }) => {
   const [cardHeaderTitle, setCardHeaderTitle] = useState('');
   const { id: projectId } = useParams();
 
-  const handleAddCard = (value) => {
+  const handleAddCard = async (value) => {
     const task = {
-      // id: kanbanTaskCards.length + 1,
       title: value,
       target_dom_path: 'NONE',
-      projectId: projectId,
-      taskColumnId: kanbanColumnItem.id,
+      project: parseInt(projectId),
+      task_column: parseInt(kanbanColumnItem.id),
     };
 
-    jsdataStore.create('task', task);
+    const response = await jsdataStore.getMapper('task').createTask({ data: task });
+    onTaskCreated(response.data.task);
   };
 
   const handleSubmit = (e) => {

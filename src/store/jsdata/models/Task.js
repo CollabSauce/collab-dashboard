@@ -57,4 +57,9 @@ export const taskActions = {
     method: 'POST',
     addResponseToStore: true,
   },
+  createTask: {
+    pathname: 'create_task',
+    method: 'POST',
+    addResponseToStore: true,
+  },
 };
