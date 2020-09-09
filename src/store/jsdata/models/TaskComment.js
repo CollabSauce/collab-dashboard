@@ -24,3 +24,12 @@ export const taskCommentRelations = {
     },
   },
 };
+
+export const taskCommentActions = {
+  // POST /tasks/create_task_comment
+  createTaskComment: {
+    pathname: 'create_task_comment',
+    method: 'POST',
+    addResponseToStore: true,
+  },
+};

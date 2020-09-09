@@ -12,7 +12,7 @@ const Task = () => {
 
   const loadTask = async () => {
     const loadedTask = await jsdataStore.find('task', taskId, {
-      params: { include: ['task_metadata.', 'task_comments.', 'creator.', 'project'] },
+      params: { include: ['task_metadata.', 'task_comments.creator.', 'creator.', 'project'] },
       force: true,
     });
     setTask(loadedTask);

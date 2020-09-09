@@ -48,7 +48,7 @@ const KanbanModal = ({ task, projectId }) => {
             </ModalMediaContent>
             {/* //Comment */}
             <ModalMediaContent title="Comments" icon={['far', 'comment']} headingClass="mb-3">
-              <ModalCommentContent comments={task.taskComments} />
+              <ModalCommentContent task={task} />
             </ModalMediaContent>
           </Col>
         </Row>
