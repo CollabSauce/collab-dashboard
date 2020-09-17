@@ -6,6 +6,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import ModalMediaContent from 'src/components/kanban/ModalMediaContent';
 import ModalAttachmentsContent from 'src/components/kanban/ModalAttachmentsContent';
+import ModalDesignEditsContent from 'src/components/kanban/ModalDesignEditsContent';
+import ModalMetadataContent from 'src/components/kanban/ModalMetadataContent';
 import ModalCommentContent from 'src/components/kanban/ModalCommentContent';
 
 const KanbanModal = ({ task, projectId }) => {
@@ -20,7 +22,7 @@ const KanbanModal = ({ task, projectId }) => {
         </div>
       )}
       <div className="bg-light rounded-soft-top px-4 py-3">
-        <h4 className="mb-1">{taskCard.title}</h4>
+        <h4 className="mb-1">Task # {task.taskNumber}</h4>
         <p className="fs--2 mb-0">
           Added by{' '}
           <span className="text-600 font-weight-semi-bold">
@@ -38,14 +40,28 @@ const KanbanModal = ({ task, projectId }) => {
       <div className="p-4">
         <Row>
           <Col lg="9">
-            {/* //description */}
-            <ModalMediaContent title="Description" icon="paperclip">
-              <p className="text-word-break fs--1">{taskCard.description}</p>
+            {/* //title */}
+            <ModalMediaContent title="Description" icon="book-open">
+              <p className="text-word-break fs--1">{taskCard.title}</p>
             </ModalMediaContent>
             {/* //Attachment */}
-            <ModalMediaContent title="Attachments" icon="paperclip" headingClass="d-flex justify-content-between">
-              <ModalAttachmentsContent attachments={[taskCardImage, taskCard.windowScreenshotUrl]} />
-            </ModalMediaContent>
+            {(taskCard.elementScreenshotUrl || taskCard.windowScreenshotUrl) && (
+              <ModalMediaContent title="Attachments" icon="paperclip" headingClass="d-flex justify-content-between">
+                <ModalAttachmentsContent attachments={[taskCardImage, taskCard.windowScreenshotUrl]} />
+              </ModalMediaContent>
+            )}
+            {/* //Design changes */}
+            {taskCard.designEdits && (
+              <ModalMediaContent title="Design Changes" icon="paint-brush" headingClass="mb-3">
+                <ModalDesignEditsContent designEdits={task.designEdits} />
+              </ModalMediaContent>
+            )}
+            {/* //Task metadata */}
+            {taskCard.taskMetadata && (
+              <ModalMediaContent title="Metadata" icon="info" headingClass="mb-3">
+                <ModalMetadataContent metadata={task.taskMetadata} />
+              </ModalMediaContent>
+            )}
             {/* //Comment */}
             <ModalMediaContent title="Comments" icon={['far', 'comment']} headingClass="mb-3">
               <ModalCommentContent task={task} />

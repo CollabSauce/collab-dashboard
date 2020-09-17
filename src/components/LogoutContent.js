@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import rocket from 'src/assets/rocket.png';
+import { jsdataStore } from 'src/store/jsdata';
 import { setAuthToken } from 'src/utils/auth';
 
 const LogoutContent = ({ layout, titleTag: TitleTag }) => {
@@ -14,6 +15,7 @@ const LogoutContent = ({ layout, titleTag: TitleTag }) => {
   // upon entering this page, log the user out
   useEffect(() => {
     setAuthToken();
+    jsdataStore.clear();
     dispatch.app.setCurrentUserId();
     // eslint-disable-next-line
   }, []);

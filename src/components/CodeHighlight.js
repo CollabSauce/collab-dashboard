@@ -29,6 +29,7 @@ const CodeHighlight = ({ code, language, dark }) => {
           style={{
             ...style,
             padding: '10px',
+            paddingTop: '40px',
             borderRadius: '4px',
             border: 0,
           }}

@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-
 import { NavLink, useLocation } from 'react-router-dom';
 import { Collapse, Nav, NavItem, NavLink as BootstrapNavLink } from 'reactstrap';
-import NavbarVerticalMenuItem from './NavbarVerticalMenuItem';
+
+import NavbarVerticalMenuItem from 'src/components/navbar/NavbarVerticalMenuItem';
+import { useStoreState } from 'src/hooks/useStoreState';
 
 const NavbarVerticalMenu = ({ routes }) => {
   const [openedIndex, setOpenedIndex] = useState(null);
@@ -23,6 +24,8 @@ const NavbarVerticalMenu = ({ routes }) => {
     // eslint-disable-next-line
   }, [location.pathname]);
 
+  const { result: projects } = useStoreState((store) => store.getAll('project'), [], 'project');
+
   const toggleOpened = (e, index) => {
     e.preventDefault();
     return setOpenedIndex(openedIndex === index ? null : index);
@@ -40,18 +43,16 @@ const NavbarVerticalMenu = ({ routes }) => {
     }
 
     let childRoutes = route.routes;
-    if (route.key === 'PROJECTS') {
-      // dynamically build child-routes for the veritcal bar
-      // TODO: Build child project routes based off data from backend.
-      childRoutes = [
-        {
-          path: '/projects/1',
-          name: 'Project 1',
+    if (route.key === 'PROJECTS' && projects.length) {
+      // dynamically build child-routes for the vertical bar
+      childRoutes = projects.map((project) => {
+        return {
+          path: `/projects/${project.id}`,
+          name: project.name,
           exact: true,
-          component: () => <h1>1</h1>,
           protected: true,
-        },
-      ];
+        };
+      });
     }
 
     return (

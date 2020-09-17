@@ -1,19 +1,11 @@
-import React from 'react';
+import React, { useMemo } from 'react';
+import uniq from 'lodash/uniq';
 import { Draggable } from 'react-beautiful-dnd';
-import {
-  Card,
-  CardBody,
-  Badge,
-  CardImg,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledTooltip,
-} from 'reactstrap';
+import { Card, CardBody, Badge, CardImg, UncontrolledTooltip } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 
+import { useStoreState } from 'src/hooks/useStoreState';
 import Avatar from 'src/components/Avatar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -26,10 +18,22 @@ const getItemStyle = (isDragging) => ({
   // styles we need to apply on draggables
 });
 
-const TaskCard = ({ taskCardItemId, taskCard, taskCardImage, members, taskCardIndex }) => {
+const TaskCard = ({ taskCard, taskCardIndex }) => {
   const location = useLocation();
+  const taskCardImage = taskCard.elementScreenshotUrl;
+
+  const { result: taskComments } = useStoreState(
+    (store) => store.getAll('taskComment').filter((tc) => tc.task.id === taskCard.id),
+    [taskCard],
+    'taskComment'
+  );
+  const uniqueMembers = useMemo(() => {
+    const members = taskComments.map((comment) => comment.creator);
+    return uniq(members);
+  }, [taskComments]);
+
   return (
-    <Draggable draggableId={`${taskCardItemId}`} index={taskCardIndex}>
+    <Draggable draggableId={`${taskCard.id}`} index={taskCardIndex}>
       {(provided, snapshot) => (
         <div
           className="kanban-item"
@@ -51,89 +55,56 @@ const TaskCard = ({ taskCardItemId, taskCard, taskCardImage, members, taskCardIn
               )}
 
               <CardBody>
-                {taskCard.labels && (
-                  <div className="mb-2">
-                    {taskCard.labels.map((label, index) => (
-                      <Badge className={`badge-soft-${label.color} d-inline-block py-1 mr-1 mb-1`} key={index + 10}>
-                        {label.text}
-                      </Badge>
-                    ))}
+                <div className="mb-3 d-flex justify-content-between">
+                  <div>
+                    {taskCard.designEdits && (
+                      <Badge className={`badge-soft-success d-inline-block py-1 mr-1 mb-0`}>Design Change</Badge>
+                    )}
                   </div>
-                )}
+                  <Badge color="soft-dark">#{taskCard.taskNumber}</Badge>
+                </div>
+                <div className="d-flex align-items-center mb-3">
+                  <Avatar
+                    name={`${taskCard.creator.firstName} ${taskCard.creator.lastName}`}
+                    size="l"
+                    className="mr-2"
+                  />
+                  <p className="mb-0 font-weight-bold">
+                    {taskCard.creator.firstName} {taskCard.creator.lastName}
+                  </p>
+                </div>
                 <p
                   className="mb-0 font-weight-medium text-sans-serif"
                   dangerouslySetInnerHTML={{ __html: taskCard.title }}
                 />
-                {(taskCard.members || taskCard.attachments || taskCard.checklist) && (
-                  <div className="kanban-item-footer">
-                    <div className="text-500">
-                      {taskCard.members && members.find((member) => member.id === 1) && (
-                        <>
-                          <FontAwesomeIcon
-                            icon="eye"
-                            className="mr-2"
-                            id={`cardId-${taskCard.id}`}
-                            transform="grow-1"
-                          />
-                          <UncontrolledTooltip target={`cardId-${taskCard.id}`}>
-                            You're assigned in this card
-                          </UncontrolledTooltip>
-                        </>
-                      )}
-                      {taskCard.attachments && (
-                        <span id={`attachments-${taskCard.id}`} className="mr-2">
-                          <FontAwesomeIcon icon="paperclip" className="mr-1" />
-                          <span>{taskCard.attachments.length}</span>
-                          <UncontrolledTooltip target={`attachments-${taskCard.id}`}>Attachments</UncontrolledTooltip>
-                        </span>
-                      )}
-                      {taskCard.checklist && (
-                        <span id={`Checklist-${taskCard.id}`}>
-                          <FontAwesomeIcon icon="check" className="mr-1" />
-                          <span>
-                            {taskCard.checklist.completed}/{taskCard.checklist.totalCount}
-                          </span>
-                          <UncontrolledTooltip target={`Checklist-${taskCard.id}`}>Checklist</UncontrolledTooltip>
-                        </span>
-                      )}
-                    </div>
-                    <div>
-                      {taskCard.members &&
-                        members.map((member, index) => (
-                          <Link
-                            to="#!"
-                            className={index > 0 ? 'ml-n1 p-0' : 'p-0'}
-                            key={index}
-                            id={`member-${member.id}-${taskCard.id}`}
-                          >
-                            <Avatar src={member.avatar.src} size="l" />
-                            <UncontrolledTooltip target={`member-${member.id}-${taskCard.id}`}>
-                              {member.name}
-                            </UncontrolledTooltip>
-                          </Link>
-                        ))}
-                    </div>
+                <div className="kanban-item-footer">
+                  <div className="text-500">
+                    {taskComments.length > 0 && (
+                      <span id={`comments-${taskCard.id}`} className="mr-2">
+                        <FontAwesomeIcon icon={['far', 'comment-alt']} className="mr-1" />
+                        <span>{taskComments.length}</span>
+                        <UncontrolledTooltip target={`comments-${taskCard.id}`}>
+                          {taskComments.length} Comments
+                        </UncontrolledTooltip>
+                      </span>
+                    )}
                   </div>
-                )}
-                {false && (
-                  <UncontrolledDropdown
-                    className="position-absolute text-sans-serif t-0 r-0 mt-card mr-card hover-actions"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                    }}
-                  >
-                    <DropdownToggle color="falcon-default" size="sm" className="py-0 px-2">
-                      <FontAwesomeIcon icon="ellipsis-h" />
-                    </DropdownToggle>
-                    <DropdownMenu right className="py-0">
-                      <DropdownItem>Add Card</DropdownItem>
-                      <DropdownItem>Edit</DropdownItem>
-                      <DropdownItem>Copy link</DropdownItem>
-                      <DropdownItem divider />
-                      <DropdownItem className="text-danger">Remove</DropdownItem>
-                    </DropdownMenu>
-                  </UncontrolledDropdown>
-                )}
+                  <div>
+                    {uniqueMembers &&
+                      uniqueMembers.map((member, index) => (
+                        <div
+                          className={index > 0 ? 'ml-n1 p-0' : 'p-0'}
+                          key={index}
+                          id={`member-${member.id}-${taskCard.id}`}
+                        >
+                          <Avatar name={`${member.firstName} ${member.lastName}`} size="l" />
+                          <UncontrolledTooltip target={`member-${member.id}-${taskCard.id}`}>
+                            {`${member.firstName} ${member.lastName}`}
+                          </UncontrolledTooltip>
+                        </div>
+                      ))}
+                  </div>
+                </div>
               </CardBody>
             </Card>
           </Link>

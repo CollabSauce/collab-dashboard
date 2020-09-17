@@ -35,20 +35,9 @@ const KanbanColumn = ({ kanbanColumnItem, tasks, onTaskCreated, index }) => {
               ref={provided.innerRef}
               {...provided.droppableProps}
             >
-              {tasks.map((taskCard, taskCardIndex) => {
-                const taskCardImage = taskCard.elementScreenshotUrl;
-
-                return (
-                  <TaskCard
-                    members={[]}
-                    taskCardImage={taskCardImage}
-                    taskCard={taskCard}
-                    key={taskCard.id}
-                    taskCardIndex={taskCardIndex}
-                    taskCardItemId={taskCard.id}
-                  />
-                );
-              })}
+              {tasks.map((taskCard, idx) => (
+                <TaskCard taskCard={taskCard} key={taskCard.id} taskCardIndex={idx} />
+              ))}
               {showForm && (
                 <AddAnotherCard
                   kanbanColumnItem={kanbanColumnItem}

@@ -10,8 +10,11 @@ import {
   faTimes,
   faPaperclip,
   faCircle,
+  faBookOpen,
+  faPaintBrush,
+  faInfo,
 } from '@fortawesome/free-solid-svg-icons';
-import { faComment } from '@fortawesome/free-regular-svg-icons';
+import { faComment, faCommentAlt } from '@fortawesome/free-regular-svg-icons';
 
 library.add(
   faUser,
@@ -24,5 +27,9 @@ library.add(
   faTimes,
   faPaperclip,
   faComment,
-  faCircle
+  faCircle,
+  faCommentAlt,
+  faBookOpen,
+  faPaintBrush,
+  faInfo
 );

@@ -4,6 +4,7 @@ import { Spinner } from 'reactstrap';
 import { useLocation } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import 'react-image-lightbox/style.css';
 
 import NavbarTop from 'src/components/navbar/NavbarTop';
 import NavbarVertical from 'src/components/navbar/NavbarVertical';

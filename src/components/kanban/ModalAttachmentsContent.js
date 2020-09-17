@@ -1,6 +1,5 @@
 import React from 'react';
 import { Media } from 'reactstrap';
-import { Link } from 'react-router-dom';
 
 import CollabLightBox from 'src/components/CollabLightBox';
 import Background from 'src/components/Background';
@@ -22,9 +21,9 @@ const ModalAttachmentsContent = ({ attachments }) => {
               <Media body className="fs--2">
                 <h6 className="mb-1 text-primary">
                   <CollabLightBox imgSrc={item}>
-                    <Link to="#!" className="text-decoration-none">
+                    <div className="text-decoration-none">
                       {index === 0 ? 'Element Screenshot' : 'Window Screenshot'}
-                    </Link>
+                    </div>
                   </CollabLightBox>
                 </h6>
               </Media>
