@@ -15,10 +15,8 @@
   right: 0px;
 }
 
-@include media-breakpoint-up(lg) {
-  .items-3-lg {
-    flex-basis: calc(33.333333% - 10px);
-  }
+.items-3 {
+  flex-basis: calc(33.333333% - 10px);
 }
 
 .max-w-440 {

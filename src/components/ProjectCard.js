@@ -1,12 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Card, CardBody } from 'reactstrap';
+import classNames from 'classnames';
 
 import CollabCardHeader from 'src/components/CollabCardHeader';
 
-const ProjectCard = ({ project, onInstallWidgetClick, index }) => {
+const ProjectCard = ({ project, onInstallWidgetClick, addMarginLeft, className }) => {
   return (
-    <Card className="mb-3 items-3-lg">
+    <Card className={classNames(className)}>
       <CollabCardHeader title={project.name} light={false} titleClass="fs-0" />
       <CardBody className="bg-light">
         <img

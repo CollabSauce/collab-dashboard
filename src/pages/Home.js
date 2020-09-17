@@ -38,6 +38,14 @@ const Home = () => {
 
   const { result: currentUser } = useCurrentUser();
   const { result: organizations } = useStoreState((store) => store.getAll('organization'), [], 'organization');
+  const { result: projects } = useStoreState(
+    (store) =>
+      store.getAll('project').filter((project) => {
+        return organizations.length ? project.organizationId === organizations[0].id : false;
+      }),
+    [organizations],
+    'project'
+  );
 
   const isAdminOfOrg = useMemo(() => {
     if (organizations.length) {
@@ -47,6 +55,18 @@ const Home = () => {
     return false;
     // eslint-disable-next-line
   }, [organizations, currentUser, loading]);
+
+  const projectRows = useMemo(() => {
+    const rows = []; // 3 per row
+    projects.forEach((project, index) => {
+      const projectRowIndex = Math.floor(index / 3);
+      if (!rows[projectRowIndex]) {
+        rows.push([]);
+      }
+      rows[projectRowIndex].push(project);
+    });
+    return rows;
+  }, [projects]);
 
   const onClickStarter = () => {
     setShowCreateOrgModal(true);
@@ -91,8 +111,6 @@ const Home = () => {
     );
   }
 
-  const projects = organizations[0].projects;
-
   return (
     <>
       {isAdminOfOrg && (
@@ -102,13 +120,27 @@ const Home = () => {
         </div>
       )}
 
-      {projects.length ? (
-        <div className="d-flex flex-wrap justify-content-between">
-          {organizations[0].projects.map((project, index) => (
-            <ProjectCard key={project.id} project={project} onInstallWidgetClick={openWidgetInfoModel} index={index} />
-          ))}
-        </div>
-      ) : null}
+      {projectRows.map((row, rowIdx) => {
+        return (
+          <div className="d-none d-lg-flex justify-content-between" key={rowIdx}>
+            {row.map((project, projectIdx) => (
+              <ProjectCard
+                key={project.id}
+                project={project}
+                onInstallWidgetClick={openWidgetInfoModel}
+                className="mb-3 items-3"
+              />
+            ))}
+            {row.length === 2 && <div className="mb-3 items-3" />}
+          </div>
+        );
+      })}
+
+      <div className="d-flex flex-wrap d-lg-none">
+        {projects.map((project) => (
+          <ProjectCard key={project.id} project={project} onInstallWidgetClick={openWidgetInfoModel} className="mb-3" />
+        ))}
+      </div>
 
       {!projects.length && !isAdminOfOrg && <NoProjectsNoAdminBlock />}
 
