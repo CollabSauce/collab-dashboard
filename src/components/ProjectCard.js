@@ -10,12 +10,14 @@ const ProjectCard = ({ project, onInstallWidgetClick, addMarginLeft, className }
     <Card className={classNames(className)}>
       <CollabCardHeader title={project.name} light={false} titleClass="fs-0" />
       <CardBody className="bg-light">
-        <img
-          className="mb-3"
-          width="100%"
-          src="https://i.insider.com/5ce6ee37f85e163ebd1f0894?width=1800&format=jpeg&auto=webp"
-          alt="Latest Project Img"
-        />
+        {false && (
+          <img
+            className="mb-3"
+            width="100%"
+            src="https://i.insider.com/5ce6ee37f85e163ebd1f0894?width=1800&format=jpeg&auto=webp"
+            alt="Latest Project Img"
+          />
+        )}
         <Button color="falcon-primary" block onClick={() => onInstallWidgetClick(project)}>
           Install Widget
         </Button>

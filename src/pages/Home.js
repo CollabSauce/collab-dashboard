@@ -138,7 +138,12 @@ const Home = () => {
 
       <div className="d-flex flex-wrap d-lg-none">
         {projects.map((project) => (
-          <ProjectCard key={project.id} project={project} onInstallWidgetClick={openWidgetInfoModel} className="mb-3" />
+          <ProjectCard
+            key={project.id}
+            project={project}
+            onInstallWidgetClick={openWidgetInfoModel}
+            className="mb-3 w-100"
+          />
         ))}
       </div>
 
