@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Spinner } from 'reactstrap';
 import { useLocation } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
@@ -15,7 +15,7 @@ import { useStoreState } from 'src/hooks/useStoreState';
 
 const App = () => {
   const [ready, setReady] = useState(false);
-  const isKanban = false; // TODO: Update
+  const isKanban = useSelector((state) => state.app.isKanban);
   const dispatch = useDispatch();
   const location = useLocation();
   const { result: organizations } = useStoreState((store) => store.getAll('organization'), [], 'organization');

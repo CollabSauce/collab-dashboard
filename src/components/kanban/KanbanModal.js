@@ -4,6 +4,7 @@ import { Button, ModalBody, Row, Col } from 'reactstrap';
 import Background from 'src/components/Background';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import CollabCommentRenderer from 'src/components/CollabCommentRenderer';
 import ModalMediaContent from 'src/components/kanban/ModalMediaContent';
 import ModalAttachmentsContent from 'src/components/kanban/ModalAttachmentsContent';
 import ModalDesignEditsContent from 'src/components/kanban/ModalDesignEditsContent';
@@ -39,10 +40,12 @@ const KanbanModal = ({ task, projectId }) => {
       </div>
       <div className="p-4">
         <Row>
-          <Col lg="9">
+          <Col lg="11">
             {/* //title */}
             <ModalMediaContent title="Description" icon="book-open">
-              <p className="text-word-break fs--1">{taskCard.title}</p>
+              <div className="text-word-break fs--1">
+                <CollabCommentRenderer content={taskCard.title} />
+              </div>
             </ModalMediaContent>
             {/* //Attachment */}
             {(taskCard.elementScreenshotUrl || taskCard.windowScreenshotUrl) && (

@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { jsdataStore } from 'src/store/jsdata';
-import { Button, Form, Input, Row, Col } from 'reactstrap';
+import { Button, Form, Row, Col } from 'reactstrap';
+import CollabMentionInput from 'src/components/CollabMentionInput';
 
 const AddAnotherCard = ({ kanbanColumnItem, setShowForm, onTaskCreated }) => {
   const [cardHeaderTitle, setCardHeaderTitle] = useState('');
@@ -29,11 +30,10 @@ const AddAnotherCard = ({ kanbanColumnItem, setShowForm, onTaskCreated }) => {
   return (
     <div className="p-3 border bg-white rounded-soft transition-none mt-3">
       <Form onSubmit={(e) => handleSubmit(e)}>
-        <Input
-          type="textarea"
-          placeholder="Enter a title for this card..."
-          className="mb-2 add-card"
+        <CollabMentionInput
+          placeholder="Enter content for this card..."
           value={cardHeaderTitle}
+          className="mb-2 add-card"
           autoFocus
           onChange={({ target }) => {
             setCardHeaderTitle(target.value);

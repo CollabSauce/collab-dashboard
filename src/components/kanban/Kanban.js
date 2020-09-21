@@ -15,6 +15,11 @@ const Kanban = ({ project }) => {
     };
   }, [dispatch.app]);
 
+  useEffect(() => {
+    dispatch.app.setIsKanban(true);
+    return () => dispatch.app.setIsKanban(false);
+  }, [dispatch.app]);
+
   return (
     <>
       <KanbanHeader project={project} />

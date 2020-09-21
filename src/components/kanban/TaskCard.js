@@ -4,6 +4,7 @@ import { Draggable } from 'react-beautiful-dnd';
 import { Card, CardBody, Badge, CardImg, UncontrolledTooltip } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
+import CollabCommentRenderer from 'src/components/CollabCommentRenderer';
 
 import { useStoreState } from 'src/hooks/useStoreState';
 import Avatar from 'src/components/Avatar';
@@ -73,10 +74,7 @@ const TaskCard = ({ taskCard, taskCardIndex }) => {
                     {taskCard.creator.firstName} {taskCard.creator.lastName}
                   </p>
                 </div>
-                <p
-                  className="mb-0 font-weight-medium text-sans-serif"
-                  dangerouslySetInnerHTML={{ __html: taskCard.title }}
-                />
+                <CollabCommentRenderer className="mb-0 font-weight-medium text-sans-serif" content={taskCard.title} />
                 <div className="kanban-item-footer">
                   <div className="text-500">
                     {taskComments.length > 0 && (
@@ -89,7 +87,7 @@ const TaskCard = ({ taskCard, taskCardIndex }) => {
                       </span>
                     )}
                   </div>
-                  <div>
+                  <div className="d-flex">
                     {uniqueMembers &&
                       uniqueMembers.map((member, index) => (
                         <div

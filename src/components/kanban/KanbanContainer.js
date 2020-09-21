@@ -48,8 +48,13 @@ const KanbanContainer = () => {
     setColumns(cols);
   };
 
+  const fetchMemberships = () => {
+    jsdataStore.findAll('membership', { include: ['user.'] }, { force: true });
+  };
+
   useEffect(() => {
     fetchKanbanData();
+    fetchMemberships();
     // eslint-disable-next-line
   }, [projectId]);
 
@@ -148,17 +153,28 @@ const KanbanContainer = () => {
   };
 
   const addTaskToColumn = (task, destinationColumn) => {
-    const updatedCols = columns.map((column) => {
+    let destIdx = -1;
+    const updatedCols = columns.map((column, idx) => {
       if (column === destinationColumn) {
+        // THIS IS WONKY... destinationColumn.tasks is already updated.
+        // This is the jsdata tasks. we just need to tell the local state about it.
+        destIdx = idx;
         return {
           ...destinationColumn,
-          tasks: [...destinationColumn.tasks, task],
+          tasks: [...destinationColumn.tasks],
         };
       } else {
         return column;
       }
     });
     setColumns(updatedCols);
+    if (destIdx > -1) {
+      setTimeout(() => {
+        // scroll to bottom of column
+        const col = document.getElementById(`container-${destIdx}`);
+        col.scrollTop = col.scrollHeight;
+      }, 300);
+    }
   };
 
   return (
@@ -166,6 +182,7 @@ const KanbanContainer = () => {
       <div className="kanban-container scrollbar" ref={containerRef}>
         {isIterableArray(columns) &&
           columns.map((kanbanColumnItem, index) => {
+            // if (index === 0) { debugger; }
             return (
               <KanbanColumn
                 kanbanColumnItem={kanbanColumnItem.taskColumn}
