@@ -37,7 +37,13 @@ const KanbanContainer = () => {
       'taskColumn',
       {
         'filter{project}': projectId,
-        include: ['project', 'tasks.task_metadata.', 'tasks.task_comments.creator.', 'tasks.creator.'],
+        include: [
+          'project',
+          'tasks.task_metadata.',
+          'tasks.task_comments.creator_full_name',
+          'tasks.task_comments.creator',
+          'tasks.creator_full_name',
+        ],
       },
       { force: true }
     );

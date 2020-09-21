@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import uniq from 'lodash/uniq';
+import uniqBy from 'lodash/uniqBy';
 import { Draggable } from 'react-beautiful-dnd';
 import { Card, CardBody, Badge, CardImg, UncontrolledTooltip } from 'reactstrap';
 import { Link } from 'react-router-dom';
@@ -28,9 +28,11 @@ const TaskCard = ({ taskCard, taskCardIndex }) => {
     [taskCard],
     'taskComment'
   );
-  const uniqueMembers = useMemo(() => {
-    const members = taskComments.map((comment) => comment.creator);
-    return uniq(members);
+  const uniqueCommentCreators = useMemo(() => {
+    return uniqBy(taskComments, 'creatorId').map((comment) => ({
+      fullName: comment.creatorFullName,
+      id: comment.creatorId,
+    }));
   }, [taskComments]);
 
   return (
@@ -65,14 +67,8 @@ const TaskCard = ({ taskCard, taskCardIndex }) => {
                   <Badge color="soft-dark">#{taskCard.taskNumber}</Badge>
                 </div>
                 <div className="d-flex align-items-center mb-3">
-                  <Avatar
-                    name={`${taskCard.creator.firstName} ${taskCard.creator.lastName}`}
-                    size="l"
-                    className="mr-2"
-                  />
-                  <p className="mb-0 font-weight-bold">
-                    {taskCard.creator.firstName} {taskCard.creator.lastName}
-                  </p>
+                  <Avatar name={`${taskCard.creatorFullName}`} size="l" className="mr-2" />
+                  <p className="mb-0 font-weight-bold">{taskCard.creatorFullName}</p>
                 </div>
                 <CollabCommentRenderer className="mb-0 font-weight-medium text-sans-serif" content={taskCard.title} />
                 <div className="kanban-item-footer">
@@ -88,19 +84,18 @@ const TaskCard = ({ taskCard, taskCardIndex }) => {
                     )}
                   </div>
                   <div className="d-flex">
-                    {uniqueMembers &&
-                      uniqueMembers.map((member, index) => (
-                        <div
-                          className={index > 0 ? 'ml-n1 p-0' : 'p-0'}
-                          key={index}
-                          id={`member-${member.id}-${taskCard.id}`}
-                        >
-                          <Avatar name={`${member.firstName} ${member.lastName}`} size="l" />
-                          <UncontrolledTooltip target={`member-${member.id}-${taskCard.id}`}>
-                            {`${member.firstName} ${member.lastName}`}
-                          </UncontrolledTooltip>
-                        </div>
-                      ))}
+                    {uniqueCommentCreators.map((creator, index) => (
+                      <div
+                        className={index > 0 ? 'ml-n1 p-0' : 'p-0'}
+                        key={index}
+                        id={`creator-${creator.id}-${taskCard.id}`}
+                      >
+                        <Avatar name={creator.fullName} size="l" />
+                        <UncontrolledTooltip target={`creator-${creator.id}-${taskCard.id}`}>
+                          {creator.fullName}
+                        </UncontrolledTooltip>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </CardBody>

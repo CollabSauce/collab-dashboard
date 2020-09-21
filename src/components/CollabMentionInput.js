@@ -1,5 +1,6 @@
 import React from 'react';
 import { MentionsInput, Mention } from 'react-mentions';
+import classNames from 'classnames';
 
 import { useStoreState } from 'src/hooks/useStoreState';
 import { useCurrentUser } from 'src/hooks/useCurrentUser';

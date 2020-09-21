@@ -25,10 +25,7 @@ const KanbanModal = ({ task, projectId }) => {
       <div className="bg-light rounded-soft-top px-4 py-3">
         <h4 className="mb-1">Task # {task.taskNumber}</h4>
         <p className="fs--2 mb-0">
-          Added by{' '}
-          <span className="text-600 font-weight-semi-bold">
-            {taskCard.creator.firstName} {taskCard.creator.lastName}
-          </span>
+          Added by <span className="text-600 font-weight-semi-bold">{taskCard.creatorFullName}</span>
         </p>
       </div>
       <div className="position-absolute t-0 r-0  z-index-1">
