@@ -47,14 +47,19 @@ const Home = () => {
     'project'
   );
 
+  const { result: memberships } = useStoreState(
+    (store) =>
+      store.getAll('membership').filter((membership) => {
+        return organizations.length ? membership.organizationId === organizations[0].id : false;
+      }),
+    [organizations],
+    'membership'
+  );
+
   const isAdminOfOrg = useMemo(() => {
-    if (organizations.length) {
-      const org = organizations[0];
-      return org.memberships.find((m) => m.user === currentUser && m.role === MemberRoleTypes.ADMIN);
-    }
-    return false;
+    return memberships.find((m) => m.user === currentUser && m.role === MemberRoleTypes.ADMIN);
     // eslint-disable-next-line
-  }, [organizations, currentUser, loading]);
+  }, [memberships, currentUser, loading]);
 
   const projectRows = useMemo(() => {
     const rows = []; // 3 per row
