@@ -8,12 +8,12 @@ import CodeHighlight from 'src/components/CodeHighlight';
 
 const WidgetInfoModal = ({ project, onClose }) => {
   const onCopyToClipboard = () => toast.info('Copied to clipboard!');
-  const codeSnippetForClipboard = `<script type="text/javascript" async src="https://collabsauce.com/js/kickoff.js?projectKey=${project.key}" />`;
+  const codeSnippetForClipboard = `<script type="text/javascript" async src="https://staging-collab-widget.netlify.app/js/widget.js?projectKey=${project.key}" />`;
   const codeSnippetForHighlight = `<script
     type="text/javascript"
     async
-    src="https://collabsauce.com/js/
-        kickoff.js?projectKey=
+    src="https://staging-collab-widget.netlify.app/js/
+        widget.js?projectKey=
         ${project.key}"
   />`;
 
