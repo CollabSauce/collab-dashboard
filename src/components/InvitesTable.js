@@ -16,7 +16,6 @@ const actionFormatter = (dataField, { id }) => {
   };
 
   return (
-    // Control your row with this id
     <UncontrolledDropdown>
       <DropdownToggle color="link" size="sm" className="text-600 btn-reveal mr-3">
         <FontAwesomeIcon icon="ellipsis-h" className="fs--1" />
