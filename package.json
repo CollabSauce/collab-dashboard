@@ -33,6 +33,7 @@
     "react-bootstrap-table-next": "^4.0.3",
     "react-copy-to-clipboard": "^5.0.2",
     "react-dom": "^16.13.1",
+    "react-helmet": "^6.1.0",
     "react-image-lightbox": "^5.1.1",
     "react-mentions": "^4.0.2",
     "react-redux": "^7.2.1",
@@ -44,11 +45,13 @@
     "redux": "^4.0.5"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "REACT_APP_ENV=development react-scripts start",
+    "build-production": "REACT_APP_ENV=production react-scripts build",
+    "build-staging": "REACT_APP_ENV=staging REACT_APP_COLLAB_PROJECT_KEY=rtrEutlbJi07LBGhsw9bsJQ3SfEwSKZr react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "netlify deploy --prod"
+    "deploy-production": "netlify TBD THIS SHOULD BREAK RIGHT NOW deploy --prod",
+    "deploy-staging": "netlify deploy --prod --site 196a404d-eb1a-423d-9625-f429f64d3270"
   },
   "eslintConfig": {
     "extends": "react-app"

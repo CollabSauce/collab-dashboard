@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Spinner } from 'reactstrap';
 import { useLocation } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
+import { Helmet } from 'react-helmet';
 import 'react-toastify/dist/ReactToastify.css';
 import 'react-image-lightbox/style.css';
 
@@ -46,6 +47,15 @@ const App = () => {
     <div className={isKanban ? 'container-fluid' : 'container'}>
       {showVerticalNav && <NavbarVertical isKanban={isKanban} navbarStyle="transparent" />}
       <div className="content">
+        <Helmet>
+          {process.env.REACT_APP_ENV === 'staging' && (
+            <script
+              type="text/javascript"
+              async
+              src={`https://widget.staging.collabsauce.com?projectKey=${process.env.REACT_APP_COLLAB_PROJECT_KEY}`}
+            ></script>
+          )}
+        </Helmet>
         {!on404Page && <NavbarTop />}
         <RenderRoutes routes={ROUTES} isTopLevel />
       </div>
