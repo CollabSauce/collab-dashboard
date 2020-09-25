@@ -12,8 +12,7 @@ const WidgetInfoModal = ({ project, onClose }) => {
   const codeSnippetForHighlight = `<script
     type="text/javascript"
     async
-    src="https://staging-collab-widget.netlify
-        .app/js/widget.js?projectKey=
+    src="https://widget.staging.collabsauce.com?projectKey=
         ${project.key}"
   ></script>`;
 
