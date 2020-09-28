@@ -13,6 +13,7 @@ import {
   faBookOpen,
   faPaintBrush,
   faInfo,
+  faUserTag,
 } from '@fortawesome/free-solid-svg-icons';
 import { faComment, faCommentAlt } from '@fortawesome/free-regular-svg-icons';
 
@@ -31,5 +32,6 @@ library.add(
   faCommentAlt,
   faBookOpen,
   faPaintBrush,
-  faInfo
+  faInfo,
+  faUserTag
 );

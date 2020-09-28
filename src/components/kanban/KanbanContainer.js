@@ -43,6 +43,7 @@ const KanbanContainer = () => {
           'tasks.task_comments.creator_full_name',
           'tasks.task_comments.creator',
           'tasks.creator_full_name',
+          'tasks.assigned_to_full_name',
         ],
       },
       { force: true }

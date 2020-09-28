@@ -66,10 +66,12 @@ const TaskCard = ({ taskCard, taskCardIndex }) => {
                   </div>
                   <Badge color="soft-dark">#{taskCard.taskNumber}</Badge>
                 </div>
-                <div className="d-flex align-items-center mb-3">
-                  <Avatar name={`${taskCard.creatorFullName}`} size="l" className="mr-2" />
-                  <p className="mb-0 font-weight-bold">{taskCard.creatorFullName}</p>
-                </div>
+                {taskCard.assignedToFullName && (
+                  <div className="d-flex align-items-center mb-3">
+                    <Avatar name={`${taskCard.assignedToFullName}`} size="l" className="mr-2" />
+                    <p className="mb-0 font-weight-bold">{taskCard.assignedToFullName}</p>
+                  </div>
+                )}
                 <CollabCommentRenderer className="mb-0 font-weight-medium text-sans-serif" content={taskCard.title} />
                 <div className="kanban-item-footer">
                   <div className="text-500">
@@ -97,6 +99,9 @@ const TaskCard = ({ taskCard, taskCardIndex }) => {
                       </div>
                     ))}
                   </div>
+                </div>
+                <div className="ml-2 mr-2 mt-1 mb-1">
+                  Created by <i>{`${taskCard.creatorFullName}`}</i>
                 </div>
               </CardBody>
             </Card>

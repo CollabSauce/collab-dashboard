@@ -1,19 +1,42 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, ModalBody, Row, Col } from 'reactstrap';
 import Background from 'src/components/Background';
+import { toast } from 'react-toastify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import { jsdataStore } from 'src/store/jsdata';
 import CollabCommentRenderer from 'src/components/CollabCommentRenderer';
 import ModalMediaContent from 'src/components/kanban/ModalMediaContent';
 import ModalAttachmentsContent from 'src/components/kanban/ModalAttachmentsContent';
 import ModalDesignEditsContent from 'src/components/kanban/ModalDesignEditsContent';
 import ModalMetadataContent from 'src/components/kanban/ModalMetadataContent';
 import ModalCommentContent from 'src/components/kanban/ModalCommentContent';
+import AssignSelect from 'src/components/AssignSelect';
 
 const KanbanModal = ({ task, projectId }) => {
   const taskCard = task;
   const taskCardImage = task.elementScreenshotUrl;
+  const [rerender, setRerender] = useState(false);
+
+  const onAssigneeChange = async (option) => {
+    let userId = null;
+    if (option) {
+      userId = option.value;
+    }
+    try {
+      // const user = userId ? jsdataStore.get('user', userId) : null;
+      const data = { assigned_to_id: userId, task_id: task.id };
+      await jsdataStore.getMapper('task').updateAssignee({ data });
+      const message = userId ? `Task assigned to ${option.label}` : 'Task successfully unassigned';
+      toast.success(message);
+      setRerender(!rerender); // HACKY but useStoreState isn't working correctly for individual items.
+      // TODO: look into the above fix of useStoreState to get rid of above hack.
+    } catch (e) {
+      console.log(e);
+      toast.error('Changing of assignee failed');
+    }
+  };
 
   return (
     <ModalBody className="p-0">
@@ -38,6 +61,14 @@ const KanbanModal = ({ task, projectId }) => {
       <div className="p-4">
         <Row>
           <Col lg="11">
+            {/* //assignee */}
+            <ModalMediaContent title="Assigned To (optional)" icon="user-tag">
+              <AssignSelect
+                value={task.assignedToId ? { value: task.assignedToId, label: task.assignedToFullName } : null}
+                onChange={onAssigneeChange}
+                className="mt-2"
+              />
+            </ModalMediaContent>
             {/* //title */}
             <ModalMediaContent title="Description" icon="book-open">
               <div className="text-word-break fs--1">
