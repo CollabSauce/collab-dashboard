@@ -22,3 +22,10 @@
 .max-w-440 {
   max-width: 440px;
 }
+
+.color-inherit {
+  color: inherit;
+  &:hover {
+    color: inherit;
+  }
+}

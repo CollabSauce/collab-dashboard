@@ -5,6 +5,7 @@ import { ListGroup, ListGroupItem } from 'reactstrap';
 const ModalMetadataContent = ({ metadata }) => {
   const {
     created,
+    urlOrigin,
     browserName,
     browserVersion,
     osName,
@@ -22,6 +23,11 @@ const ModalMetadataContent = ({ metadata }) => {
     {
       key: 'Task Created At',
       value: dayjs(created).format('dddd, MMMM D, YYYY h:mm A'),
+    },
+    {
+      key: 'Url',
+      value: urlOrigin,
+      link: true,
     },
     {
       key: 'Browser',
@@ -47,10 +53,16 @@ const ModalMetadataContent = ({ metadata }) => {
 
   return (
     <ListGroup flush>
-      {metadatas.map(({ key, value }) => (
+      {metadatas.map(({ key, value, link }) => (
         <ListGroupItem key={key} className="text-sans-serif fs--1 p-2 background-color-inherit">
           <p className="mb-1 font-weight-semi-bold">{key}</p>
-          <p className="mb-0">{value}</p>
+          {link ? (
+            <a href={value} target="_blank" rel="noopener noreferrer" className="color-inherit">
+              {value}
+            </a>
+          ) : (
+            <p className="mb-0">{value}</p>
+          )}
         </ListGroupItem>
       ))}
     </ListGroup>
