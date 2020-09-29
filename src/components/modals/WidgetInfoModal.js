@@ -6,13 +6,15 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import TwoPaneModalLayout from 'src/layouts/TwoPaneModalLayout';
 import CodeHighlight from 'src/components/CodeHighlight';
 
+const BASE = process.env.REACT_APP_ENV === 'staging' ? 'widget.staging' : 'widget';
+
 const WidgetInfoModal = ({ project, onClose }) => {
   const onCopyToClipboard = () => toast.info('Copied to clipboard!');
-  const codeSnippetForClipboard = `<script type="text/javascript" async src="https://widget.staging.collabsauce.com?projectKey=${project.key}"></script>`;
+  const codeSnippetForClipboard = `<script type="text/javascript" async src="https://${BASE}.collabsauce.com?projectKey=${project.key}"></script>`;
   const codeSnippetForHighlight = `<script
     type="text/javascript"
     async
-    src="https://widget.staging.collabsauce
+    src="https://${BASE}.collabsauce
         .com?projectKey=
         ${project.key}"
   ></script>`;
