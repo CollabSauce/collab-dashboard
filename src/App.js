@@ -37,8 +37,8 @@ const App = () => {
 
   if (!ready) {
     return (
-      <div className="h-100 d-flex justify-content-center align-items-center">
-        <Spinner color="primary" />
+      <div className="vh-100 d-flex justify-content-center align-items-center">
+        <Spinner className="spinner-large" color="primary" />
       </div>
     );
   }
