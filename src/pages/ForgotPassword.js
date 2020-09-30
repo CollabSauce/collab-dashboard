@@ -7,7 +7,7 @@ const ForgotPassword = () => (
   <BaseCardLayout>
     <div className="text-center">
       <h5 className="mb-0"> Forgot your password?</h5>
-      <small>Enter your email and we'll send you a reset link.</small>
+      <p>Enter your email and we'll send you a reset link.</p>
       <ForgotPasswordForm />
     </div>
   </BaseCardLayout>
