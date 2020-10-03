@@ -37,7 +37,7 @@ const CreateOrgModal = ({ onClose }) => {
   return (
     <TwoPaneModalLayout
       onClose={onClose}
-      leftSideHeader={'🎉'}
+      leftSideHeader={'🕴'}
       leftSideBody="With the power of Collabsauce, you can focus on creating a high-quality product with less bugs and get into production at a faster pace."
       leftSideBody2="Create an organization so when you invite other members they know the invite is from you."
     >
