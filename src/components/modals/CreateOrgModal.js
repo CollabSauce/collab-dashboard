@@ -41,7 +41,7 @@ const CreateOrgModal = ({ onClose }) => {
       leftSideBody="With the power of Collabsauce, you can focus on creating a high-quality product with less bugs and get into production at a faster pace."
       leftSideBody2="Create an organization so when you invite other members they know the invite is from you."
     >
-      <h3>Name your Organization</h3>
+      <h3>Name Your Organization</h3>
       <Form onSubmit={handleSubmit}>
         <FormGroup>
           <Label>Organization Name</Label>
