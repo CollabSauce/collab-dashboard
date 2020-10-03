@@ -5,16 +5,15 @@ import { toast } from 'react-toastify';
 
 import { formatRole } from 'src/store/jsdata/models/Membership';
 import CollabTable from 'src/components/tables/CollabTable';
-import { useCurrentUser } from 'src/hooks/useCurrentUser';
 
-const actionFormatter = (dataField, member, currentUser) => {
+const actionFormatter = (dataField, member, currentUser, isAdminOfOrg) => {
   const removeMember = async () => {
     const memberEmail = member.user.email;
     await member.destroy();
     toast.info(`${memberEmail} removed.`);
   };
 
-  if (member.user === currentUser) {
+  if (member.user === currentUser || !isAdminOfOrg) {
     return <div />;
   }
 
@@ -66,10 +65,10 @@ const columns = [
   },
 ];
 
-const MembersTable = ({ members }) => {
-  const { result: currentUser } = useCurrentUser();
-  // add currentUser to the formatter
-  columns[columns.length - 1].formatter = (dataField, member) => actionFormatter(dataField, member, currentUser);
+const MembersTable = ({ members, currentUser, isAdminOfOrg }) => {
+  // add currentUser and isAdminOfOrg to the formatter
+  columns[columns.length - 1].formatter = (dataField, member) =>
+    actionFormatter(dataField, member, currentUser, isAdminOfOrg);
 
   return <CollabTable data={members} columns={columns} title="Members" />;
 };

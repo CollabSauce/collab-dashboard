@@ -8,12 +8,16 @@ import ButtonIcon from 'src/components/ButtonIcon';
 import InvitePeopleBlock from 'src/components/InvitePeopleBlock';
 import CollabTable from 'src/components/tables/CollabTable';
 
-const actionFormatter = (dataField, { id }) => {
+const actionFormatter = (dataField, invite, isAdminOfOrg) => {
   const cancelInvite = async () => {
-    const data = { invite: id };
+    const data = { invite: invite.id };
     await jsdataStore.getMapper('invite').cancelInvite({ data });
     toast.info('Invite Canceled');
   };
+
+  if (!isAdminOfOrg) {
+    return <div />;
+  }
 
   return (
     <UncontrolledDropdown>
@@ -47,11 +51,14 @@ const columns = [
   },
 ];
 
-const InvitesTable = ({ invites }) => {
+const InvitesTable = ({ invites, isAdminOfOrg }) => {
   const [showInviteModal, setShowInviteModal] = useState(false);
 
   const openInviteModal = () => setShowInviteModal(true);
   const closeInviteModal = () => setShowInviteModal(false);
+
+  // add isAdminOfOrg to the formatter
+  columns[columns.length - 1].formatter = (dataField, invite) => actionFormatter(dataField, invite, isAdminOfOrg);
 
   return (
     <>
@@ -60,15 +67,19 @@ const InvitesTable = ({ invites }) => {
         columns={columns}
         title="Invites"
         RightHeader={
-          <ButtonIcon
-            icon="plus"
-            transform="shrink-3 down-2"
-            color="falcon-default"
-            size="sm"
-            onClick={openInviteModal}
-          >
-            New
-          </ButtonIcon>
+          isAdminOfOrg ? (
+            <ButtonIcon
+              icon="plus"
+              transform="shrink-3 down-2"
+              color="falcon-default"
+              size="sm"
+              onClick={openInviteModal}
+            >
+              New
+            </ButtonIcon>
+          ) : (
+            <div />
+          )
         }
       />
       {showInviteModal && (

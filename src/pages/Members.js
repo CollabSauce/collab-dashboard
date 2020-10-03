@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { Spinner } from 'reactstrap';
 
 import InvitePeopleBlock from 'src/components/InvitePeopleBlock';
@@ -7,6 +7,8 @@ import InvitesTable from 'src/components/InvitesTable';
 import { jsdataStore } from 'src/store/jsdata';
 import { InviteStates } from 'src/store/jsdata/models/Invite';
 import { useStoreState } from 'src/hooks/useStoreState';
+import { useCurrentUser } from 'src/hooks/useCurrentUser';
+import { MemberRoleTypes } from 'src/store/jsdata/models/Membership';
 
 const Members = () => {
   const [membersLoaded, setMembersLoaded] = useState(false);
@@ -46,6 +48,12 @@ const Members = () => {
     // eslint-disable-next-line
   }, []);
 
+  const { result: currentUser } = useCurrentUser();
+  const isAdminOfOrg = useMemo(() => {
+    return memberships.find((m) => m.user === currentUser && m.role === MemberRoleTypes.ADMIN);
+    // eslint-disable-next-line
+  }, [memberships, currentUser, membersLoaded]);
+
   if (!membersLoaded || !invitesLoaded) {
     return <Spinner color="light" />;
   }
@@ -56,8 +64,8 @@ const Members = () => {
 
   return (
     <>
-      <MembersTable members={memberships} />
-      <InvitesTable invites={invites} />
+      <MembersTable members={memberships} currentUser={currentUser} isAdminOfOrg={isAdminOfOrg} />
+      <InvitesTable invites={invites} isAdminOfOrg={isAdminOfOrg} />
     </>
   );
 };
