@@ -48,10 +48,12 @@ const KanbanContainer = () => {
       },
       { force: true }
     );
-    const cols = taskColumns.map((tc) => ({
-      taskColumn: tc,
-      tasks: tc.tasks.sort((a, b) => a.order - b.order),
-    }));
+    const cols = taskColumns
+      .sort((a, b) => a.order - b.order)
+      .map((tc) => ({
+        taskColumn: tc,
+        tasks: tc.tasks.sort((a, b) => a.order - b.order),
+      }));
     setColumns(cols);
   };
 
