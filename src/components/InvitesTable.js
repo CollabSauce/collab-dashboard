@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { DropdownItem, DropdownMenu, DropdownToggle, UncontrolledDropdown, Modal } from 'reactstrap';
+import { DropdownItem, DropdownMenu, DropdownToggle, UncontrolledDropdown, Modal, ModalHeader } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { toast } from 'react-toastify';
 
@@ -84,7 +84,8 @@ const InvitesTable = ({ invites, isAdminOfOrg }) => {
       />
       {showInviteModal && (
         <Modal size="xl" centered isOpen={true} toggle={closeInviteModal} onClosed={closeInviteModal}>
-          <InvitePeopleBlock inModal onInvite={closeInviteModal} />
+          <ModalHeader toggle={closeInviteModal} className="pb-0 border-0" />
+          <InvitePeopleBlock inModal onInvite={closeInviteModal} className="box-shadow-inherit" />
         </Modal>
       )}
     </>
