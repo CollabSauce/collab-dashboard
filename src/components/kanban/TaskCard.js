@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import CollabCommentRenderer from 'src/components/CollabCommentRenderer';
 
-import { useStoreState } from 'src/hooks/useStoreState';
 import Avatar from 'src/components/Avatar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -23,11 +22,12 @@ const TaskCard = ({ taskCard, taskCardIndex }) => {
   const location = useLocation();
   const taskCardImage = taskCard.elementScreenshotUrl;
 
-  const { result: taskComments } = useStoreState(
-    (store) => store.getAll('taskComment').filter((tc) => tc.task.id === taskCard.id),
-    [taskCard],
-    'taskComment'
-  );
+  // NOTE NOTE NOTE: I Was using `useStoreState` for task comments, but for some reason, using
+  // that for taskComments was causing infinite rerender loops. As a bandaid, I'm just using
+  // the below line of code. It turns out that we dont even need `useStoreState` in this scenario anyways.
+  // I.e, when adding a comment in the moda, the task card updates automatically anyways (probably because)
+  // we are rerendering for some reason because the route changed.
+  const taskComments = taskCard.taskComments;
   const uniqueCommentCreators = useMemo(() => {
     return uniqBy(taskComments, 'creatorId').map((comment) => ({
       fullName: comment.creatorFullName,
