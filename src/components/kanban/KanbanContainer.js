@@ -186,7 +186,7 @@ const KanbanContainer = () => {
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <div className="kanban-container scrollbar" ref={containerRef}>
+      <div className="kanban-container scrollbar bg-primary pt-20 pl-2 h-100" ref={containerRef}>
         {isIterableArray(columns) &&
           columns.map((kanbanColumnItem, index) => {
             // if (index === 0) { debugger; }

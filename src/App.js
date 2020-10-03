@@ -44,9 +44,9 @@ const App = () => {
   }
 
   return (
-    <div className={isKanban ? 'container-fluid' : 'container'}>
+    <div className={isKanban ? 'container-fluid vh-100' : 'container vh-100'}>
       {showVerticalNav && <NavbarVertical isKanban={isKanban} navbarStyle="transparent" />}
-      <div className="content">
+      <div className="content h-100">
         <Helmet>
           {process.env.REACT_APP_ENV === 'staging' && (
             <script
