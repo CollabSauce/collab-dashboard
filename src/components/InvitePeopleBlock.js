@@ -62,7 +62,7 @@ const InvitePeople = ({ inputCol, btnCol, className, brClass, titleClass, isInpu
           </Col>
         </Row>
         <h3 className={`mt-3 mt-md-4 font-weight-normal ${titleClass}`}>
-          Invite your{inModal ? '' : ' first'} teammate to start collabing!{' '}
+          Invite your{inModal ? '' : ' first'} teammate to start collab-ing!{' '}
           <span role="img" aria-label="paint">
             🎨
           </span>
