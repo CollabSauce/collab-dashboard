@@ -165,10 +165,11 @@ const KanbanContainer = () => {
       if (column === destinationColumn) {
         // THIS IS WONKY... destinationColumn.tasks is already updated.
         // This is the jsdata tasks. we just need to tell the local state about it.
+        const taskAlreadyAddedInColumn = destinationColumn.tasks.find((t) => t.id === task.id);
         destIdx = idx;
         return {
           ...destinationColumn,
-          tasks: [...destinationColumn.tasks],
+          tasks: taskAlreadyAddedInColumn ? [...destinationColumn.tasks] : [...destinationColumn.tasks, task],
         };
       } else {
         return column;
