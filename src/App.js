@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Spinner } from 'reactstrap';
-import { useLocation } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { Helmet } from 'react-helmet';
 import 'react-toastify/dist/ReactToastify.css';
@@ -18,14 +17,11 @@ const App = () => {
   const [ready, setReady] = useState(false);
   const isKanban = useSelector((state) => state.app.isKanban);
   const dispatch = useDispatch();
-  const location = useLocation();
   const { result: organizations } = useStoreState((store) => store.getAll('organization'), [], 'organization');
   const { result: currentUser } = useCurrentUser();
   const isAuthenticated = !!currentUser;
 
-  const on404Page = !location.key && location.pathname !== '/';
-
-  const hideVerticalNav = !isAuthenticated || on404Page || organizations.length === 0;
+  const hideVerticalNav = !isAuthenticated || organizations.length === 0;
   const showVerticalNav = !hideVerticalNav;
 
   // Initialize the app - this should only be run once (on mount)
@@ -56,7 +52,7 @@ const App = () => {
             ></script>
           )}
         </Helmet>
-        {!on404Page && <NavbarTop />}
+        <NavbarTop />
         <RenderRoutes routes={ROUTES} isTopLevel />
       </div>
       <ToastContainer autoClose={10000} />
