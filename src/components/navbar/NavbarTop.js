@@ -33,7 +33,7 @@ const NavbarTop = () => {
           </button>
         </div>
       )}
-      <Logo at="navbar-top" width={17} id="topLogo" />
+      <Logo at="navbar-top" width={45} id="topLogo" />
       <TopNavRightSideNavItem />
     </Navbar>
   );
