@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button, Form, FormGroup, Input, Label, Spinner } from 'reactstrap';
 import { toast } from 'react-toastify';
 
+import sampleProject from 'src/assets/sample-project.png';
 import TwoPaneModalLayout from 'src/layouts/TwoPaneModalLayout';
 import { jsdataStore } from 'src/store/jsdata';
 import { handleNetworkError } from 'src/utils/error';
@@ -38,8 +39,7 @@ const CreateProjectModal = ({ onClose, onCreate }) => {
   return (
     <TwoPaneModalLayout
       onClose={onClose}
-      leftSideHeader={'🎉'}
-      leftSideBody="With the power of Collabsauce, you can focus on creating a high-quality product with less bugs and get into production at a faster pace."
+      leftSideHeader={<img className="create-project-modal-img" src={sampleProject} alt="sampleProject" width={250} />}
     >
       <h3>Create a New Project</h3>
       <Form onSubmit={handleSubmit}>

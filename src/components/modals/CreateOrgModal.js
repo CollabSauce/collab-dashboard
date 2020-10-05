@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button, Form, FormGroup, Input, Label, Spinner } from 'reactstrap';
 import { toast } from 'react-toastify';
 
+import acme from 'src/assets/acme.png';
 import TwoPaneModalLayout from 'src/layouts/TwoPaneModalLayout';
 import { jsdataStore } from 'src/store/jsdata';
 import { handleNetworkError } from 'src/utils/error';
@@ -37,9 +38,8 @@ const CreateOrgModal = ({ onClose }) => {
   return (
     <TwoPaneModalLayout
       onClose={onClose}
-      leftSideHeader={'🕴'}
-      leftSideBody="With the power of Collabsauce, you can focus on creating a high-quality product with less bugs and get into production at a faster pace."
-      leftSideBody2="Create an organization so when you invite other members they know the invite is from you."
+      leftSideHeader={<img src={acme} alt="acme" width={160} />}
+      leftSideBody="Create an organization so when you invite other members they know the invite is from you."
     >
       <h3>Name Your Organization</h3>
       <Form onSubmit={handleSubmit}>

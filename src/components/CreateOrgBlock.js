@@ -10,7 +10,7 @@ const CreateOrgBlock = ({ onClick }) => (
           <img src={intro} className="img-fluid" alt="" />
         </Col>
         <Col lg={6} className="pl-lg-4 my-5 text-center text-lg-left">
-          <h3>Welcome to Collabsauce!</h3>
+          <h3>Welcome to Collab Sauce!</h3>
           <p className="lead">Create Your First Project</p>
           <Button color="falcon-primary" onClick={onClick}>
             Getting started
