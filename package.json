@@ -52,8 +52,8 @@
     "build-staging": "REACT_APP_ENV=staging REACT_APP_COLLAB_PROJECT_KEY=rtrEutlbJi07LBGhsw9bsJQ3SfEwSKZr react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy-production": "netlify TBD THIS SHOULD BREAK RIGHT NOW deploy --prod",
-    "deploy-staging": "netlify deploy --prod --site 196a404d-eb1a-423d-9625-f429f64d3270"
+    "deploy-production": "netlify deploy --prod --site 5fa386c3-6674-45a3-aef4-44ce56529be0",
+    "deploy-staging": "netlify deploy --prod --site 1517aef5-0a79-45e6-96f7-4d28672f88a5"
   },
   "eslintConfig": {
     "extends": "react-app"
