@@ -30,7 +30,6 @@ Follow these steps:
   <script type="text/javascript" async src="https://${BASE}.collabsauce.com?projectKey=${project.key}"></script>
 
 2. Paste the code right before the closing </body> tag of every page where you want the Collab Sauce widget to appear.
-https://collabsauce.tawk.help/article/how-to-install-the-widget
 
 3. Enjoy Collab-Saucing!
 

@@ -16,12 +16,13 @@ import { useStoreState } from 'src/hooks/useStoreState';
 const App = () => {
   const [ready, setReady] = useState(false);
   const isKanban = useSelector((state) => state.app.isKanban);
+  const on404Page = useSelector((state) => state.app.on404Page);
   const dispatch = useDispatch();
   const { result: organizations } = useStoreState((store) => store.getAll('organization'), [], 'organization');
   const { result: currentUser } = useCurrentUser();
   const isAuthenticated = !!currentUser;
 
-  const hideVerticalNav = !isAuthenticated || organizations.length === 0;
+  const hideVerticalNav = !isAuthenticated || on404Page || organizations.length === 0;
   const showVerticalNav = !hideVerticalNav;
 
   // Initialize the app - this should only be run once (on mount)
@@ -52,7 +53,7 @@ const App = () => {
             ></script>
           )}
         </Helmet>
-        <NavbarTop />
+        {!on404Page && <NavbarTop />}
         <RenderRoutes routes={ROUTES} isTopLevel />
       </div>
       <ToastContainer autoClose={10000} />

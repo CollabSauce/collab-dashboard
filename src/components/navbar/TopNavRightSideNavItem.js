@@ -5,13 +5,13 @@ import { Nav, NavItem, NavLink } from 'reactstrap';
 import ProfileDropdown from 'src/components/navbar/ProfileDropdown';
 import { useCurrentUser } from 'src/hooks/useCurrentUser';
 
-const TopNavRightSideNavItem = () => {
+const TopNavRightSideNavItem = ({ onAuthPage }) => {
   const { result: currentUser } = useCurrentUser();
   const isAuthenticated = !!currentUser;
 
   return (
     <Nav navbar className="navbar-nav-icons ml-auto flex-row align-items-center">
-      {isAuthenticated ? (
+      {isAuthenticated && !onAuthPage ? (
         <ProfileDropdown />
       ) : (
         <>

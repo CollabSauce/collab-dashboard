@@ -6,6 +6,7 @@ export const app = {
     showBurgerMenu: false, // controls showing vertical nav on mobile
     isNavbarVerticalCollapsed: false,
     isKanban: false,
+    on404Page: false,
   },
   reducers: {
     setCurrentUserId(state, currentUserId) {
@@ -19,6 +20,9 @@ export const app = {
     },
     setIsKanban(state, isKanban) {
       return { ...state, isKanban };
+    },
+    setOn404Page(state, on404Page) {
+      return { ...state, on404Page };
     },
   },
   effects: (dispatch) => ({
