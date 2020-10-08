@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Button, Form, FormGroup, Input, Label, Spinner } from 'reactstrap';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { jsdataStore } from 'src/store/jsdata';
 import { setAuthToken } from 'src/utils/auth';
@@ -20,6 +20,7 @@ const SignupForm = ({ hasLabel }) => {
   const [loading, setLoading] = useState(false);
   const [isDisabled, setIsDisabled] = useState(true);
   const [redirectToPreviousRoute, setRedirectToPreviousRoute] = useState(false);
+  const isAuthenticated = useSelector((state) => state.app.currentUserId);
 
   const dispatch = useDispatch();
 
@@ -72,6 +73,10 @@ const SignupForm = ({ hasLabel }) => {
     } else {
       return <Redirect to={next} />;
     }
+  }
+
+  if (isAuthenticated) {
+    return <Redirect to={'/'} />;
   }
 
   return (

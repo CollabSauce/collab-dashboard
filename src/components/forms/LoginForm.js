@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link, Redirect } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Button, Form, Row, Col, FormGroup, Input, Label, Spinner } from 'reactstrap';
 
 import { jsdataStore } from 'src/store/jsdata';
@@ -17,6 +17,7 @@ const LoginForm = ({ hasLabel }) => {
   const [loading, setLoading] = useState(false);
   const [isDisabled, setIsDisabled] = useState(true);
   const [redirectToPreviousRoute, setRedirectToPreviousRoute] = useState(false);
+  const isAuthenticated = useSelector((state) => state.app.currentUserId);
 
   const dispatch = useDispatch();
 
@@ -51,6 +52,10 @@ const LoginForm = ({ hasLabel }) => {
 
   if (redirectToPreviousRoute) {
     return <Redirect to={next} />;
+  }
+
+  if (isAuthenticated) {
+    return <Redirect to={'/'} />;
   }
 
   return (
