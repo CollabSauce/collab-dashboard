@@ -2,7 +2,7 @@ import React from 'react';
 import * as dayjs from 'dayjs';
 import { ListGroup, ListGroupItem } from 'reactstrap';
 
-const ModalMetadataContent = ({ metadata }) => {
+const ModalMetadataContent = ({ metadata, task }) => {
   const {
     created,
     urlOrigin,
@@ -18,6 +18,12 @@ const ModalMetadataContent = ({ metadata }) => {
     browserWindowHeight,
     colorDepth,
   } = metadata;
+  const { targetId, targetDomPath } = task;
+
+  const url = new URL(urlOrigin);
+  const qpToAdd = targetId ? `collabsauce_target_id=${targetId}` : `collabsauce_target_selector=${targetDomPath}`;
+  const qpSymbol = url.search.length ? '&' : '?';
+  const urlLink = `${urlOrigin}${qpSymbol}${qpToAdd}`;
 
   const metadatas = [
     {
@@ -27,6 +33,7 @@ const ModalMetadataContent = ({ metadata }) => {
     {
       key: 'Url',
       value: urlOrigin,
+      href: urlLink,
       link: true,
     },
     {
@@ -57,7 +64,7 @@ const ModalMetadataContent = ({ metadata }) => {
         <ListGroupItem key={key} className="text-sans-serif fs--1 p-2 background-color-inherit">
           <p className="mb-1 font-weight-semi-bold">{key}</p>
           {link ? (
-            <a href={value} target="_blank" rel="noopener noreferrer" className="color-inherit">
+            <a href={urlLink} target="_blank" rel="noopener noreferrer" className="color-inherit">
               {value}
             </a>
           ) : (

@@ -90,7 +90,7 @@ const KanbanModal = ({ task, projectId }) => {
             {/* //Task metadata */}
             {taskCard.taskMetadata && (
               <ModalMediaContent title="Metadata" icon="info" headingClass="mb-3">
-                <ModalMetadataContent metadata={task.taskMetadata} />
+                <ModalMetadataContent metadata={task.taskMetadata} task={task} />
               </ModalMediaContent>
             )}
             {/* //Comment */}
