@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
 import { Button, Form, FormGroup, Input, Spinner } from 'reactstrap';
 import Label from 'reactstrap/es/Label';
+import * as Sentry from '@sentry/react';
 
 import { jsdataStore } from 'src/store/jsdata';
 import { handleNetworkError } from 'src/utils/error';
@@ -35,8 +36,9 @@ const ResetPasswordForm = ({ hasLabel }) => {
       setLoading(false);
       toast.success('Password has been succesfully updated! Please login.');
       history.push('/login');
-    } catch (e) {
-      toast.error(handleNetworkError(e));
+    } catch (err) {
+      Sentry.captureException(err);
+      toast.error(handleNetworkError(err));
       setLoading(false);
     }
   };

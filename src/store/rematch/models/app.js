@@ -1,3 +1,5 @@
+import * as Sentry from '@sentry/react';
+
 import { jsdataStore } from 'src/store/jsdata';
 
 export const app = {
@@ -30,8 +32,9 @@ export const app = {
       try {
         const response = await jsdataStore.getMapper('user').fetchCurrentUser();
         dispatch.app.setCurrentUserId(response.data.user.id);
-      } catch (e) {
-        console.log(e);
+      } catch (err) {
+        Sentry.captureException(err);
+        console.log(err);
         return;
       }
     },

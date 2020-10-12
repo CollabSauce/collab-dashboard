@@ -4,6 +4,7 @@ import { Button, ModalBody, Row, Col } from 'reactstrap';
 import Background from 'src/components/Background';
 import { toast } from 'react-toastify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import * as Sentry from '@sentry/react';
 
 import { jsdataStore } from 'src/store/jsdata';
 import CollabCommentRenderer from 'src/components/CollabCommentRenderer';
@@ -32,8 +33,9 @@ const KanbanModal = ({ task, projectId }) => {
       toast.success(message);
       setRerender(!rerender); // HACKY but useStoreState isn't working correctly for individual items.
       // TODO: look into the above fix of useStoreState to get rid of above hack.
-    } catch (e) {
-      console.log(e);
+    } catch (err) {
+      Sentry.captureException(err);
+      console.log(err);
       toast.error('Changing of assignee failed');
     }
   };

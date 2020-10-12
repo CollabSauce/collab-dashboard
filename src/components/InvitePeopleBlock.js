@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Button, Card, CardBody, Col, Form, Input, Row, Spinner } from 'reactstrap';
 import { toast } from 'react-toastify';
+import * as Sentry from '@sentry/react';
 
 import gifts from 'src/assets/gifts.png';
 import { jsdataStore } from 'src/store/jsdata';
@@ -38,9 +39,10 @@ const InvitePeople = ({ inputCol, btnCol, className, brClass, titleClass, isInpu
       } else {
         toast.error('Please enter a valid email');
       }
-    } catch (e) {
-      console.log(e);
-      toast.error(handleNetworkError(e));
+    } catch (err) {
+      Sentry.captureException(err);
+      console.log(err);
+      toast.error(handleNetworkError(err));
       setLoading(false);
     }
   };

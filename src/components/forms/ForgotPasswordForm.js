@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import { Button, Form, FormGroup, Input, Spinner } from 'reactstrap';
+import * as Sentry from '@sentry/react';
 
 import { jsdataStore } from 'src/store/jsdata';
 import { handleNetworkError } from 'src/utils/error';
@@ -25,8 +26,9 @@ const ForgetPasswordForm = () => {
       } else {
         toast.error('Please enter a valid email');
       }
-    } catch (e) {
-      toast.error(handleNetworkError(e));
+    } catch (err) {
+      Sentry.captureException(err);
+      toast.error(handleNetworkError(err));
       setLoading(false);
     }
   };

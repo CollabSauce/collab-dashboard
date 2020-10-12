@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Form, FormGroup, Input, Label, Spinner } from 'reactstrap';
 import { toast } from 'react-toastify';
+import * as Sentry from '@sentry/react';
 
 import acme from 'src/assets/acme.png';
 import TwoPaneModalLayout from 'src/layouts/TwoPaneModalLayout';
@@ -25,8 +26,9 @@ const CreateOrgModal = ({ onClose }) => {
         </>
       );
       onClose();
-    } catch (e) {
-      toast.error(handleNetworkError(e));
+    } catch (err) {
+      Sentry.captureException(err);
+      toast.error(handleNetworkError(err));
       setLoading(false);
     }
   };

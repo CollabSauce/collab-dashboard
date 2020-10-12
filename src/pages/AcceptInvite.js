@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Spinner } from 'reactstrap';
+import * as Sentry from '@sentry/react';
 
 import BaseCardLayout from 'src/layouts/BaseCardLayout';
 import { jsdataStore } from 'src/store/jsdata';
@@ -20,8 +21,9 @@ const AcceptInvite = ({ hasLabel }) => {
       await jsdataStore.getMapper('user').fetchCurrentUser(); // fetch currentUser again
       toast.success('Invite Accepted!');
       setRedirectToHome(true);
-    } catch (e) {
-      toast.error(handleNetworkError(e));
+    } catch (err) {
+      Sentry.captureException(err);
+      toast.error(handleNetworkError(err));
     }
   };
 

@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Button, Form, FormGroup, Input, Label, Spinner } from 'reactstrap';
 import { useDispatch, useSelector } from 'react-redux';
+import * as Sentry from '@sentry/react';
 
 import { jsdataStore } from 'src/store/jsdata';
 import { setAuthToken } from 'src/utils/auth';
@@ -57,8 +58,9 @@ const SignupForm = ({ hasLabel }) => {
       } else {
         toast.error('Please enter a valid email');
       }
-    } catch (e) {
-      toast.error(handleNetworkError(e));
+    } catch (err) {
+      Sentry.captureException(err);
+      toast.error(handleNetworkError(err));
       setLoading(false);
     }
   };

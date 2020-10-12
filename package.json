@@ -10,6 +10,8 @@
     "@fortawesome/react-fontawesome": "^0.1.9",
     "@rematch/core": "^2.0.0-next.1",
     "@rematch/select": "^3.0.0-next.1",
+    "@sentry/react": "^5.25.0",
+    "@sentry/tracing": "^5.25.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
@@ -47,9 +49,8 @@
     "redux": "^4.0.5"
   },
   "scripts": {
-    "start": "REACT_APP_ENV=development react-scripts start",
-    "build-production": "GENERATE_SOURCEMAP=false REACT_APP_ENV=production react-scripts build",
-    "build-staging": "GENERATE_SOURCEMAP=false REACT_APP_ENV=staging REACT_APP_COLLAB_PROJECT_KEY=rtrEutlbJi07LBGhsw9bsJQ3SfEwSKZr react-scripts build",
+    "build-production": "REACT_APP_ENV=production node ./build_scripts/build.js",
+    "build-staging": "REACT_APP_ENV=staging REACT_APP_COLLAB_PROJECT_KEY=rtrEutlbJi07LBGhsw9bsJQ3SfEwSKZr node ./build_scripts/build.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "deploy-production": "netlify deploy --prod --site 5fa386c3-6674-45a3-aef4-44ce56529be0",
@@ -71,10 +72,13 @@
     ]
   },
   "devDependencies": {
+    "@sentry/cli": "^1.58.0",
+    "chalk": "^4.1.0",
     "husky": "^4.2.5",
     "node-sass": "^4.14.1",
     "prettier": "^2.1.0",
-    "pretty-quick": "^3.0.0"
+    "pretty-quick": "^3.0.0",
+    "shelljs": "^0.8.4"
   },
   "husky": {
     "hooks": {
