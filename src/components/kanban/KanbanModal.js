@@ -49,6 +49,12 @@ const KanbanModal = ({ task, projectId }) => {
       )}
       <div className="bg-light rounded-soft-top px-4 py-3">
         <h4 className="mb-1">Task # {task.taskNumber}</h4>
+
+        {/* //title */}
+        <div className="text-word-break fs-1 mb-1">
+          <CollabCommentRenderer content={taskCard.title} />
+        </div>
+
         <p className="fs--2 mb-0">
           Added by <span className="text-600 font-weight-semi-bold">{taskCard.creatorFullName}</span>
         </p>
@@ -70,12 +76,6 @@ const KanbanModal = ({ task, projectId }) => {
                 onChange={onAssigneeChange}
                 className="mt-2"
               />
-            </ModalMediaContent>
-            {/* //title */}
-            <ModalMediaContent title="Description" icon="book-open">
-              <div className="text-word-break fs--1">
-                <CollabCommentRenderer content={taskCard.title} />
-              </div>
             </ModalMediaContent>
             {/* //Attachment */}
             {(taskCard.elementScreenshotUrl || taskCard.windowScreenshotUrl) && (

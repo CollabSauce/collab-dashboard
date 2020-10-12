@@ -49,6 +49,7 @@
     "redux": "^4.0.5"
   },
   "scripts": {
+    "start": "REACT_APP_ENV=development react-scripts start",
     "build-production": "REACT_APP_ENV=production node ./build_scripts/build.js",
     "build-staging": "REACT_APP_ENV=staging REACT_APP_COLLAB_PROJECT_KEY=rtrEutlbJi07LBGhsw9bsJQ3SfEwSKZr node ./build_scripts/build.js",
     "test": "react-scripts test",
