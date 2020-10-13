@@ -48,12 +48,12 @@ const KanbanModal = ({ task, projectId }) => {
         </div>
       )}
       <div className="bg-light rounded-soft-top px-4 py-3">
-        <h4 className="mb-1">Task # {task.taskNumber}</h4>
-
         {/* //title */}
-        <div className="text-word-break fs-1 mb-1">
+        <div className="text-word-break pr-30 mb-3 fs-2">
           <CollabCommentRenderer content={taskCard.title} />
         </div>
+
+        <p className="mb-1 fs-1">Task # {task.taskNumber}</p>
 
         <p className="fs--2 mb-0">
           Added by <span className="text-600 font-weight-semi-bold">{taskCard.creatorFullName}</span>
