@@ -29,6 +29,7 @@ const LoginForm = ({ hasLabel }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
+      throw new Error('hi sentry');
       const emailValid = email.length && email.includes('@');
       if (emailValid) {
         setLoading(true);
