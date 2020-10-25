@@ -17,41 +17,20 @@ const Logo = ({ at, width, className, ...rest }) => {
       className={classNames(
         'text-decoration-none',
         { 'navbar-brand text-left': at === 'navbar-vertical' },
-        { 'navbar-brand text-left': at === 'navbar-top' }
+        { 'navbar-brand text-left': at === 'navbar-top' },
+        { 'd-flex flex-center': at === 'auth' }
       )}
       {...rest}
     >
-      <div
-        className={classNames(
-          'd-flex',
-          {
-            'align-items-center py-3': at === 'navbar-vertical',
-            'align-items-center': at === 'navbar-top',
-            'flex-center mb-4': at === 'auth',
-          },
-          className
-        )}
-      >
-        <img className="mr-2" src={logo} alt="Logo" width={width} />
-        <div className="d-flex flex-column text-sans-serif text-dark">
-          <p
-            className={classNames('mb-0 font-weight-medium', {
-              'fs-5': at === 'auth',
-              'fs-2': at !== 'auth',
-            })}
-          >
-            Collab
-          </p>
-          <p
-            className={classNames('mb-0 font-weight-normal text-right', {
-              'fs-0 logo-sauce-text-auth': at === 'auth',
-              'fs--2 logo-sauce-text': at !== 'auth',
-            })}
-          >
-            Sauce
-          </p>
-        </div>
-      </div>
+      <img
+        className={classNames({
+          'align-items-center py-3': at === 'navbar-vertical',
+          'mb-4': at === 'auth',
+        })}
+        src={logo}
+        alt="Logo"
+        width={width}
+      />
     </Link>
   );
 };
@@ -62,6 +41,6 @@ Logo.propTypes = {
   className: PropTypes.string,
 };
 
-Logo.defaultProps = { at: 'auth', width: 66 };
+Logo.defaultProps = { at: 'auth', width: 145 };
 
 export default Logo;

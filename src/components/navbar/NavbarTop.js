@@ -38,7 +38,7 @@ const NavbarTop = () => {
           </button>
         </div>
       )}
-      <Logo at="navbar-top" width={45} id="topLogo" />
+      <Logo at="navbar-top" width={140} id="topLogo" />
       <TopNavRightSideNavItem onAuthPage={onAuthPage} />
     </Navbar>
   );
