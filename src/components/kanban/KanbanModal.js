@@ -10,6 +10,7 @@ import { jsdataStore } from 'src/store/jsdata';
 import CollabCommentRenderer from 'src/components/CollabCommentRenderer';
 import ModalMediaContent from 'src/components/kanban/ModalMediaContent';
 import ModalAttachmentsContent from 'src/components/kanban/ModalAttachmentsContent';
+import ModalTextCopyChangesContent from 'src/components/kanban/ModalTextCopyChangesContent';
 import ModalDesignEditsContent from 'src/components/kanban/ModalDesignEditsContent';
 import ModalMetadataContent from 'src/components/kanban/ModalMetadataContent';
 import ModalCommentContent from 'src/components/kanban/ModalCommentContent';
@@ -81,6 +82,12 @@ const KanbanModal = ({ task, projectId }) => {
             {(taskCard.elementScreenshotUrl || taskCard.windowScreenshotUrl) && (
               <ModalMediaContent title="Attachments" icon="paperclip" headingClass="d-flex justify-content-between">
                 <ModalAttachmentsContent attachments={[taskCardImage, taskCard.windowScreenshotUrl]} />
+              </ModalMediaContent>
+            )}
+            {/* //Text-copy changes */}
+            {taskCard.hasTextCopyChanges && (
+              <ModalMediaContent title="Text Changes" icon="spell-check" headingClass="mb-3">
+                <ModalTextCopyChangesContent textChanges={task.textCopyChanges} />
               </ModalMediaContent>
             )}
             {/* //Design changes */}

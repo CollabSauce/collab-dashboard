@@ -11,6 +11,8 @@ export const taskSchema = new Schema({
     title: { type: 'string' },
     description: { type: 'string' },
     designEdits: { type: 'string' },
+    hasTextCopyChanges: { type: 'boolean' },
+    textCopyChanges: { type: 'string' },
     windowScreenshotUrl: { type: 'string' },
     elementScreenshotUrl: { type: 'string' },
     taskNumber: { type: 'number' },

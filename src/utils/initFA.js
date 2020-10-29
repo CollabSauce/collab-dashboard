@@ -14,6 +14,7 @@ import {
   faPaintBrush,
   faInfo,
   faUserTag,
+  faSpellCheck,
 } from '@fortawesome/free-solid-svg-icons';
 import { faComment, faCommentAlt } from '@fortawesome/free-regular-svg-icons';
 
@@ -33,5 +34,6 @@ library.add(
   faBookOpen,
   faPaintBrush,
   faInfo,
-  faUserTag
+  faUserTag,
+  faSpellCheck
 );

@@ -63,6 +63,9 @@ const TaskCard = ({ taskCard, taskCardIndex }) => {
                     {taskCard.designEdits && (
                       <Badge className={`badge-soft-success d-inline-block py-1 mr-1 mb-0`}>Design Change</Badge>
                     )}
+                    {taskCard.hasTextCopyChanges && (
+                      <Badge className={`badge-soft-info d-inline-block py-1 mr-1 mb-0`}>Text Change</Badge>
+                    )}
                   </div>
                   <Badge color="soft-dark">#{taskCard.taskNumber}</Badge>
                 </div>
