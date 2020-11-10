@@ -4,7 +4,7 @@ import { Media } from 'reactstrap';
 import CollabLightBox from 'src/components/CollabLightBox';
 import Background from 'src/components/Background';
 
-const ModalAttachmentsContent = ({ attachments }) => {
+const ModalAttachmentsContent = ({ attachments, hasTarget }) => {
   return (
     <>
       {attachments
@@ -22,7 +22,7 @@ const ModalAttachmentsContent = ({ attachments }) => {
                 <h6 className="mb-1 text-primary">
                   <CollabLightBox imgSrc={item}>
                     <div className="text-decoration-none">
-                      {index === 0 ? 'Element Screenshot' : 'Window Screenshot'}
+                      {index === 0 && hasTarget ? 'Element Screenshot' : 'Window Screenshot'}
                     </div>
                   </CollabLightBox>
                 </h6>

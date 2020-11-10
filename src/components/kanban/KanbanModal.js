@@ -81,7 +81,10 @@ const KanbanModal = ({ task, projectId }) => {
             {/* //Attachment */}
             {(taskCard.elementScreenshotUrl || taskCard.windowScreenshotUrl) && (
               <ModalMediaContent title="Attachments" icon="paperclip" headingClass="d-flex justify-content-between">
-                <ModalAttachmentsContent attachments={[taskCardImage, taskCard.windowScreenshotUrl]} />
+                <ModalAttachmentsContent
+                  hasTarget={taskCard.hasTarget}
+                  attachments={[taskCardImage, taskCard.windowScreenshotUrl].filter((a) => a)}
+                />
               </ModalMediaContent>
             )}
             {/* //Text-copy changes */}
